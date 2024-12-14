@@ -1,5 +1,3 @@
-SET GLOBAL host_cache_size=0;
-
 CREATE DATABASE IF NOT EXISTS task_manager;
 
 USE task_manager;
@@ -16,12 +14,31 @@ CREATE TABLE IF NOT EXISTS users(
 CREATE TABLE IF NOT EXISTS tasks(
     id INT PRIMARY KEY AUTO_INCREMENT,
     title VARCHAR(255) NOT NULL,
-    start_time DATETIME NOT NULL,
+    start_time DATETIME,
     end_time DATETIME,
-    task_status ENUM('todo','pending','finished') NOT NULL,
+    task_status ENUM('planned','pending','finished') NOT NULL,
     priority ENUM('low','medium','high','not set') NOT NULL,
+    description VARCHAR(512),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS sub_tasks(
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    title VARCHAR(255) NOT NULL,
+    start_time DATETIME,
+    end_time DATETIME,
+    sub_task_status ENUM('planned','pending','finished'),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE task_sub_task_mapping(
+    task_id INT NOT NULL,
+    sub_task_id INT NOT NULL,
+    FOREIGN KEY(task_id) REFERENCES tasks(id) ON DELETE CASCADE,
+    FOREIGN KEY(sub_task_id) REFERENCES sub_tasks(id) ON DELETE CASCADE,
+    PRIMARY KEY(task_id, sub_task_id)
 );
 
 CREATE TABLE IF NOT EXISTS user_task_mapping(
