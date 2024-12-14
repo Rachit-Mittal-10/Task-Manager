@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS sub_tasks(
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
-CREATE task_sub_task_mapping(
+CREATE TABLE task_sub_task_mapping(
     task_id INT NOT NULL,
     sub_task_id INT NOT NULL,
     FOREIGN KEY(task_id) REFERENCES tasks(id) ON DELETE CASCADE,
