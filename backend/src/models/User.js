@@ -13,7 +13,7 @@ class User{
         try{
             const passwordHashed = await hashPassword(password);
             const result = await conn.query(query,[username, email, passwordHashed]);
-            console.log(`Inserted the data.\n${JSON.stringify(result,null,2)}`);
+            // console.log(`Inserted the data.\n${JSON.stringify(result,null,2)}`);
         }
         catch(err){
             console.log(`Error while adding the data: ${err.message}`);
