@@ -32,6 +32,17 @@ router.post("/register",async (req,res) => {
     }
 });
 
+router.post("/test",async (req, res) => {
+    const {username} = req.body;
+    try{
+        await user.checkUsername(username);
+        res.status(200).json({message: "User exists"});
+    }
+    catch(err){
+        res.status(404);
+    }
+});
+
 export {
     router
 };
