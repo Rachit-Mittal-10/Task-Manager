@@ -6,7 +6,7 @@ class User{
         const query = "INSERT INTO users(username, email, password_hashed) VALUES(?,?,?)";
         try{
             const passwordHashed = await hashPassword(password);
-            const result = await conn.query(query,[username, email, passwordHashed]);
+            const result = conn.query(query,[username, email, passwordHashed]);
             console.log(`Inserted the data.`);
         }
         catch(err){
