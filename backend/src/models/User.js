@@ -1,5 +1,11 @@
 import conn from "../config/mysql.js";
 import { hashPassword, verifyPassword } from "../utils/utils.js";
+import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+
+const env = dotenv.config({
+    path: "./.env"
+});
 
 class User{
     static create = async (username, email, password) => {
@@ -39,14 +45,30 @@ class User{
         }
     };
 
-    static verifyUserByUsername = async (username, password) => {
-        const user = await this.checkUsername(username);
+    generateToken = () => {
+        const payload = {
+            id: this.user.id,
+            username: this.user.username,
+            email: this.user.email
+        }
+        const token = jwt.sign(
+            payload,
+            process.env.JWT_SECRET_KEY,
+            {expiresIn:"1h"}
+        );
+        return token;
+    };
+
+    verifyUserByUsername = async (username, password) => {
+        const user = await User.checkUsername(username);
+        this.user = user;
         const verifyStatus = await verifyPassword(password, user.password_hashed)
         return verifyStatus;
     };
 
-    static verifyUserByEmail = async (email, password) => {
-        const user = await this.checkEmail(email);
+    verifyUserByEmail = async (email, password) => {
+        const user = await User.checkEmail(email);
+        this.user = user;
         const verifyStatus = await verifyPassword(password, user.password_hashed);
         return verifyStatus;
     }
