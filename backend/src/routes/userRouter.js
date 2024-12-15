@@ -1,26 +1,40 @@
 import { Router } from "express";
 import User from "../models/User.js";
-
+import jwt from "jsonwebtoken";
 
 const router = Router();
-const user = new User();
 
-router.post("/login",(req, res)=>{
-    const { username, password } = req.body;
-    if( username === "test" && password === "test"){
-        console.log("Login Successful");
-        res.status(200).json({message: "Login Successful"});
+router.post("/login", async (req, res)=>{
+    const { username,email, password } = req.body;
+    if(!password || (!username && !email)){
+        res.status(400).json({message: "All Parameters not provided."});
     }
-    else{
-        console.log("Login Failed");
-        res.status(401).json({message: "Login Failed"});
+    try{
+        let passwordStatus = false;
+        if(username){
+            passwordStatus = await User.verifyUserByUsername(username, password);
+        }
+        else if(email){
+            passwordStatus = await User.verifyUserByEmail(email, password);
+        }
+    
+        if(!passwordStatus){
+            return res.status(401).json({message: "Login Failed"});
+        }
+
+        res.status(200).json({
+            message: "Login Successful"
+        });
+    }
+    catch(err){
+        res.status(500).json({message: "Internal Server Error"});
     }
 });
 
 router.post("/register",async (req,res) => {
     const {username, email, password} = req.body;
     if(!(username && email && password)){
-        res.status(401).json({message: "All parameters not provided."});
+        res.status(400).json({message: "All parameters not provided."});
         return;
     }
     try{
@@ -28,18 +42,12 @@ router.post("/register",async (req,res) => {
         res.status(200).json({message: "User Added"});
     }
     catch(err){
-        res.status(401).json({message: "Unable to add the credentials"})
-    }
-});
-
-router.post("/test",async (req, res) => {
-    const {username} = req.body;
-    try{
-        await user.checkUsername(username);
-        res.status(200).json({message: "User exists"});
-    }
-    catch(err){
-        res.status(404);
+        if(err.code === "ER_DUP_ENTRY"){
+            res.status(409).json({message: "User already exists!"});
+        }
+        else{
+            res.status(500).json({message: "Unable to add the credentials"})
+        }
     }
 });
 

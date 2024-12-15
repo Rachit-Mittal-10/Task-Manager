@@ -10,6 +10,18 @@ const hashPassword = async (password, salt=10) => {
     }
 };
 
+const verifyPassword = async (inputPassword, storedHashedPassword) => {
+    try{
+        const isMatch = await bcrypt.compare(inputPassword, storedHashedPassword);
+        return isMatch;
+    }
+    catch(err){
+        console.log(`Error while verifying the password: ${err}`);
+        // throw err;
+    }
+};
+
 export {
-    hashPassword
+    hashPassword,
+    verifyPassword
 };
