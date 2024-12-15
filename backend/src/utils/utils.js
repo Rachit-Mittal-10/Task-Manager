@@ -1,11 +1,14 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
+import { promisify } from "util";
+
 
 const env = dotenv.config({
     path: "./.env"
 });
 
+const jwtVerify = promisify(jwt.verify);
 
 const hashPassword = async (password, salt=10) => {
     try{
@@ -48,5 +51,6 @@ const generateToken = (user) => {
 export {
     hashPassword,
     verifyPassword,
-    generateToken
+    generateToken,
+    jwtVerify
 };

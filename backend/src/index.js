@@ -1,9 +1,9 @@
 import express from "express";
 import { config } from "dotenv";
 import cors from 'cors';
-import conn from "./config/mysql.js";
-import { router as userRouter } from "./routes/authRouter.js";
-
+import { router as authRouter } from "./routes/authRouter.js";
+import { authenticateToken } from "./middleware/authMiddleware.js";
+import { router as taskRouter } from "./routes/taskRouter.js";
 
 const env = config({
     path: "./.env"
@@ -17,7 +17,8 @@ app.use(express.json());
 
 
 //* App routes
-app.use("/user",userRouter);
+app.use("/user", authRouter);
+app.use("/task",authenticateToken,taskRouter);
 
 
 //* Listening on port
