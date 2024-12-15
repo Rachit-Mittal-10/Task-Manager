@@ -1,15 +1,10 @@
-//* importing the node modules
 import express from "express";
 import { config } from "dotenv";
 import cors from 'cors';
-
-
-//* importing the local js files
 import conn from "./config/mysql.js";
 import { router as userRouter } from "./routes/userRouter.js";
 
 
-//* Reading the environment file
 const env = config({
     path: "./.env"
 });
