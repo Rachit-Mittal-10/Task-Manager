@@ -1,11 +1,6 @@
 import conn from "../config/mysql.js";
 import { hashPassword, verifyPassword } from "../utils/utils.js";
-import jwt from "jsonwebtoken";
-import dotenv from "dotenv";
 
-const env = dotenv.config({
-    path: "./.env"
-});
 
 class User{
     static create = async (username, email, password) => {
@@ -43,20 +38,6 @@ class User{
             console.log(`Error while checking whether account with this email exists: ${err}`);
             throw err;
         }
-    };
-
-    generateToken = () => {
-        const payload = {
-            id: this.user.id,
-            username: this.user.username,
-            email: this.user.email
-        }
-        const token = jwt.sign(
-            payload,
-            process.env.JWT_SECRET_KEY,
-            {expiresIn:"1h"}
-        );
-        return token;
     };
 
     verifyUserByUsername = async (username, password) => {

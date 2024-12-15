@@ -1,4 +1,11 @@
 import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+
+const env = dotenv.config({
+    path: "./.env"
+});
+
 
 const hashPassword = async (password, salt=10) => {
     try{
@@ -21,7 +28,25 @@ const verifyPassword = async (inputPassword, storedHashedPassword) => {
     }
 };
 
+const generateToken = (user) => {
+    const payload = {
+        id: user.id,
+        username: user.username,
+        email: user.email
+    }
+    const options = {
+        expiresIn:"1h"
+    }
+    const token = jwt.sign(
+        payload,
+        process.env.JWT_SECRET_KEY,
+        options
+    );
+    return token;
+};
+
 export {
     hashPassword,
-    verifyPassword
+    verifyPassword,
+    generateToken
 };

@@ -2,7 +2,7 @@ import express from "express";
 import { config } from "dotenv";
 import cors from 'cors';
 import conn from "./config/mysql.js";
-import { router as userRouter } from "./routes/userRouter.js";
+import { router as userRouter } from "./routes/authRouter.js";
 
 
 const env = config({
