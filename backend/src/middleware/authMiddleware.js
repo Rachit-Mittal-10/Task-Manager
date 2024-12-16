@@ -1,4 +1,4 @@
-import { jwtVerify } from "../utils/utils";
+import { jwtVerify } from "../utils/utils.js";
 import dotenv from "dotenv";
 
 const env = dotenv.config({
@@ -6,19 +6,23 @@ const env = dotenv.config({
 });
 
 const authenticateToken = async (req, res, next) => {
+    
+    //* Extract the token from HTTP request incoming
     const token = req.header("Authorization") && req.header("Authorization").split(' ')[1];
+    
+    //* if token not present return the error.
     if(!token){
-        res.status(401).json({message: "Access Denied. No Token Provided"});
-        return;
+        return res.status(401).json({message: "Access Denied. No Token Provided"});
     }
+
+    //* Verify the Token
     try{
-        const decoded = jwtVerify(token, process.env.JWT_SECRET_KEY);
+        const decoded = await jwtVerify(token, process.env.JWT_SECRET_KEY);
         req.user = decoded;
         next();
     }
     catch(err){
-        res.status(403).json({message: "Expired or Invalid Token"});
-        return;
+        return res.status(403).json({message: "Expired or Invalid Token"});
     }
 };
 
