@@ -36,7 +36,7 @@ const getAllTask = async (req,res) => {
     try{
         const results = await Task.getAllTask(userId);
         return res.status(200).json({
-            message: "Get All Task Path Accessed",
+            message: "Data Fetched Successfully",
             data: results
         });
     }
@@ -46,7 +46,28 @@ const getAllTask = async (req,res) => {
     }
 };
 
+const getTask = async (req,res) => {
+    const taskId = req.params.taskId;
+    const userId = req.user.id;
+    try{
+        const results = await Task.getTask(userId,taskId);
+        if(results.length === 0){
+            return res.status(404).json({
+                message: `No Task associated with TaskId: ${taskId}`
+            });
+        }
+        return res.status(200).json({
+            message: "Data fetched Successfully",
+            data: results
+        });
+    }
+    catch(err){
+        return res.status(400).json({message: "Unable to fetch Data"});
+    }
+};
+
 export {
     createTask,
-    getAllTask
+    getAllTask,
+    getTask
 };

@@ -30,7 +30,19 @@ class Task{
             console.log(`Error while getting all task: ${err}`);
             throw err;
         }
-    }
+    };
+
+    static getTask = async (userId, taskId) => {
+        const query = `SELECT tasks.id, tasks.title, tasks.start_time, tasks.end_time, tasks.status, tasks.priority, tasks.description FROM tasks JOIN mapping ON mapping.task_id = tasks.id WHERE mapping.user_id = ? AND tasks.id = ?`;
+        try{
+            const [results] = await conn.query(query,[userId,taskId]);
+            return results;
+        }
+        catch(err){
+            console.log(`Error getting the single task: ${err}`);
+            throw err;
+        }
+    };
 
     static filterByPriority = async (userId, priority) => {
         const query = `SELECT tasks.id, tasks.title, tasks.start_time, tasks.end_time, tasks.status, tasks.priority, tasks.description FROM tasks JOIN mapping ON mapping.task_id = tasks.id WHERE mapping.user_id = ? AND tasks.priority=?`;
@@ -46,7 +58,7 @@ class Task{
     
     static filterByStatus = async (userId, status) => {
         const query = ``;
-    }
+    };
 }
 
 export {
