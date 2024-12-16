@@ -1,7 +1,7 @@
 import { jwtVerify } from "../utils/utils.js";
-import dotenv from "dotenv";
+import { config } from "dotenv";
 
-const env = dotenv.config({
+const env = config({
     path: "./.env"
 });
 
