@@ -3,11 +3,12 @@ import { hashPassword, verifyPassword } from "../utils/utils.js";
 
 
 class User{
+    
     static create = async (username, email, password) => {
-        const query = "INSERT INTO users(username, email, password_hashed) VALUES(?,?,?)";
+        const query = "INSERT INTO users(username, email, password) VALUES(?,?,?)";
         try{
             const passwordHashed = await hashPassword(password);
-            const result = await conn.query(query,[username, email, passwordHashed]);
+            const [result] = await conn.execute(query,[username, email, passwordHashed]);
             // console.log(`Inserted the data.\n${JSON.stringify(result,null,2)}`);
         }
         catch(err){
@@ -15,24 +16,26 @@ class User{
             throw err;
         }
     };
-
-    static checkUsername = async (username) => {
+    
+    //* THis is the private function and ties the retrieved user information to class instance
+    #checkUsername = async (username) => {
         const query = `SELECT * FROM users WHERE username=?`;
         try{
             const [result] = await conn.query(query,[username]);
-            return result[0];
+            this.user = result[0];
         }
         catch(err){
             console.log(`Error while checking whether account with this username exists: ${err}`)
             throw err;
         }
     };
-
-    static checkEmail = async (email) => {
+    
+    //* This is the private function and ties the retrieved user information to class instance
+    #checkEmail = async (email) => {
         const query = "SELECT * FROM users WHERE email=?";
         try{
             const [result] = await conn.query(query,[email]);
-            return result[0];
+            this.user = result[0];
         }
         catch(err){
             console.log(`Error while checking whether account with this email exists: ${err}`);
@@ -41,16 +44,14 @@ class User{
     };
 
     verifyUserByUsername = async (username, password) => {
-        const user = await User.checkUsername(username);
-        this.user = user;
-        const verifyStatus = await verifyPassword(password, user.password_hashed)
+        await this.#checkUsername(username);
+        const verifyStatus = await verifyPassword(password, this.user.password)
         return verifyStatus;
     };
 
     verifyUserByEmail = async (email, password) => {
-        const user = await User.checkEmail(email);
-        this.user = user;
-        const verifyStatus = await verifyPassword(password, user.password_hashed);
+        await this.#checkEmail(email);
+        const verifyStatus = await verifyPassword(password, this.user.password);
         return verifyStatus;
     }
 };
