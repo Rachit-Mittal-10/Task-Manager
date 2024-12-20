@@ -1,4 +1,5 @@
 import conn from "../config/mysql.js";
+import { Log } from "../utils/utils.js";
 
 class Task{
     //* Create the task associated with userId
@@ -7,6 +8,7 @@ class Task{
         const query_map = "INSERT INTO mapping VALUES(?,?)";
         if(!userId){
             console.log("UserId not provided.");
+            // Log("User not provided.");
             return;
         }
         try{

@@ -48,9 +48,14 @@ const generateToken = (user) => {
     return token;
 };
 
+const Log = (...args) => {
+    console.log(`${new Date().toISOString()} --`,...args);
+}
+
 export {
     hashPassword,
     verifyPassword,
     generateToken,
-    jwtVerify
+    jwtVerify,
+    Log
 };

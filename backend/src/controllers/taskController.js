@@ -41,7 +41,6 @@ const getAllTask = async (req,res) => {
         });
     }
     catch(err){
-        // console.log(err);
         return res.status(400).json({message: "Unable to fetch data"});
     }
 };
