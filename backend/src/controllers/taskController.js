@@ -20,7 +20,7 @@ const createTask = async (req,res) => {
             body.end_time || null,
             body.description || null
         );
-        return res.status(200).json({message: "Create Task Path accessed"});
+        return res.status(200).json({message: "Task Created"});
     }
     catch(err){
         res.status(400).json({message: "Task could not be added. Invalid Data."})
