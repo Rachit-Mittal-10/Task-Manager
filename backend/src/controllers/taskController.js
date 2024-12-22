@@ -71,7 +71,7 @@ const getCountOfTask = async (req,res) => {
         const result = await Task.getCountOfTask(userId);
         return res.status(200).json({
             message: "Data Fetched",
-            result
+            data: result
         });
     }
     catch(err){
@@ -81,10 +81,27 @@ const getCountOfTask = async (req,res) => {
     }
 };
 
+const getCountByStatus = async(req, res) => {
+    const userId = req.user.id;
+    try{
+        const results = await Task.getCountByStatus(userId);
+        // console.log(results);
+        return res.status(200).json({
+            message: "Data fetched Successfully",
+            data: results
+        });
+    }
+    catch(err){
+        res.status(400).json({
+            message: "Unable to fetch Data"
+        });
+    }
+};
 
 export {
     createTask,
     getTasks,
     getTask,
-    getCountOfTask
+    getCountOfTask,
+    getCountByStatus
 };
