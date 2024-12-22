@@ -86,9 +86,18 @@ const getCountInformation = async(req,res) => {
     }
 };
 
+const updateTask = async (req,res) => {
+    const userId = req.user.id;
+    res.status(200).json({
+        message: "Update Path Accessed"
+    });
+};
+
+
 export {
     createTask,
     getTasks,
     getTask,
     getCountInformation,
+    updateTask
 };

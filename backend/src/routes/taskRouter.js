@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createTask, getTasks, getTask, getCountInformation } from "../controllers/taskController.js";
+import { createTask, getTasks, getTask, getCountInformation, updateTask } from "../controllers/taskController.js";
 
 const router = Router();
 
@@ -13,6 +13,9 @@ router.post("/",createTask);
 
 //* This will get all the tasks
 router.get("/",getTasks);
+
+//* This will put the updated task
+router.put("/",updateTask);
 
 export {
     router
