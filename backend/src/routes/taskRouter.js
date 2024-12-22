@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createTask, getAllTask, getTask } from "../controllers/taskController.js";
+import { createTask, getTasks, getTask } from "../controllers/taskController.js";
 
 const router = Router();
 
@@ -7,7 +7,7 @@ const router = Router();
 router.post("/",createTask);
 
 //* This will get all the tasks
-router.get("/",getAllTask);
+router.get("/",getTasks);
 
 //* This will get the particular task
 router.get("/:taskId", getTask);

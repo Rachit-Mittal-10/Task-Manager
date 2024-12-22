@@ -28,13 +28,13 @@ const createTask = async (req,res) => {
     
 };
 
-const getAllTask = async (req,res) => {
+const getTasks = async (req,res) => {
     const userId = req.user.id;
     if(!userId){
         res.status(401).json({message:"No User Data."})
     }
     try{
-        const results = await Task.getAllTask(userId);
+        const results = await Task.getTasks(userId);
         return res.status(200).json({
             message: "Data Fetched Successfully",
             data: results
@@ -67,6 +67,6 @@ const getTask = async (req,res) => {
 
 export {
     createTask,
-    getAllTask,
+    getTasks,
     getTask
 };

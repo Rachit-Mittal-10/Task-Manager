@@ -22,7 +22,7 @@ class Task{
         }
     };
 
-    static getAllTask = async (userId) => {
+    static getTasks = async (userId) => {
         const query = `SELECT tasks.id, tasks.title, tasks.start_time, tasks.end_time, tasks.status, tasks.priority, tasks.description FROM tasks JOIN mapping ON mapping.task_id = tasks.id WHERE mapping.user_id = ?`;
         try{
             const [results] = await conn.query(query,[userId]); 
