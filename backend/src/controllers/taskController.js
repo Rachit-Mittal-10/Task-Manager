@@ -1,5 +1,5 @@
 import { Task } from "../models/Task.js";
-
+import { findRatio } from "../utils/utils.js"
 
 const createTask = async (req,res) => {
     const user = req.user;
@@ -65,35 +65,23 @@ const getTask = async (req,res) => {
     }
 };
 
-const getCountOfTask = async (req,res) => {
+const getCountInformation = async(req,res) => {
     const userId = req.user.id;
     try{
-        const result = await Task.getCountOfTask(userId);
-        return res.status(200).json({
-            message: "Data Fetched",
+        // const result = await Task.getCountInformation(userId);
+        const totalCount = await Task.getTotalCount(userId);
+        let result = await Task.getCountByStatus(userId);
+        result = findRatio(result,totalCount);
+        res.status(200).json({
+            message: "Data Fetched Successfully",
+            totalCount,
             data: result
         });
     }
     catch(err){
-        return res.status(400).json({
-            message: "Unable to fetch Data"
-        });
-    }
-};
-
-const getCountByStatus = async(req, res) => {
-    const userId = req.user.id;
-    try{
-        const results = await Task.getCountByStatus(userId);
-        // console.log(results);
-        return res.status(200).json({
-            message: "Data fetched Successfully",
-            data: results
-        });
-    }
-    catch(err){
+        console.log(err);
         res.status(400).json({
-            message: "Unable to fetch Data"
+            message: "Data Fetch is unsuccessful"
         });
     }
 };
@@ -102,6 +90,5 @@ export {
     createTask,
     getTasks,
     getTask,
-    getCountOfTask,
-    getCountByStatus
+    getCountInformation,
 };

@@ -1,12 +1,9 @@
 import { Router } from "express";
-import { createTask, getTasks, getTask, getCountOfTask, getCountByStatus } from "../controllers/taskController.js";
+import { createTask, getTasks, getTask, getCountInformation } from "../controllers/taskController.js";
 
 const router = Router();
 
-
-router.get("/count/status",getCountByStatus);
-
-router.get("/count",getCountOfTask);
+router.get("/count",getCountInformation);
 
 //* This will get the particular task
 router.get("/:taskId", getTask);

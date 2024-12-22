@@ -48,6 +48,14 @@ const generateToken = (user) => {
     return token;
 };
 
+const findRatio = (data,total) => {
+    for(let obj of data){
+        obj.ratio = Math.round(obj.COUNT*10000/total)/100;
+    }
+    // console.log(data);
+    return data;
+};
+
 const Log = (...args) => {
     console.log(`${new Date().toISOString()} --`,...args);
 }
@@ -57,5 +65,6 @@ export {
     verifyPassword,
     generateToken,
     jwtVerify,
-    Log
+    Log,
+    findRatio,
 };

@@ -70,12 +70,11 @@ class Task {
         }
     };
 
-    static getCountOfTask = async (userId) => {
-        const query = ` SELECT COUNT(*) AS COUNT_ALL FROM tasks JOIN mapping ON mapping.task_id = tasks.id WHERE mapping.user_id = ?`;
+    static getTotalCount = async (userId) => {
+        const query = ` SELECT COUNT(*) AS COUNT FROM tasks JOIN mapping ON mapping.task_id = tasks.id WHERE mapping.user_id = ?`;
         try {
             const [result] = await conn.query(query, [userId]);
-            // console.log(result[0].COUNT_ALL);
-            return result[0];
+            return result[0].COUNT;
         }
         catch (err) {
             console.log(`Error in getCountOfTask: ${err}`);
@@ -84,10 +83,9 @@ class Task {
     };
 
     static getCountByStatus = async (userId) => {
-        const query = `SELECT tasks.status, COUNT(*) AS COUNT_STATUS FROM tasks JOIN mapping ON mapping.task_id = tasks.id WHERE mapping.user_id = ? GROUP BY tasks.status`;
+        const query = `SELECT tasks.status, COUNT(*) AS COUNT FROM tasks JOIN mapping ON mapping.task_id = tasks.id WHERE mapping.user_id = ? GROUP BY tasks.status`;
         try{
             const [results] = await conn.query(query,[userId]);
-            // console.log(results);
             return results;
         }
         catch(err){
@@ -95,7 +93,6 @@ class Task {
             throw err;
         }
     };
-
 
 }
 
