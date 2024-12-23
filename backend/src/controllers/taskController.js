@@ -4,9 +4,11 @@ import { findRatio } from "../utils/utils.js";
 const createTask = async (req,res) => {
     const user = req.user;
     const body = req.body;
-    if(!user){
+    //* This Would check whether req body consists the user details or not
+    if(!user && !user.id){
         res.status(401).json({message: "User Details not available"});
     }
+    //* This checks whether req body consists the task details or not.
     if(!body || !body.title){
         res.status(404).json({message: "Invalid Data"})
     }
@@ -23,7 +25,7 @@ const createTask = async (req,res) => {
         return res.status(200).json({message: "Task Created"});
     }
     catch(err){
-        res.status(400).json({message: "Task could not be added. Invalid Data."})
+        return res.status(400).json({message: "Task could not be added. Invalid Data."})
     }
     
 };

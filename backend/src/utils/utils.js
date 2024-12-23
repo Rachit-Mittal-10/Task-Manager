@@ -52,13 +52,8 @@ const findRatio = (data,total) => {
     for(let obj of data){
         obj.ratio = Math.round(obj.COUNT*10000/total)/100;
     }
-    // console.log(data);
     return data;
 };
-
-const Log = (...args) => {
-    console.log(`${new Date().toISOString()} --`,...args);
-}
 
 const constructUpdateQuery = async (dataArray) => {
     const query = `UPDATE tasks SET ${dataArray.join(", ")} WHERE task_id = ? AND EXISTS (SELECT 1 FROM mapping WHERE mapping.user_id = ? AND mapping.task_id = ?)`;
@@ -70,7 +65,6 @@ export {
     verifyPassword,
     generateToken,
     jwtVerify,
-    Log,
     findRatio,
     constructUpdateQuery,
 };

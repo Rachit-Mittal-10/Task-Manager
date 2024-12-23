@@ -1,24 +1,20 @@
 import conn from "../config/mysql.js";
-import CustomError from "../utils/error/CustomError.js";
+import DataError from "../utils/error/DataError.js";
 import { constructUpdateQuery  } from "../utils/utils.js";
+import UserError from "../utils/error/UserError.js";
 
 class Task {
     //* Create the task associated with userId
     static create = async (userId, title, status = 'planned', priority = 'not set', start_time = null, end_time = null, description = null) => {
         const query = "INSERT INTO tasks(title, start_time, end_time, status, priority, description) VALUES(?,?,?,?,?,?)";
         const query_map = "INSERT INTO mapping VALUES(?,?)";
-        if (!userId) {
-            console.log("UserId not provided.");
-            // Log("User not provided.");
-            return;
-        }
         try {
             const [result] = await conn.execute(query, [title, start_time, end_time, status, priority, description]);
             const taskId = result.insertId;
             const [mapResult] = await conn.execute(query_map, [userId, taskId]);
         }
         catch (err) {
-            console.log(`Error while inserting the tasks: ${err}`);
+            console.log(`Error while inserting the tasks: ${err.message}`);
             throw err;
         }
     };
@@ -97,7 +93,7 @@ class Task {
     };
     static updateTask = async (userId, taskId, dataArray) => {
         if(dataArray.length == 0){
-            throw new CustomError("Column Data not provided");
+            throw new DataError("Column Data not provided");
         }
         try{
             const query = constructUpdateQuery(dataArray);
