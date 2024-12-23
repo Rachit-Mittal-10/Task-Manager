@@ -1,5 +1,6 @@
 import conn from "../config/mysql.js";
-import { Log } from "../utils/utils.js";
+import CustomError from "../utils/error/CustomError.js";
+import { constructUpdateQuery  } from "../utils/utils.js";
 
 class Task {
     //* Create the task associated with userId
@@ -27,8 +28,8 @@ class Task {
         try {
             const [results] = await conn.query(query, [userId]);
             return results;
-        }
-        catch (err) {
+    }
+    catch (err) {
             console.log(`Error while getting all task: ${err}`);
             throw err;
         }
@@ -37,8 +38,9 @@ class Task {
     static getTask = async (userId, taskId) => {
         const query = `SELECT tasks.id, tasks.title, tasks.start_time, tasks.end_time, tasks.status, tasks.priority, tasks.description FROM tasks JOIN mapping ON mapping.task_id = tasks.id WHERE mapping.user_id = ? AND tasks.id = ?`;
         try {
-            const [results] = await conn.query(query, [userId, taskId]);
-            return results;
+            const [result] = await conn.query(query, [userId, taskId]);
+            // console.log(result);
+            return result;
         }
         catch (err) {
             console.log(`Error getting the single task: ${err}`);
@@ -93,7 +95,19 @@ class Task {
             throw err;
         }
     };
+    static updateTask = async (userId, taskId, dataArray) => {
+        if(dataArray.length == 0){
+            throw new CustomError("Column Data not provided");
+        }
+        try{
+            const query = constructUpdateQuery(dataArray);
+            console.log(query);
+        }
+        catch(err){
+            throw err;
+        }
 
+    }
 }
 
 export {

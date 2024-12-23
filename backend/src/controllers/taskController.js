@@ -1,5 +1,5 @@
 import { Task } from "../models/Task.js";
-import { findRatio } from "../utils/utils.js"
+import { findRatio } from "../utils/utils.js";
 
 const createTask = async (req,res) => {
     const user = req.user;
@@ -35,8 +35,10 @@ const getTasks = async (req,res) => {
     }
     try{
         const results = await Task.getTasks(userId);
+        const totalCount = await Task.getTotalCount(userId);
         return res.status(200).json({
             message: "Data Fetched Successfully",
+            totalCount,
             data: results
         });
     }
@@ -88,9 +90,19 @@ const getCountInformation = async(req,res) => {
 
 const updateTask = async (req,res) => {
     const userId = req.user.id;
-    res.status(200).json({
-        message: "Update Path Accessed"
-    });
+    const taskId = req.body.taskId;
+    const dataArray = [];
+    try{
+        await Task.updateTask(userId,taskId,dataArray);
+        return res.status(200).json({
+            message: "updated task",
+        });
+    }
+    catch(err){
+        res.status(404).json({
+            message: err.message
+        });
+    }
 };
 
 
