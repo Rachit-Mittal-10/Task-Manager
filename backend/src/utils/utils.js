@@ -60,6 +60,11 @@ const Log = (...args) => {
     console.log(`${new Date().toISOString()} --`,...args);
 }
 
+const constructUpdateQuery = async (dataArray) => {
+    const query = `UPDATE tasks SET ${dataArray.join(", ")} WHERE task_id = ? AND EXISTS (SELECT 1 FROM mapping WHERE mapping.user_id = ? AND mapping.task_id = ?)`;
+    return query;
+};
+
 export {
     hashPassword,
     verifyPassword,
@@ -67,4 +72,5 @@ export {
     jwtVerify,
     Log,
     findRatio,
+    constructUpdateQuery,
 };
