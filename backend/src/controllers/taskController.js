@@ -106,7 +106,7 @@ const constructDataArray = (prev,curr) => {
 
 const updateTask = async (req,res) => {
     const userId = req.user.id;
-    const taskId = req.body.task.id;
+    const taskId = req.params.taskId;
     try{
         const prev = await Task.getTask(userId, taskId);
         const curr = req.body.task;
@@ -123,11 +123,30 @@ const updateTask = async (req,res) => {
     }
 };
 
+const deleteTask = async (req,res) => {
+    const userId = req.user.id;
+    const taskId = req.params.taskId;
+    try{
+        await Task.deleteTask(userId,taskId);
+        res.status(200).json({
+            message: "Task Deleted Successfully",
+        });
+    }
+    catch(err){
+        res.status(400).json({
+            message: err.message,
+            name: err.name
+        });
+    }
+
+};
+
 
 export {
     createTask,
     getTasks,
     getTask,
     getCountInformation,
-    updateTask
+    updateTask,
+    deleteTask
 };
