@@ -28,10 +28,3 @@ CREATE TABLE IF NOT EXISTS tasks(
     FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
---CREATE TABLE IF NOT EXISTS mapping(
---    user_id INT NOT NULL,
---    task_id INT NOT NULL,
---    FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE,
---    FOREIGN KEY(task_id) REFERENCES tasks(id) ON DELETE CASCADE,
---    PRIMARY KEY(user_id, task_id)
---);
