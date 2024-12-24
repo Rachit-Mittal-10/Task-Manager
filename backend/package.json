@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "type": "module",
+  "private": true,
   "scripts": {
     "dev": "node --watch src/server.js",
     "debug": "node --watch --inspect src/server.js"
