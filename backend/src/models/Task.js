@@ -3,14 +3,30 @@ import TaskError from "../utils/error/TaskError.js";
 
 class Task {
     //* Create the task associated with userId
-    static create = async (userId, title, status = 'planned', priority = 'not set', start_time = null, end_time = null, description = null) => {
-        const query = "INSERT INTO tasks(user_id, title, start_time, end_time, status, priority, description) VALUES(?,?,?,?,?,?,?)";
+    static create = async (
+        userId,
+        title,
+        status = "planned",
+        priority = "not set",
+        start_time = null,
+        end_time = null,
+        description = null,
+    ) => {
+        const query =
+            "INSERT INTO tasks(user_id, title, start_time, end_time, status, priority, description) VALUES(?,?,?,?,?,?,?)";
         try {
-            const [result] = await conn.execute(query, [userId,title, start_time, end_time, status, priority, description]);
+            const [result] = await conn.execute(query, [
+                userId,
+                title,
+                start_time,
+                end_time,
+                status,
+                priority,
+                description,
+            ]);
             // const taskId = result.insertId;
             return result;
-        }
-        catch (err) {
+        } catch (err) {
             console.log(`Error while inserting the tasks: ${err.message}`);
             throw err;
         }
@@ -21,8 +37,7 @@ class Task {
         try {
             const [results] = await conn.query(query, [userId]);
             return results;
-    }
-    catch (err) {
+        } catch (err) {
             console.log(`Error while getting all task: ${err}`);
             throw err;
         }
@@ -32,12 +47,13 @@ class Task {
         const query = `SELECT tasks.id, tasks.title, tasks.start_time, tasks.end_time, tasks.status, tasks.priority, tasks.description FROM tasks WHERE tasks.user_id = ? AND tasks.id = ?`;
         try {
             const [[result]] = await conn.query(query, [userId, taskId]);
-            if(!result){
-                throw new TaskError(`No Task Associated with this Task Id: ${taskId}`);
+            if (!result) {
+                throw new TaskError(
+                    `No Task Associated with this Task Id: ${taskId}`,
+                );
             }
             return result;
-        }
-        catch (err) {
+        } catch (err) {
             console.log(`Error getting the single task: ${err}`);
             throw err;
         }
@@ -48,8 +64,7 @@ class Task {
         try {
             const [results] = await conn.query(query, [userId, priority]);
             return results;
-        }
-        catch (err) {
+        } catch (err) {
             console.log(`Error in filterByPriority: ${err}`);
             throw err;
         }
@@ -57,11 +72,10 @@ class Task {
 
     static filterByStatus = async (userId, status) => {
         const query = `SELECT tasks.id, tasks.title, tasks.start_time, tasks.end_time, tasks.status, tasks.priority, tasks.description FROM tasks WHERE tasks.user_id = ? AND tasks.status = ?`;
-        try{
-            const [results] = await conn.query(query,[userId,status]);
+        try {
+            const [results] = await conn.query(query, [userId, status]);
             return results;
-        }
-        catch(err){
+        } catch (err) {
             console.log(`Error in filterByStatus: ${err}`);
             throw err;
         }
@@ -72,8 +86,7 @@ class Task {
         try {
             const [result] = await conn.query(query, [userId]);
             return result[0].COUNT;
-        }
-        catch (err) {
+        } catch (err) {
             console.log(`Error in getCountOfTask: ${err}`);
             throw err;
         }
@@ -81,30 +94,28 @@ class Task {
 
     static getCountByStatus = async (userId) => {
         const query = `SELECT tasks.status, COUNT(*) AS COUNT FROM tasks WHERE tasks.user_id = ? GROUP BY tasks.status`;
-        try{
-            const [results] = await conn.query(query,[userId]);
+        try {
+            const [results] = await conn.query(query, [userId]);
             return results;
-        }
-        catch(err){
+        } catch (err) {
             console.log(`Error in getCountByStatus: ${err}`);
             throw err;
         }
     };
 
     static #constructUpdateQuery = (dataArray) => {
-       const query = `UPDATE tasks SET ${dataArray.join(", ")} WHERE tasks.id = ? AND tasks.user_id = ?`;
-       return query;
-    };   
+        const query = `UPDATE tasks SET ${dataArray.join(", ")} WHERE tasks.id = ? AND tasks.user_id = ?`;
+        return query;
+    };
 
     static updateTask = async (userId, taskId, dataArray) => {
-        if(dataArray.length == 0){
+        if (dataArray.length == 0) {
             throw new DataError("Column Data not provided");
         }
-        try{
+        try {
             const query = Task.#constructUpdateQuery(dataArray);
-            const [result] = await conn.query(query,[taskId,userId]);
-        }
-        catch(err){
+            const [result] = await conn.query(query, [taskId, userId]);
+        } catch (err) {
             console.log(err.message);
             throw err;
         }
@@ -112,15 +123,12 @@ class Task {
 
     static deleteTask = async (userId, taskId) => {
         const query = `DELETE FROM tasks WHERE tasks.id = ? AND tasks.user_id = ?`;
-        try{
-            const [result] = await conn.query(query,[taskId,userId]);
-        }
-        catch(err){
+        try {
+            const [result] = await conn.query(query, [taskId, userId]);
+        } catch (err) {
             console.log(`Error in Task.deleteTask: ${err}`);
         }
     };
-};
+}
 
-export {
-    Task
-};
+export { Task };

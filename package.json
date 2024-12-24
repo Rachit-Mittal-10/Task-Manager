@@ -1,20 +1,40 @@
 {
-  "name": "task-manager",
-  "version": "1.0.0",
-  "private": true,
-  "scripts": {
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
-  "workspaces": [
-    "frontend",
-    "backend"
-  ],
-  "devDependencies": {
-    "eslint": "^9.17.0",
-    "jest": "^29.7.0",
-    "prettier": "^3.4.2"
-  }
+    "name": "task-manager",
+    "version": "1.0.0",
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "lint": "eslint .",
+        "lint:fix": "eslint . --fix",
+        "lint:backend": "eslint backend/",
+        "lint:frontend": "eslint frontend/",
+        "lint:fix:backend": "eslint backend/ --fix",
+        "lint:fix:frontend": "eslint frontend/ --fix",
+        "format": "prettier --write .",
+        "format:backend": "prettier --write backend/",
+        "format:frontend": "prettier --write frontend/",
+        "format:check": "prettier --check .",
+        "format:check:backend": "prettier --check backend/",
+        "format:check:frontend": "prettier --check frontend/",
+        "lint:format": "eslint . --fix && prettier --write .",
+        "lint:format:fix:backend": "eslint backend/ --fix && prettier --write backend/",
+        "lint:format:fix:frontend": "eslint frontend/ --fix && prettier --write frontend/"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "description": "",
+    "workspaces": [
+        "frontend",
+        "backend"
+    ],
+    "devDependencies": {
+        "eslint": "^9.17.0",
+        "eslint-config-eslint": "^11.0.0",
+        "eslint-config-prettier": "^9.1.0",
+        "eslint-plugin-prettier": "^5.2.1",
+        "eslint-plugin-react": "^7.37.3",
+        "jest": "^29.7.0",
+        "prettier": "^3.4.2"
+    }
 }

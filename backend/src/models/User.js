@@ -1,51 +1,55 @@
 import conn from "../config/mysql.js";
 import { hashPassword, verifyPassword } from "../utils/utils.js";
 
-
-class User{
-    
+class User {
     static create = async (username, email, password) => {
-        const query = "INSERT INTO users(username, email, password) VALUES(?,?,?)";
-        try{
+        const query =
+            "INSERT INTO users(username, email, password) VALUES(?,?,?)";
+        try {
             const passwordHashed = await hashPassword(password);
-            const [result] = await conn.execute(query,[username, email, passwordHashed]);
+            const [result] = await conn.execute(query, [
+                username,
+                email,
+                passwordHashed,
+            ]);
             // console.log(`Inserted the data.\n${JSON.stringify(result,null,2)}`);
-        }
-        catch(err){
+        } catch (err) {
             console.log(`Error while adding the data: ${err.message}`);
             throw err;
         }
     };
-    
+
     //* THis is the private function and ties the retrieved user information to class instance
     #checkUsername = async (username) => {
         const query = `SELECT * FROM users WHERE username=?`;
-        try{
-            const [result] = await conn.query(query,[username]);
+        try {
+            const [result] = await conn.query(query, [username]);
             this.user = result[0];
-        }
-        catch(err){
-            console.log(`Error while checking whether account with this username exists: ${err}`)
+        } catch (err) {
+            console.log(
+                `Error while checking whether account with this username exists: ${err}`,
+            );
             throw err;
         }
     };
-    
+
     //* This is the private function and ties the retrieved user information to class instance
     #checkEmail = async (email) => {
         const query = "SELECT * FROM users WHERE email=?";
-        try{
-            const [result] = await conn.query(query,[email]);
+        try {
+            const [result] = await conn.query(query, [email]);
             this.user = result[0];
-        }
-        catch(err){
-            console.log(`Error while checking whether account with this email exists: ${err}`);
+        } catch (err) {
+            console.log(
+                `Error while checking whether account with this email exists: ${err}`,
+            );
             throw err;
         }
     };
 
     verifyUserByUsername = async (username, password) => {
         await this.#checkUsername(username);
-        const verifyStatus = await verifyPassword(password, this.user.password)
+        const verifyStatus = await verifyPassword(password, this.user.password);
         return verifyStatus;
     };
 
@@ -53,7 +57,7 @@ class User{
         await this.#checkEmail(email);
         const verifyStatus = await verifyPassword(password, this.user.password);
         return verifyStatus;
-    }
-};
+    };
+}
 
 export default User;

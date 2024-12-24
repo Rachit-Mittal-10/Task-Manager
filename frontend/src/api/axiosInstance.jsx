@@ -12,7 +12,7 @@ API.interceptors.request.use(
     (config) => {
         const token = localStorage.getItem("token");
         const unprotetctedPath = ["/register", "/login"];
-        
+
         //* This will check whether token exist or not and endpoint accessed is protected path or not
         if (token && !unprotetctedPath.includes(config.url)) {
             config.headers["Authorization"] = `Bearer ${token}`;
@@ -21,7 +21,7 @@ API.interceptors.request.use(
     },
     (err) => {
         console.log(err);
-    }
+    },
 );
 
 export default API;
