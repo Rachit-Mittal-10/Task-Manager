@@ -55,10 +55,7 @@ const findRatio = (data,total) => {
     return data;
 };
 
-const constructUpdateQuery = async (dataArray) => {
-    const query = `UPDATE tasks SET ${dataArray.join(", ")} WHERE task_id = ? AND EXISTS (SELECT 1 FROM mapping WHERE mapping.user_id = ? AND mapping.task_id = ?)`;
-    return query;
-};
+
 
 export {
     hashPassword,
@@ -66,5 +63,4 @@ export {
     generateToken,
     jwtVerify,
     findRatio,
-    constructUpdateQuery,
 };

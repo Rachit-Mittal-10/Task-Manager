@@ -1,7 +1,5 @@
 import conn from "../config/mysql.js";
-import DataError from "../utils/error/DataError.js";
-import { constructUpdateQuery  } from "../utils/utils.js";
-import UserError from "../utils/error/UserError.js";
+import TaskError from "../utils/error/TaskError.js";
 
 class Task {
     //* Create the task associated with userId
@@ -34,8 +32,10 @@ class Task {
     static getTask = async (userId, taskId) => {
         const query = `SELECT tasks.id, tasks.title, tasks.start_time, tasks.end_time, tasks.status, tasks.priority, tasks.description FROM tasks JOIN mapping ON mapping.task_id = tasks.id WHERE mapping.user_id = ? AND tasks.id = ?`;
         try {
-            const [result] = await conn.query(query, [userId, taskId]);
-            // console.log(result);
+            const [[result]] = await conn.query(query, [userId, taskId]);
+            if(!result){
+                throw new TaskError(`No Task Associated with this Task Id: ${taskId}`);
+            }
             return result;
         }
         catch (err) {
@@ -91,20 +91,26 @@ class Task {
             throw err;
         }
     };
+
+    static #constructUpdateQuery = (dataArray) => {
+       const query = `UPDATE tasks SET ${dataArray.join(", ")} WHERE tasks.id = ? AND EXISTS (SELECT 1 FROM mapping WHERE mapping.user_id = ? AND mapping.task_id = ?)`;
+       return query;
+    };   
+
     static updateTask = async (userId, taskId, dataArray) => {
         if(dataArray.length == 0){
             throw new DataError("Column Data not provided");
         }
         try{
-            const query = constructUpdateQuery(dataArray);
-            console.log(query);
+            const query = Task.#constructUpdateQuery(dataArray);
+            const [result] = await conn.query(query,[taskId,userId,taskId]);
         }
         catch(err){
+            console.log(err.message);
             throw err;
         }
-
-    }
-}
+    };
+};
 
 export {
     Task

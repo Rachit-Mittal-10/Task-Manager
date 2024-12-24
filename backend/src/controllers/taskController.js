@@ -1,5 +1,6 @@
 import { Task } from "../models/Task.js";
 import { findRatio } from "../utils/utils.js";
+import TaskError from "../utils/error/TaskError.js";
 
 const createTask = async (req,res) => {
     const user = req.user;
@@ -54,18 +55,16 @@ const getTask = async (req,res) => {
     const userId = req.user.id;
     try{
         const results = await Task.getTask(userId,taskId);
-        if(results.length === 0){
-            return res.status(404).json({
-                message: `No Task associated with TaskId: ${taskId}`
-            });
-        }
         return res.status(200).json({
             message: "Data fetched Successfully",
             data: results
         });
     }
     catch(err){
-        return res.status(400).json({message: "Unable to fetch Data"});
+        return res.status(400).json({
+            name: err.name,
+            message: err.message
+        });
     }
 };
 
@@ -90,14 +89,31 @@ const getCountInformation = async(req,res) => {
     }
 };
 
+const constructDataArray = (prev,curr) => {
+    const updates = [];
+    let temp = null;
+    for(let key in curr){
+        if(!prev.hasOwnProperty(key)){
+            throw new TaskError("Invalid Key");
+        }
+        if(curr[key] !== prev[key]){
+            temp = `tasks.${key} = "${curr[key]}"`;
+            updates.push(temp);
+        }
+    }
+    return updates;
+};
+
 const updateTask = async (req,res) => {
     const userId = req.user.id;
-    const taskId = req.body.taskId;
-    const dataArray = [];
+    const taskId = req.body.task.id;
     try{
+        const prev = await Task.getTask(userId, taskId);
+        const curr = req.body.task;
+        const dataArray = constructDataArray(prev,curr);
         await Task.updateTask(userId,taskId,dataArray);
         return res.status(200).json({
-            message: "updated task",
+            message: "Task Updated Successfully",
         });
     }
     catch(err){
