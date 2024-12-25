@@ -24,14 +24,14 @@ const AuthProvider = ({ children }) => {
         //* Axios considers any response outside the range of 2xx as error
         try{
             const response = await API.post("/auth/login",formData);
-            const {token} = response.token;
+            const {token} = response.data.token;
             localStorage.setItem("token", token);
             setToken(token);
-            return response.message;
+            return response.data.message;
         }
         catch(err){
             if(err.response){
-                console.log(err.response.message);
+                console.log(err.response.data.message);
             }
             else{
                 console.log(err);
@@ -48,10 +48,10 @@ const AuthProvider = ({ children }) => {
     const register = async (formData) => {
         try{
             const response = await API.post("/auth/post",formData);
-            return response.message;
+            return response.data.message;
         }
         catch {
-            return response.message;
+            return err.response.data.message;
         }
     };
 
