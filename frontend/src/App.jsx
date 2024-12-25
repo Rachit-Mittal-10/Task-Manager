@@ -13,8 +13,7 @@ import DashboardPage from "./Pages/Dashboard";
 import UserPage from "./Pages/User";
 import TasksPage from "./Pages/Tasks";
 
-
-function App(){
+function App() {
     return (
         <AuthProvider>
             <AuthRouter />
@@ -25,36 +24,37 @@ function App(){
 function AuthRouter() {
     const { isAuthenticated } = useAuth();
     return (
-            <AuthProvider>
-                <BrowserRouter>
-                    <Routes>
-                        <Route 
-                            path="/login"
-                            element={isAuthenticated ? <DashboardPage /> : <LoginPage />}
-                        />
-                        <Route 
-                           path="/register"
-                           element={<RegisterPage />}
-                        />
-                        <Route
-                            path="/dashboard"
-                            element={isAuthenticated ? <DashboardPage/> : <LoginPage/>}
-                        />
-                        <Route
-                            path="/tasks"
-                            element={isAuthenticated ? <TasksPage/> : <LoginPage/>}
-                        />
-                        <Route
-                            path="/user"
-                            element={isAuthenticated ? <UserPage/> : <LoginPage/>}
-                        />
-                        <Route
-                            path="*"
-                            element={isAuthenticated ? <DashboardPage/> : <LoginPage/>}
-                        />
-                    </Routes>
-                </BrowserRouter>
-            </AuthProvider>
+        <BrowserRouter>
+            <Routes>
+                <Route
+                    path="/login"
+                    element={
+                        isAuthenticated ? <DashboardPage /> : <LoginPage />
+                    }
+                />
+                <Route path="/register" element={<RegisterPage />} />
+                <Route
+                    path="/dashboard"
+                    element={
+                        isAuthenticated ? <DashboardPage /> : <LoginPage />
+                    }
+                />
+                <Route
+                    path="/tasks"
+                    element={isAuthenticated ? <TasksPage /> : <LoginPage />}
+                />
+                <Route
+                    path="/user"
+                    element={isAuthenticated ? <UserPage /> : <LoginPage />}
+                />
+                <Route
+                    path="*"
+                    element={
+                        isAuthenticated ? <DashboardPage /> : <LoginPage />
+                    }
+                />
+            </Routes>
+        </BrowserRouter>
     );
 }
 

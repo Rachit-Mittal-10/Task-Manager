@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-    baseURL: `http://192.168.10.2:5000`,
+    baseURL: `http://192.168.10.1:5000`,
     timeout: 1000,
     headers: {
         "Content-Type": "application/json",
@@ -16,7 +16,6 @@ const checkProtected = (url) => {
 API.interceptors.request.use(
     (config) => {
         const token = localStorage.getItem("token");
-        const unprotetctedPath = ["/register", "/login"];
 
         //* This will check whether token exist or not and endpoint accessed is protected path or not
         if (token && checkProtected(url)) {
