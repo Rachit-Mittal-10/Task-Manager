@@ -1,5 +1,6 @@
 import { useAuth } from "../context/AuthContext";
-import { useState, useNavigate } from "react";
+import { useState } from "react";
+import { useNavigate} from "react-router-dom";
 import { classifyInput } from "../utils/sanitizeInput";
 
 const LoginPage = () => {
@@ -9,7 +10,7 @@ const LoginPage = () => {
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
 
-    const handleSubmit = async () => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         setError("");
         if(!identifier || !password){
@@ -40,7 +41,7 @@ const LoginPage = () => {
             <div>
                 <form onSubmit={handleSubmit}>
                     <div>
-                        <label for="identifier">Username or Email:</label>
+                        <label htmlFor="identifier">Username or Email:</label>
                         <input
                             id="identifier"
                             placeholder="Username or Email"
@@ -51,7 +52,7 @@ const LoginPage = () => {
                         />
                     </div>
                     <div>
-                        <label for="password">Password: </label>
+                        <label htmlFor="password">Password: </label>
                         <input
                             type="password"
                             name="password"
