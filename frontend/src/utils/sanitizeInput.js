@@ -3,12 +3,10 @@ const classifyInput = (input) => {
     //* If true, then email otherwise username
     const trimmedInput = input.trim();
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    if(emailRegex.test(trimmedInput)){
+    if (emailRegex.test(trimmedInput)) {
         return true;
     }
     return false;
 };
 
-export {
-    classifyInput,
-}
+export { classifyInput };

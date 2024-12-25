@@ -1,7 +1,6 @@
 import React, { createContext, useState, useEffect, useContext } from "react";
-import API from "../api/axiosInstance";
-import { jwtDecode } from "jwt-decode";
 
+import { jwtDecode } from "jwt-decode";
 
 const AuthContext = createContext();
 
@@ -20,45 +19,10 @@ const AuthProvider = ({ children }) => {
         }
     }, [token]);
 
-    const login = async (formData) => {
-        //* Axios considers any response outside the range of 2xx as error
-        try{
-            const response = await API.post("/auth/login",formData);
-            const {token} = response.data.token;
-            localStorage.setItem("token", token);
-            setToken(token);
-            return response.data.message;
-        }
-        catch(err){
-            if(err.response){
-                console.log(err.response.data.message);
-            }
-            else{
-                console.log(err);
-            }
-        }
-    };
-
-    const logout = () => {
-        localStorage.removeItem("token");
-        setToken(null);
-        setUser(null);
-    };
-
-    const register = async (formData) => {
-        try{
-            const response = await API.post("/auth/post",formData);
-            return response.data.message;
-        }
-        catch {
-            return err.response.data.message;
-        }
-    };
-
     const isAuthenticated = !!token;
-    
+
     return (
-        <AuthContext.Provider value={{ user, isAuthenticated, login, logout }}>
+        <AuthContext.Provider value={{ user, isAuthenticated}}>
             {children}
         </AuthContext.Provider>
     );
@@ -66,9 +30,6 @@ const AuthProvider = ({ children }) => {
 
 const useAuth = () => {
     return useContext(AuthContext);
-}
-
-export {
-    useAuth,
-    AuthProvider
 };
+
+export { useAuth, AuthProvider };

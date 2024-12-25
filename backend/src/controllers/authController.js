@@ -37,7 +37,9 @@ const login = async (req, res) => {
 const register = async (req, res) => {
     const { username, email, password } = req.body;
     if (!(username && email && password)) {
-        return res.status(400).json({ message: "All parameters not provided." });
+        return res
+            .status(400)
+            .json({ message: "All parameters not provided." });
     }
     try {
         await User.create(username, email, password);
@@ -46,7 +48,9 @@ const register = async (req, res) => {
         if (err.code === "ER_DUP_ENTRY") {
             return res.status(409).json({ message: "User already exists!" });
         } else {
-            return res.status(500).json({ message: "Unable to add the credentials" });
+            return res
+                .status(500)
+                .json({ message: "Unable to add the credentials" });
         }
     }
 };

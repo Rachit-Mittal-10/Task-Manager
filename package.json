@@ -21,7 +21,8 @@
         "format:file": "prettier --write",
         "lint:format": "eslint . --fix && prettier --write .",
         "lint:format:fix:backend": "eslint backend/ --fix && prettier --write backend/",
-        "lint:format:fix:frontend": "eslint frontend/ --fix && prettier --write frontend/"
+        "lint:format:fix:frontend": "eslint frontend/ --fix && prettier --write frontend/",
+        "dev": "concurrently \"npm run dev --workspace backend\" \"npm run dev --workspace frontend\""
     },
     "keywords": [],
     "author": "",
@@ -33,6 +34,7 @@
     ],
     "devDependencies": {
         "@babel/eslint-parser": "^7.25.9",
+        "concurrently": "^9.1.0",
         "eslint": "^9.17.0",
         "eslint-config-eslint": "^11.0.0",
         "eslint-config-prettier": "^9.1.0",

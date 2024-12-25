@@ -12,17 +12,21 @@ import RegisterPage from "./Pages/Register";
 import DashboardPage from "./Pages/Dashboard";
 import UserPage from "./Pages/User";
 import TasksPage from "./Pages/Tasks";
+import { APIProvider } from "./context/APIContext";
 
 function App() {
     return (
         <AuthProvider>
-            <AuthRouter />
+            <APIProvider>
+                <AuthRouter />
+            </APIProvider>
         </AuthProvider>
     );
 }
 
 function AuthRouter() {
     const { isAuthenticated } = useAuth();
+
     return (
         <BrowserRouter>
             <Routes>
