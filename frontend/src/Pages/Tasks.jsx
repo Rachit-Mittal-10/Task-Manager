@@ -1,7 +1,7 @@
-const TaskPage = () => {
+const TasksPage = () => {
     return (
-        <h1>This is the task page.</h1>
+        <h1>Tasks Page</h1>
     );
 }
 
-export default TaskPage;
+export default TasksPage;

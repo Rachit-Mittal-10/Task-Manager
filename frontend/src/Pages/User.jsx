@@ -1,6 +1,6 @@
 const UserPage = () => {
     return (
-        <h1>This is the Users</h1>
+        <h1>Users Page</h1>
     );
 };
 

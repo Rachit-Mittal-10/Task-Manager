@@ -8,13 +8,18 @@ const API = axios.create({
     },
 });
 
+const checkProtected = (url) => {
+    const unprotetctedPath = ["/login", "/path"];
+    return !(unprotetctedPath.some((item) => url.includes(item)));
+};
+
 API.interceptors.request.use(
     (config) => {
         const token = localStorage.getItem("token");
         const unprotetctedPath = ["/register", "/login"];
 
         //* This will check whether token exist or not and endpoint accessed is protected path or not
-        if (token && !unprotetctedPath.includes(config.url)) {
+        if (token && checkProtected(url)) {
             config.headers["Authorization"] = `Bearer ${token}`;
         }
         return config;

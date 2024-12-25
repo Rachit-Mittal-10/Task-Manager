@@ -1,6 +1,6 @@
 const RegisterPage = () => {
     return (
-        <h1>This the register page</h1>
+        <h1>Register page</h1>
     );
 };
 

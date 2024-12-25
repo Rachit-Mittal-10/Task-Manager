@@ -1,11 +1,11 @@
 ## API End Points
 
-1. `POST /register`: This is the api end point for registering the user. Unprotected path.
+1. `POST /auth/register`: This is the api end point for registering the user. Unprotected path.
 ```
     Parameters: username, email and password
 ```
 
-2. `POST /login`: This is the api end point to login the user. Unprotected path.
+2. `POST /auth/login`: This is the api end point to login the user. Unprotected path.
 ```
     Parameters: Username or Email and Password
 ```
@@ -29,7 +29,7 @@
     Parameters:
 ```
 
-7. `DELETE /tasks/:taskId`: API End Point to delete the task.
+7. `DELETE /tasks/:taskId`: API End Point to delete the task. Protected
 ```
     Parameters:
 ```

@@ -1,31 +1,60 @@
+//* Imporing the css files
 import "./App.css";
 
+//* Importing the npm packages
 import React from "react";
-import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
-import { AuthProvider } from "./context/AuthContext";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import LoginRoute from "./Routes/LoginRoute";
-import RegisterRoute from "./Routes/RegisterRoute";
-import DashboardRoute from "./Routes/DashboardRoute";
-import UserRoute from "./Routes/UserRoute";
-import TasksRoute from "./Routes/TasksRoute";
+//* Importing the user defined files
+import { AuthProvider, useAuth } from "./context/AuthContext";
+import LoginPage from "./Pages/Login";
+import RegisterPage from "./Pages/Register";
+import DashboardPage from "./Pages/Dashboard";
+import UserPage from "./Pages/User";
+import TasksPage from "./Pages/Tasks";
 
 
-function App() {
+function App(){
     return (
-        <div className="App">
+        <AuthProvider>
+            <AuthRouter />
+        </AuthProvider>
+    );
+}
+
+function AuthRouter() {
+    const { isAuthenticated } = useAuth();
+    return (
             <AuthProvider>
                 <BrowserRouter>
-                    <Switch>
-                        <LoginRoute />
-                        <RegisterRoute />
-                        <DashboardRoute />
-                        <UserRoute />
-                        <TasksRoute />                       
-                    </Switch>
+                    <Routes>
+                        <Route 
+                            path="/login"
+                            element={isAuthenticated ? <DashboardPage /> : <LoginPage />}
+                        />
+                        <Route 
+                           path="/register"
+                           element={<RegisterPage />}
+                        />
+                        <Route
+                            path="/dashboard"
+                            element={isAuthenticated ? <DashboardPage/> : <LoginPage/>}
+                        />
+                        <Route
+                            path="/tasks"
+                            element={isAuthenticated ? <TasksPage/> : <LoginPage/>}
+                        />
+                        <Route
+                            path="/user"
+                            element={isAuthenticated ? <UserPage/> : <LoginPage/>}
+                        />
+                        <Route
+                            path="*"
+                            element={isAuthenticated ? <DashboardPage/> : <LoginPage/>}
+                        />
+                    </Routes>
                 </BrowserRouter>
             </AuthProvider>
-        </div>
     );
 }
 
