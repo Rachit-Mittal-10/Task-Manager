@@ -3,61 +3,28 @@ import "./App.css";
 
 //* Importing the npm packages
 import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 
 //* Importing the user defined files
-import { AuthProvider, useAuth } from "./context/AuthContext";
-import LoginPage from "./Pages/Login";
-import RegisterPage from "./Pages/Register";
-import DashboardPage from "./Pages/Dashboard";
-import UserPage from "./Pages/User";
-import TasksPage from "./Pages/Tasks";
+import { AuthProvider } from "./context/AuthContext";
 import { APIProvider } from "./context/APIContext";
+import RoutesList from "./routes/Routes";
+
 
 function App() {
     return (
         <AuthProvider>
             <APIProvider>
-                <AuthRouter />
+                <Main />
             </APIProvider>
         </AuthProvider>
     );
 }
 
-function AuthRouter() {
-    const { isAuthenticated } = useAuth();
-
+function Main() {
     return (
         <BrowserRouter>
-            <Routes>
-                <Route
-                    path="/login"
-                    element={
-                        isAuthenticated ? <DashboardPage /> : <LoginPage />
-                    }
-                />
-                <Route path="/register" element={<RegisterPage />} />
-                <Route
-                    path="/dashboard"
-                    element={
-                        isAuthenticated ? <DashboardPage /> : <LoginPage />
-                    }
-                />
-                <Route
-                    path="/tasks"
-                    element={isAuthenticated ? <TasksPage /> : <LoginPage />}
-                />
-                <Route
-                    path="/user"
-                    element={isAuthenticated ? <UserPage /> : <LoginPage />}
-                />
-                <Route
-                    path="*"
-                    element={
-                        isAuthenticated ? <DashboardPage /> : <LoginPage />
-                    }
-                />
-            </Routes>
+            <RoutesList />
         </BrowserRouter>
     );
 }
