@@ -16,20 +16,15 @@ CREATE TABLE IF NOT EXISTS users(
 
 CREATE TABLE IF NOT EXISTS tasks(
     id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT NOT NULL,
     title VARCHAR(255) NOT NULL,
-    description VARCHAR(512),
     start_time DATE,
     end_time DATE,
     status ENUM('planned','pending','finished') NOT NULL DEFAULT 'planned',
     priority ENUM('low','medium','high','not set') NOT NULL DEFAULT 'not set',
+    description VARCHAR(512),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS mapping(
-    user_id INT NOT NULL,
-    task_id INT NOT NULL,
-    FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE,
-    FOREIGN KEY(task_id) REFERENCES tasks(id) ON DELETE CASCADE,
-    PRIMARY KEY(user_id, task_id)
-);
