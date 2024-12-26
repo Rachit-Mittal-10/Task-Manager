@@ -1,9 +1,11 @@
 import { createContext, useContext } from "react";
 import API from "../api/axiosInstance";
+import { useAuth } from "./AuthContext";
 
 const APIContext = createContext();
 
 const APIProvider = ({ children }) => {
+    const { setToken } = useAuth();
     const login = async (formData) => {
         //* Axios considers any response outside the range of 2xx as error
         try {
