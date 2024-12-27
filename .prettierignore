@@ -1,9 +1,13 @@
-node_modules
-cache
-dist
-build
+# ./node_modules
+**/cache
 Dockerfile
 .gitignore
 .dockerignore
 .env*
 *.md
+package*.json
+vite.config.js
+eslint.config.js
+prettier.config.js
+.prettierignore
+docker-compose.yaml
