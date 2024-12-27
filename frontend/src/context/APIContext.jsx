@@ -36,6 +36,12 @@ const APIProvider = ({ children }) => {
         setUser(null);
     };
 
+    const createTask = (data) => {
+        try{
+            const response = await API.post("/tasks")
+        }
+    };
+
     return (
         <APIContext.Provider value={{login,register,logout}}>
             {children}
