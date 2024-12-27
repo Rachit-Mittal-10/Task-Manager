@@ -1,9 +1,7 @@
 import RegisterPage from "../Pages/Register";
 
 const Register = () => {
-    return (
-        <>{<RegisterPage/>}</>
-    );
-}
+    return <>{<RegisterPage />}</>;
+};
 
 export default Register;

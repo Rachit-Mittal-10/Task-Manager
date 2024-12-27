@@ -10,7 +10,6 @@ import { AuthProvider } from "./context/AuthContext";
 import { APIProvider } from "./context/APIContext";
 import RoutesList from "./routes/Routes";
 
-
 function App() {
     return (
         <AuthProvider>

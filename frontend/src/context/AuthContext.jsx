@@ -22,7 +22,7 @@ const AuthProvider = ({ children }) => {
     const isAuthenticated = !!token;
 
     return (
-        <AuthContext.Provider value={{ user, isAuthenticated, setToken}}>
+        <AuthContext.Provider value={{ user, isAuthenticated, setToken }}>
             {children}
         </AuthContext.Provider>
     );
