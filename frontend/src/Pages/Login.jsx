@@ -22,9 +22,10 @@ const LoginPage = () => {
         formData.append(keyIdentifier, identifier);
         formData.append("password", password);
         try {
-            const message = await login(formData);
-            console.log(message);
-            if (message) {
+            const response = await login(formData);
+            console.log(response.message);
+            if (response.message) {
+                console.log("near the dashboard");
                 navigate("/dashboard");
             }
         } catch (err) {

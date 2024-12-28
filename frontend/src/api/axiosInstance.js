@@ -22,7 +22,7 @@ API.interceptors.request.use(
     (config) => {
         const token = localStorage.getItem("token");
         //* This will check whether token exist or not and endpoint accessed is protected path or not
-        if (token && checkProtected(url)) {
+        if (token && checkProtected(config.url)) {
             config.headers["Authorization"] = `Bearer ${token}`;
         }
         return config;

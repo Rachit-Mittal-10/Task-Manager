@@ -7,13 +7,15 @@ const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
-    const [token, setToken] = useState(localStorage.getItem("token") || "");
+    const [token, setToken] = useState(localStorage.getItem("token") || null);
     const [isAuthenticated, setIsAuthenticated] = useState(!!token);
 
     useEffect(() => {
         if (token) {
             try {
                 const payload = jwtDecode(token);
+                console.log(payload);
+                console.log(new Date(payload.exp*1000));
                 if (checkTokenExpiry(payload)) {
                     logout();
                 } else {
@@ -32,7 +34,7 @@ const AuthProvider = ({ children }) => {
     }
 
     const login = (formData) => {
-        AuthAPI.login(formData,{setToken});
+        return AuthAPI.login(formData,{setToken});
     }
 
     const AuthObject = {
