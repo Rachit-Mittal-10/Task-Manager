@@ -12,20 +12,18 @@ import RoutesList from "./routes/Routes";
 
 function App() {
     return (
-        <AuthProvider>
-            <APIProvider>
-                <Main />
-            </APIProvider>
-        </AuthProvider>
+        <BrowserRouter>
+            <AuthProvider>
+                <APIProvider>
+                    <Main />
+                </APIProvider>
+            </AuthProvider>
+        </BrowserRouter>
     );
 }
 
 function Main() {
-    return (
-        <BrowserRouter>
-            <RoutesList />
-        </BrowserRouter>
-    );
+    return <RoutesList />;
 }
 
 export default App;
