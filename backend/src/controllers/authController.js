@@ -22,7 +22,6 @@ const login = async (req, res) => {
             return res.status(401).json({ message: "Login Failed" });
         }
 
-        // const token = user.generateToken();
         const token = generateToken(user.user);
         res.status(200).json({
             message: "Login Successful",
