@@ -6,7 +6,6 @@ import AuthAPI from "../api/AuthAPI.js";
 const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
-    const {login,logout,register} = AuthAPI;
     const [user, setUser] = useState(null);
     const [token, setToken] = useState(localStorage.getItem("token") || "");
     const [isAuthenticated, setIsAuthenticated] = useState(!!token);
@@ -28,6 +27,14 @@ const AuthProvider = ({ children }) => {
         }
     }, [token]);
 
+    const logout = () => {
+        AuthAPI.logout({setToken, setUser, setIsAuthenticated});
+    }
+
+    const login = (formData) => {
+        AuthAPI.login(formData,{setToken});
+    }
+
     const AuthObject = {
         user,
         isAuthenticated,
@@ -36,7 +43,7 @@ const AuthProvider = ({ children }) => {
         setUser,
         login,
         logout,
-        register
+        register: AuthAPI.register,
     };
     return (
         <AuthContext.Provider value={AuthObject}>

@@ -13,9 +13,7 @@ function App() {
     return (
         <BrowserRouter>
             <AuthProvider>
-                <APIProvider>
-                    <Main />
-                </APIProvider>
+                <Main />
             </AuthProvider>
         </BrowserRouter>
     );

@@ -1,12 +1,7 @@
 import API from "./axiosInstance";
-import { useAuth } from "../context/AuthContext";
-import { useNavigate } from "react-router-dom";
 
 const AuthAPI = (function () {
-    const { setToken, setUser, setIsAuthenticated } = useAuth();
-    const navigate = useNavigate();
-
-    const login = async (formData) => {
+    const login = async (formData, { setToken }) => {
         //* Axios considers any response outside the 2xx as error
         try {
             const response = await API.post("/auth/login", formData);
@@ -23,12 +18,11 @@ const AuthAPI = (function () {
         }
     };
 
-    const logout = () => {
+    const logout = ({setToken, setUser, setIsAuthenticated}) => {
         localStorage.removeItem("token");
         setToken(null);
         setUser(null);
         setIsAuthenticated(false);
-        navigate("/login");
     };
 
     const register = async (formData) => {
