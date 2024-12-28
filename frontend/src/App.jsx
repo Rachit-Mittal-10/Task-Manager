@@ -7,7 +7,6 @@ import { BrowserRouter } from "react-router-dom";
 
 //* Importing the user defined files
 import { AuthProvider } from "./context/AuthContext";
-import { APIProvider } from "./context/APIContext";
 import RoutesList from "./routes/Routes";
 
 function App() {
