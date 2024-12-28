@@ -26,7 +26,8 @@ const APIProvider = ({ children }) => {
 
     const register = async (formData) => {
         try {
-            const response = await API.post("/auth/post", formData);
+            const response = await API.post("/auth/register", formData);
+            console.log(response.data.message);
             return response.data;
         } catch (err) {
             if (err.response) {

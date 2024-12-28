@@ -14,7 +14,7 @@ const API = axios.create({
 //* return:
 //*     boolean
 const checkProtected = (url) => {
-    const unprotetctedPath = ["/login", "/path"];
+    const unprotetctedPath = ["/login", "/register"];
     return !unprotetctedPath.some((item) => url.includes(item));
 };
 

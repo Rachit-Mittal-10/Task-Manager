@@ -12,6 +12,7 @@ const AuthProvider = ({ children }) => {
         if (token) {
             try {
                 const payload = jwtDecode(token);
+                console.log(payload);
                 setUser(payload);
             } catch {
                 logout();
