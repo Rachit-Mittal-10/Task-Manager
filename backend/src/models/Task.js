@@ -104,12 +104,13 @@ class Task {
     };
 
     static getTimelapse = async (userId) => {
-        const query = `SELECT tasks.priority, SUM(DATEDIFF(NOW(), tasks.start_time)) AS 'Time Lapsed', SUM(DATEDIFF(tasks.end_time, NOW())) AS 'Balanced Time' FROM tasks WHERE tasks.user_id = ? AND tasks.status IN ('planned','pending') GROUP BY tasks.user_id, tasks.priority`;
+        const query = `SELECT tasks.status,tasks.priority, SUM(DATEDIFF(NOW(), tasks.start_time)) AS 'Time_Lapsed', SUM(DATEDIFF(tasks.end_time, NOW())) AS 'Balanced_Time' FROM tasks WHERE tasks.user_id = ? AND tasks.status IN ('planned','pending') GROUP BY tasks.status, tasks.priority`;
         try{
             const [results] = await conn.query(query,[userId]);
+            return results;
         }
         catch(err){
-            console.log(err);
+            console.log(`Error in getTimeLapse: ${err}`);
         }
     };
 

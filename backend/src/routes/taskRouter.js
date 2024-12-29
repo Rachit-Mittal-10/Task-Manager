@@ -6,9 +6,12 @@ import {
     getDashboard,
     updateTask,
     deleteTask,
+    getTimeLapse,
 } from "../controllers/taskController.js";
 
 const router = Router();
+
+router.get("/test",getTimeLapse);
 
 router.get("/dashboard", getDashboard);
 
@@ -26,5 +29,6 @@ router.post("/", createTask);
 
 //* This will get all the tasks
 router.get("/", getTasks);
+
 
 export { router };

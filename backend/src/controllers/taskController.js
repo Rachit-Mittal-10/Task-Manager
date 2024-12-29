@@ -70,12 +70,14 @@ const getDashboard = async (req, res) => {
     const userId = req.user.id;
     try {
         const totalCount = await Task.getTotalCount(userId);
-        let result = await Task.getCountByStatus(userId);
-        result = findRatio(result, totalCount);
+        let countStatusresult = await Task.getCountByStatus(userId);
+        let timeLapsedResult = await Task.getTimelapse(userId);
+        countStatusresult = findRatio(countStatusresult, totalCount);
         res.status(200).json({
             message: "Data Fetched Successfully",
             totalCount,
-            data: result,
+            timeLapsedResult,
+            countStatusresult,
         });
     } catch (err) {
         console.log(err);
@@ -134,6 +136,17 @@ const deleteTask = async (req, res) => {
     }
 };
 
+const getTimeLapse = async (req, res) => {
+    const userId = req.user.id;
+    try{
+        await Task.getTimelapse(userId);
+        res.status(200).json({message: "Success"});
+    }
+    catch(err){
+        res.status(400).json({message: "Error"});
+    }
+};
+
 export {
     createTask,
     getTasks,
@@ -141,4 +154,5 @@ export {
     getDashboard,
     updateTask,
     deleteTask,
+    getTimeLapse,
 };
