@@ -12,7 +12,7 @@ const AuthAPI = (function () {
             return response;
         } catch (err) {
             if (err.response) {
-                return err.response.data;
+                return err.response;
             } else {
                 console.log(err);
             }
