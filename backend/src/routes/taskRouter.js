@@ -3,14 +3,14 @@ import {
     createTask,
     getTasks,
     getTask,
-    getCountInformation,
+    getDashboard,
     updateTask,
     deleteTask,
 } from "../controllers/taskController.js";
 
 const router = Router();
 
-router.get("/count", getCountInformation);
+router.get("/dashboard", getDashboard);
 
 //* This will get the particular task
 router.get("/:taskId", getTask);

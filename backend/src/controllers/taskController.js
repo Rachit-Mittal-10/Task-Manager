@@ -66,10 +66,9 @@ const getTask = async (req, res) => {
     }
 };
 
-const getCountInformation = async (req, res) => {
+const getDashboard = async (req, res) => {
     const userId = req.user.id;
     try {
-        // const result = await Task.getCountInformation(userId);
         const totalCount = await Task.getTotalCount(userId);
         let result = await Task.getCountByStatus(userId);
         result = findRatio(result, totalCount);
@@ -139,7 +138,7 @@ export {
     createTask,
     getTasks,
     getTask,
-    getCountInformation,
+    getDashboard,
     updateTask,
     deleteTask,
 };
