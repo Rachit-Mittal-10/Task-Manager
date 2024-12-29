@@ -1,14 +1,15 @@
 import API from "./axiosInstance";
 
 const AuthAPI = (function () {
-    const login = async (formData, { setToken }) => {
+    const login = async (formData, { setToken, setIsAuthenticated }) => {
         //* Axios considers any response outside the 2xx as error
         try {
             const response = await API.post("/auth/login", formData);
             const token = response.data.token;
             localStorage.setItem("token", token);
             setToken(token);
-            return response.data;
+            setIsAuthenticated(true);
+            return response;
         } catch (err) {
             if (err.response) {
                 return err.response.data;
@@ -28,7 +29,7 @@ const AuthAPI = (function () {
     const register = async (formData) => {
         try {
             const response = await API.post("/auth/register", formData);
-            return response.data;
+            return response;
         } catch (err) {
             if (err.response) {
                 return err.response.data;

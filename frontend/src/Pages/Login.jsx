@@ -23,10 +23,11 @@ const LoginPage = () => {
         formData.append("password", password);
         try {
             const response = await login(formData);
-            console.log(response.message);
-            if (response.message) {
-                console.log("near the dashboard");
+            if (response.status === 200) {
                 navigate("/dashboard");
+            }
+            else if(response.status === 401){
+                setError("Login Failed. Invalid Credentials");
             }
         } catch (err) {
             setError(err);
