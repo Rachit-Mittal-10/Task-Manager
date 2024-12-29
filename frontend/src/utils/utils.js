@@ -11,4 +11,13 @@ const checkTokenExpiry = (payload) => {
     }
 };
 
-export { checkTokenExpiry };
+const consoleFormData = (formData) => {
+    for(const [key, value] of formData.entries()){
+        console.log(`${key} : ${value}`);
+    }
+};
+
+export {
+    checkTokenExpiry,
+    consoleFormData
+};

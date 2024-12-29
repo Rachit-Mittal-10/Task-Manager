@@ -2,6 +2,7 @@ import { useAuth } from "../context/AuthContext";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { classifyInput } from "../utils/sanitizeInput";
+import { consoleFormData } from "../utils/utils";
 
 const LoginPage = () => {
     const { login } = useAuth();
@@ -21,6 +22,7 @@ const LoginPage = () => {
         const formData = new FormData();
         formData.append(keyIdentifier, identifier);
         formData.append("password", password);
+        consoleFormData(formData);
         try {
             const response = await login(formData);
             if (response.status === 200) {
