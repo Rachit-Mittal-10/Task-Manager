@@ -29,6 +29,8 @@ class Task {
         } catch (err) {
             console.log(`Error while inserting the tasks: ${err.message}`);
             throw err;
+        } finally {
+            conn.close();
         }
     };
 
@@ -40,6 +42,8 @@ class Task {
         } catch (err) {
             console.log(`Error while getting all task: ${err}`);
             throw err;
+        } finally {
+            conn.close();
         }
     };
 
@@ -56,6 +60,8 @@ class Task {
         } catch (err) {
             console.log(`Error getting the single task: ${err}`);
             throw err;
+        } finally {
+            conn.close();
         }
     };
 
@@ -67,6 +73,8 @@ class Task {
         } catch (err) {
             console.log(`Error in filterByPriority: ${err}`);
             throw err;
+        } finally {
+            conn.close();
         }
     };
 
@@ -78,6 +86,8 @@ class Task {
         } catch (err) {
             console.log(`Error in filterByStatus: ${err}`);
             throw err;
+        } finally {
+            conn.close();
         }
     };
 
@@ -89,6 +99,8 @@ class Task {
         } catch (err) {
             console.log(`Error in getCountOfTask: ${err}`);
             throw err;
+        } finally {
+            conn.close();
         }
     };
 
@@ -100,6 +112,18 @@ class Task {
         } catch (err) {
             console.log(`Error in getCountByStatus: ${err}`);
             throw err;
+        } finally {
+            conn.close();
+        }
+    };
+
+    static getTimelapse = async (userId) => {
+        const query = `SELECT tasks.priority, SUM(DATEDIFF(NOW(), tasks.start_time)) AS 'Time Lapsed', SUM(DATEDIFF(tasks.end_time, NOW())) AS 'Balanced Time' FROM tasks WHERE tasks.user_id = ? AND tasks.status IN ('planned','pending') GROUP BY tasks.user_id, tasks.priority`;
+        try{
+            const [results] = await conn.query(query,[userId]);
+        }
+        catch(err){
+            console.log(err);
         }
     };
 
@@ -118,6 +142,8 @@ class Task {
         } catch (err) {
             console.log(err.message);
             throw err;
+        } finally {
+            conn.close();
         }
     };
 
@@ -127,6 +153,8 @@ class Task {
             const [result] = await conn.query(query, [taskId, userId]);
         } catch (err) {
             console.log(`Error in Task.deleteTask: ${err}`);
+        } finally {
+            conn.close();
         }
     };
 }
