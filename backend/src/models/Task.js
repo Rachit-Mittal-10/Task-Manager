@@ -29,8 +29,6 @@ class Task {
         } catch (err) {
             console.log(`Error while inserting the tasks: ${err.message}`);
             throw err;
-        } finally {
-            conn.close();
         }
     };
 
@@ -42,8 +40,6 @@ class Task {
         } catch (err) {
             console.log(`Error while getting all task: ${err}`);
             throw err;
-        } finally {
-            conn.close();
         }
     };
 
@@ -60,8 +56,6 @@ class Task {
         } catch (err) {
             console.log(`Error getting the single task: ${err}`);
             throw err;
-        } finally {
-            conn.close();
         }
     };
 
@@ -73,8 +67,6 @@ class Task {
         } catch (err) {
             console.log(`Error in filterByPriority: ${err}`);
             throw err;
-        } finally {
-            conn.close();
         }
     };
 
@@ -86,8 +78,6 @@ class Task {
         } catch (err) {
             console.log(`Error in filterByStatus: ${err}`);
             throw err;
-        } finally {
-            conn.close();
         }
     };
 
@@ -99,8 +89,6 @@ class Task {
         } catch (err) {
             console.log(`Error in getCountOfTask: ${err}`);
             throw err;
-        } finally {
-            conn.close();
         }
     };
 
@@ -112,8 +100,6 @@ class Task {
         } catch (err) {
             console.log(`Error in getCountByStatus: ${err}`);
             throw err;
-        } finally {
-            conn.close();
         }
     };
 
@@ -142,8 +128,6 @@ class Task {
         } catch (err) {
             console.log(err.message);
             throw err;
-        } finally {
-            conn.close();
         }
     };
 
@@ -153,8 +137,6 @@ class Task {
             const [result] = await conn.query(query, [taskId, userId]);
         } catch (err) {
             console.log(`Error in Task.deleteTask: ${err}`);
-        } finally {
-            conn.close();
         }
     };
 }

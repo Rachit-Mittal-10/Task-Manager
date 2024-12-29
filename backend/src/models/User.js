@@ -12,12 +12,9 @@ class User {
                 email,
                 passwordHashed,
             ]);
-            // console.log(`Inserted the data.\n${JSON.stringify(result,null,2)}`);
         } catch (err) {
             console.log(`Error while adding the data: ${err.message}`);
             throw err;
-        } finally {
-            conn.close();
         }
     };
 
@@ -32,8 +29,6 @@ class User {
                 `Error while checking whether account with this username exists: ${err}`,
             );
             throw err;
-        } finally {
-            conn.close();
         }
     };
 
@@ -48,8 +43,6 @@ class User {
                 `Error while checking whether account with this email exists: ${err}`,
             );
             throw err;
-        } finally {
-            conn.close();
         }
     };
 
@@ -61,8 +54,6 @@ class User {
         }
         catch{
             return false;
-        } finally {
-            conn.close();
         }
     };
 
@@ -74,8 +65,6 @@ class User {
         }
         catch {
             return false;
-        } finally {
-            conn.close();
         }
     };
 }
