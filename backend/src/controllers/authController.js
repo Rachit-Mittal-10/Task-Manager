@@ -10,10 +10,7 @@ const login = async (req, res) => {
     try {
         let passwordStatus = false;
         if (username) {
-            passwordStatus = await user.verifyUserByUsername(
-                username,
-                password,
-            );
+            passwordStatus = await user.verifyUserByUsername(username,password);
         } else if (email) {
             passwordStatus = await user.verifyUserByEmail(email, password);
         }

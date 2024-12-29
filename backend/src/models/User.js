@@ -48,15 +48,25 @@ class User {
     };
 
     verifyUserByUsername = async (username, password) => {
-        await this.#checkUsername(username);
-        const verifyStatus = await verifyPassword(password, this.user.password);
-        return verifyStatus;
+        try{
+            await this.#checkUsername(username);
+            const verifyStatus = await verifyPassword(password, this.user.password);
+            return verifyStatus;
+        }
+        catch{
+            return false;
+        }
     };
 
     verifyUserByEmail = async (email, password) => {
-        await this.#checkEmail(email);
-        const verifyStatus = await verifyPassword(password, this.user.password);
-        return verifyStatus;
+        try{
+            await this.#checkEmail(email);
+            const verifyStatus = await verifyPassword(password, this.user.password);
+            return verifyStatus;
+        }
+        catch {
+            return false;
+        }
     };
 }
 
