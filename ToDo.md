@@ -4,7 +4,7 @@
 ## Backend Work To Do:
 - [ ] include the name also in creating the user
 - [ ] create a route to show user information like username, name, email
-- [ ] make the dashboard api
+- [X] make the dashboard api
 
 ## FrontEnd Work to do:
 - [ ] make entire front-end(so much work to do)
