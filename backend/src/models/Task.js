@@ -7,7 +7,7 @@ class Task {
         userId,
         title,
         status = "planned",
-        priority = "not set",
+        priority = "not_set",
         start_time = null,
         end_time = null,
         description = null,
@@ -104,7 +104,7 @@ class Task {
     };
 
     static getTimelapse = async (userId) => {
-        const query = `SELECT tasks.status,tasks.priority, SUM(DATEDIFF(NOW(), tasks.start_time)) AS 'Time_Lapsed', SUM(DATEDIFF(tasks.end_time, NOW())) AS 'Balanced_Time' FROM tasks WHERE tasks.user_id = ? AND tasks.status IN ('planned','pending') GROUP BY tasks.status, tasks.priority`;
+        const query = `SELECT tasks.status,tasks.priority, SUM( CASE WHEN NOW() > tasks.end_time THEN 0 ELSE DATEDIFF(NOW(), tasks.start_time) END ) AS 'Time_Lapsed', SUM( CASE WHEN NOW() > tasks.end_time THEN 0 ELSE DATEDIFF(tasks.end_time, NOW()) END) AS 'Balanced_Time' FROM tasks WHERE tasks.user_id = ? AND tasks.status IN ('planned','pending') GROUP BY tasks.status, tasks.priority`;
         try{
             const [results] = await conn.query(query,[userId]);
             return results;
