@@ -3,17 +3,11 @@ import {
     createTask,
     getTasks,
     getTask,
-    getDashboard,
     updateTask,
     deleteTask,
-    getTimeLapse,
 } from "../controllers/taskController.js";
 
 const router = Router();
-
-router.get("/test",getTimeLapse);
-
-router.get("/dashboard", getDashboard);
 
 //* This will get the particular task
 router.get("/:taskId", getTask);

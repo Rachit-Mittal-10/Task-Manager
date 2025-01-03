@@ -1,5 +1,4 @@
 import { Task } from "../models/Task.js";
-import { findRatio } from "../utils/utils.js";
 import TaskError from "../utils/error/TaskError.js";
 
 const createTask = async (req, res) => {
@@ -66,26 +65,6 @@ const getTask = async (req, res) => {
     }
 };
 
-const getDashboard = async (req, res) => {
-    const userId = req.user.id;
-    try {
-        const totalCount = await Task.getTotalCount(userId);
-        let countStatusresult = await Task.getCountByStatus(userId);
-        let timeLapsedResult = await Task.getTimelapse(userId);
-        countStatusresult = findRatio(countStatusresult, totalCount);
-        res.status(200).json({
-            message: "Data Fetched Successfully",
-            totalCount,
-            timeLapsedResult,
-            countStatusresult,
-        });
-    } catch (err) {
-        console.log(err);
-        res.status(400).json({
-            message: "Data Fetch is unsuccessful",
-        });
-    }
-};
 
 const constructDataArray = (prev, curr) => {
     const updates = [];
@@ -151,7 +130,6 @@ export {
     createTask,
     getTasks,
     getTask,
-    getDashboard,
     updateTask,
     deleteTask,
     getTimeLapse,
