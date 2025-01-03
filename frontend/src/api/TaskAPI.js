@@ -1,6 +1,4 @@
 import API from "./axiosInstance";
-import { useAuth } from "../context/AuthContext";
-import { useNavigate } from "react-router-dom";
 
 const TaskAPI = (() => {
     const createTask = async (tasksData) => {
