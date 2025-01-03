@@ -17,7 +17,7 @@ const createTask = async (req, res) => {
             user.id,
             body.title,
             body.status || "planned",
-            body.priority || "not set",
+            body.priority || "not_set",
             body.start_time || null,
             body.end_time || null,
             body.description || null,

@@ -1,5 +1,5 @@
 import { Task } from "../models/Task.js";
-import { findRatio } from "../utils/utils.js";
+import { customSort, findRatio } from "../utils/utils.js";
 
 const getDashboard = async (req, res) => {
     const userId = req.user.id;
@@ -7,6 +7,7 @@ const getDashboard = async (req, res) => {
         const totalCount = await Task.getTotalCount(userId);
         let countStatusresult = await Task.getCountByStatus(userId);
         let timeLapsedResult = await Task.getTimelapse(userId);
+        timeLapsedResult.sort(customSort);
         countStatusresult = findRatio(countStatusresult, totalCount);
         res.status(200).json({
             message: "Data Fetched Successfully",
