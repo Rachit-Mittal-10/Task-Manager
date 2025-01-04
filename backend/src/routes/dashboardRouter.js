@@ -3,9 +3,6 @@ import { getDashboard } from "../controllers/dashboardController.js";
 
 const router = Router();
 
-router.get("/",getDashboard);
+router.get("/", getDashboard);
 
-
-export {
-    router
-};
+export { router };

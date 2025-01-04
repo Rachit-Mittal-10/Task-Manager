@@ -28,12 +28,12 @@ const AuthProvider = ({ children }) => {
     }, [token]);
 
     const logout = () => {
-        AuthAPI.logout({setToken, setUser, setIsAuthenticated});
-    }
+        AuthAPI.logout({ setToken, setUser, setIsAuthenticated });
+    };
 
     const login = (formData) => {
-        return AuthAPI.login(formData,{setToken, setIsAuthenticated});
-    }
+        return AuthAPI.login(formData, { setToken, setIsAuthenticated });
+    };
 
     const AuthObject = {
         user,

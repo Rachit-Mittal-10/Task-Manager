@@ -19,7 +19,7 @@ const AuthAPI = (function () {
         }
     };
 
-    const logout = ({setToken, setUser, setIsAuthenticated}) => {
+    const logout = ({ setToken, setUser, setIsAuthenticated }) => {
         localStorage.removeItem("token");
         setToken(null);
         setUser(null);

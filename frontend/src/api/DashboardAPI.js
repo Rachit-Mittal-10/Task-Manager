@@ -1,16 +1,14 @@
 import API from "./axiosInstance";
 
-const DashboardAPI = (()=>{
+const DashboardAPI = (() => {
     const getDashboard = async () => {
-        try{
+        try {
             const data = await API.get("/");
             return data;
-        }
-        catch(err){
-            if(err.response){
+        } catch (err) {
+            if (err.response) {
                 return err.response.data;
-            }
-            else{
+            } else {
                 console.log(err);
             }
         }

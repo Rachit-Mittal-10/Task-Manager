@@ -12,11 +12,11 @@ const classifyInput = (input) => {
 //* This function checks whether password is valid or not
 const checkPasswordValidity = (password) => {
     //* Check if password provided or not
-    if(!password){
+    if (!password) {
         return false;
     }
     //* Check if password is between 4 and 20
-    if(password.length < 4 && password.length > 20){
+    if (password.length < 4 && password.length > 20) {
         return false;
     }
     return true;
@@ -34,5 +34,5 @@ export {
     classifyInput,
     checkUsernameValidity,
     checkEmailValidity,
-    checkPasswordValidity
+    checkPasswordValidity,
 };

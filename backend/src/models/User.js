@@ -47,23 +47,27 @@ class User {
     };
 
     verifyUserByUsername = async (username, password) => {
-        try{
+        try {
             await this.#checkUsername(username);
-            const verifyStatus = await verifyPassword(password, this.user.password);
+            const verifyStatus = await verifyPassword(
+                password,
+                this.user.password,
+            );
             return verifyStatus;
-        }
-        catch{
+        } catch {
             return false;
         }
     };
 
     verifyUserByEmail = async (email, password) => {
-        try{
+        try {
             await this.#checkEmail(email);
-            const verifyStatus = await verifyPassword(password, this.user.password);
+            const verifyStatus = await verifyPassword(
+                password,
+                this.user.password,
+            );
             return verifyStatus;
-        }
-        catch {
+        } catch {
             return false;
         }
     };

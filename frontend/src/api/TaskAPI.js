@@ -45,7 +45,7 @@ const TaskAPI = (() => {
         createTask,
         getTasks,
         getTask,
-    }
+    };
 })();
 
 export default TaskAPI;

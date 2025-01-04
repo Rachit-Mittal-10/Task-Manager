@@ -3,7 +3,6 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { classifyInput } from "../utils/sanitizeInput";
 
-
 const LoginPage = () => {
     const { login } = useAuth();
     const [identifier, setIdentifier] = useState("");
@@ -26,8 +25,7 @@ const LoginPage = () => {
             const response = await login(formData);
             if (response.status === 200) {
                 navigate("/dashboard");
-            }
-            else if(response.status === 401){
+            } else if (response.status === 401) {
                 setError("Login Failed. Invalid Credentials");
             }
         } catch (err) {

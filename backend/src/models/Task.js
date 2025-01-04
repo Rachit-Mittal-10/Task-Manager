@@ -105,11 +105,10 @@ class Task {
 
     static getTimelapse = async (userId) => {
         const query = `SELECT tasks.status,tasks.priority, SUM( CASE WHEN NOW() > tasks.end_time THEN 0 ELSE DATEDIFF(NOW(), tasks.start_time) END ) AS 'Time_Lapsed', SUM( CASE WHEN NOW() > tasks.end_time THEN 0 ELSE DATEDIFF(tasks.end_time, NOW()) END) AS 'Balanced_Time' FROM tasks WHERE tasks.user_id = ? AND tasks.status IN ('planned','pending') GROUP BY tasks.status, tasks.priority`;
-        try{
-            const [results] = await conn.query(query,[userId]);
+        try {
+            const [results] = await conn.query(query, [userId]);
             return results;
-        }
-        catch(err){
+        } catch (err) {
             console.log(`Error in getTimeLapse: ${err}`);
         }
     };

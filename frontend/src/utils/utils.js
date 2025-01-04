@@ -12,12 +12,9 @@ const checkTokenExpiry = (payload) => {
 };
 
 const consoleFormData = (formData) => {
-    for(const [key, value] of formData.entries()){
+    for (const [key, value] of formData.entries()) {
         console.log(`${key} : ${value}`);
     }
 };
 
-export {
-    checkTokenExpiry,
-    consoleFormData
-};
+export { checkTokenExpiry, consoleFormData };

@@ -24,5 +24,4 @@ router.post("/", createTask);
 //* This will get all the tasks
 router.get("/", getTasks);
 
-
 export { router };

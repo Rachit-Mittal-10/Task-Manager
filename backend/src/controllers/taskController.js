@@ -65,7 +65,6 @@ const getTask = async (req, res) => {
     }
 };
 
-
 const constructDataArray = (prev, curr) => {
     const updates = [];
     let temp = null;
@@ -117,20 +116,12 @@ const deleteTask = async (req, res) => {
 
 const getTimeLapse = async (req, res) => {
     const userId = req.user.id;
-    try{
+    try {
         await Task.getTimelapse(userId);
-        res.status(200).json({message: "Success"});
-    }
-    catch(err){
-        res.status(400).json({message: "Error"});
+        res.status(200).json({ message: "Success" });
+    } catch (err) {
+        res.status(400).json({ message: "Error" });
     }
 };
 
-export {
-    createTask,
-    getTasks,
-    getTask,
-    updateTask,
-    deleteTask,
-    getTimeLapse,
-};
+export { createTask, getTasks, getTask, updateTask, deleteTask, getTimeLapse };
