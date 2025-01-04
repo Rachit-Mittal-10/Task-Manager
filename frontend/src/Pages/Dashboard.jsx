@@ -11,6 +11,7 @@ import {
     Tooltip,
     Legend,
 } from 'chart.js';
+import Table from "../Components/Table.jsx";
 
 Chart.register(CategoryScale,LinearScale, BarElement, Title, Tooltip, Legend);
 
@@ -48,32 +49,6 @@ const BarChart = (props) => {
     return <Bar data={data} options={options} />
 };
 
-const Table = (props) => {
-    const data = props.data;
-    return (
-        <table border="1" style={{width: "100%", borderCollapse: "collapse"}}>
-            <thead>
-                <tr>
-                    <th>Status</th>
-                    <th>Priority</th>
-                    <th>Time Lapsed</th>
-                    <th>Balanced Time</th>
-                </tr>
-            </thead>
-            <tbody>
-                {data.map((row, index) => (
-                    <tr key={index}>
-                        <td>{row.status}</td>
-                        <td>{row.priority}</td>
-                        <td>{row.Time_Lapsed}</td>
-                        <td>{row.Balanced_Time}</td>
-                    </tr>
-                ))}
-            </tbody>
-        </table>
-    );
-};
-
 const DashboardPage = () => {
 
     const [ dashboard, setDashboard ] = useState("");
@@ -101,6 +76,13 @@ const DashboardPage = () => {
     const labels = dashboard.countStatusresult.map((item)=>item.status);
     const dataset = dashboard.countStatusresult.map((item)=>item.COUNT);
 
+    const columns = [
+        {label: "Status", key: "status"},
+        {label: "Priority", key: "priority"},
+        {label: "Balanced Time", key: "Balanced_Time"},
+        {label: "Time Lapsed", key: "Time_Lapsed"},
+    ];
+
     return (
         <div className="dashboard" >
             <div>
@@ -111,7 +93,10 @@ const DashboardPage = () => {
                 <p>Total Count: {dashboard && dashboard.totalCount}</p>
             </div>
             <div>
-                <Table data={dashboard.timeLapsedResult}/>
+                <Table
+                    data={dashboard.timeLapsedResult}
+                    columns={columns}
+                />
             </div>
             <div className="count-chart">
                 <BarChart
