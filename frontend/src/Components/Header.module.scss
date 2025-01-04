@@ -1,0 +1,16 @@
+header{
+    padding: 25px 100px;
+    background-color: rgba(20, 65, 189, 0.9);
+    ul{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        list-style: none;
+        .link{
+            text-decoration: none;
+            color: white;
+            font-weight: 800;
+        }
+    }
+}

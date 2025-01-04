@@ -1,8 +1,10 @@
+import styles from "./Table.module.scss";
+
 const Table = (props) => {
     const data = props.data;
     const columns = props.columns;
     return (
-        <table border="1" style={{ width: "100%", borderCollapse: "collapse" }}>
+        <table className={styles.table}>
             <thead>
                 <tr>
                     {columns.map((columns, index) => (
