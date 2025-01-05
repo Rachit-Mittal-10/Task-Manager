@@ -33,7 +33,7 @@ class Task {
     };
 
     static getTasks = async (userId) => {
-        const query = `SELECT tasks.id, tasks.title, tasks.start_time, tasks.end_time, tasks.status, tasks.priority, tasks.description FROM tasks WHERE tasks.user_id = ?`;
+        const query = `SELECT tasks.id, tasks.title, tasks.status, tasks.priority FROM tasks WHERE tasks.user_id = ?`;
         try {
             const [results] = await conn.query(query, [userId]);
             return results;
