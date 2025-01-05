@@ -3,9 +3,9 @@ import styles from "./Main.module.scss";
 
 const Main = () => {
     return (
-        <div className={styles.main}>
+        <main className={styles.main}>
             <RoutesList />
-        </div>
+        </main>
     );
 }
 
