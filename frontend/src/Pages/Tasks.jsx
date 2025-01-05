@@ -2,11 +2,13 @@ import TaskAPI from "../api/TaskAPI";
 import { useEffect, useState } from "react";
 import { checkArrayEmpty } from "../utils/utils";
 import Table from "../Components/Table";
-
+import close from "../assets/images/close.png";
 
 const TasksPage = () => {
     const [ tasks, setTasks ] = useState("");
     const [ error, setError ] = useState("");
+    const [ dialogStatus, setDialogStatus ] = useState(false);
+    const [ dialogData, setDialogData ] = useState("");
 
     useEffect(()=>{
         const fetchData = async () => {
@@ -26,7 +28,7 @@ const TasksPage = () => {
     if(!tasks){
         return (
             <div>
-                Loading
+                Loading!!!
             </div>
         );
     }
@@ -38,6 +40,12 @@ const TasksPage = () => {
         {label: "Priority", key: "priority"},
     ];
 
+    const onRowClick = (id) => {
+        console.log(id);
+
+    };
+
+
     return (
         <div className="task-page">
             <div>
@@ -45,8 +53,22 @@ const TasksPage = () => {
             </div>
             {!checkArrayEmpty(tasks.data) && (
                 <div className="table-wrapper">
-                    <Table data={tasks.data} columns={columns}/>
+                    <Table data={tasks.data} columns={columns} onRowClick={onRowClick} uniqueKey={"id"}/>
                 </div>
+            )}
+            {dialogStatus && (
+                <dialog>
+                    <div>
+                        <div><img src={close} alt="close sign"/></div>
+                    </div>
+                    <div>
+                        {JSON.stringify(dialogData)}
+                        {/* <form>
+                            <div>
+                            </div>
+                        </form> */}
+                    </div>
+                </dialog>
             )}
         </div>
     );
