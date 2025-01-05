@@ -42,7 +42,6 @@ const TasksPage = () => {
 
     const onRowClick = (id) => {
         console.log(id);
-
     };
 
 
@@ -55,20 +54,6 @@ const TasksPage = () => {
                 <div className="table-wrapper">
                     <Table data={tasks.data} columns={columns} onRowClick={onRowClick} uniqueKey={"id"}/>
                 </div>
-            )}
-            {dialogStatus && (
-                <dialog>
-                    <div>
-                        <div><img src={close} alt="close sign"/></div>
-                    </div>
-                    <div>
-                        {JSON.stringify(dialogData)}
-                        {/* <form>
-                            <div>
-                            </div>
-                        </form> */}
-                    </div>
-                </dialog>
             )}
         </div>
     );
