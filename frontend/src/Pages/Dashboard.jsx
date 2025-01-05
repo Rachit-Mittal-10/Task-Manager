@@ -12,6 +12,8 @@ import {
     Legend,
 } from "chart.js";
 import Table from "../Components/Table.jsx";
+import { checkArrayEmpty } from "../utils/utils.js";
+import styles from "./Dashboard.module.scss";
 
 Chart.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
@@ -80,20 +82,27 @@ const DashboardPage = () => {
     ];
 
     return (
-        <div className="dashboard">
+        <div className={styles.dashboard}>
             <div>
                 <h2>Dashboard Page</h2>
             </div>
             <div>
-                <p>Message: {dashboard && dashboard.message}</p>
                 <p>Total Count: {dashboard && dashboard.totalCount}</p>
             </div>
-            <div>
-                <Table data={dashboard.timeLapsedResult} columns={columns} />
-            </div>
-            <div className="count-chart">
-                <BarChart labels={labels} dataset={dataset} />
-            </div>
+            {!checkArrayEmpty(dashboard.timeLapsedResult) && (
+                <>
+                    <div>
+                        <Table data={dashboard.timeLapsedResult} columns={columns} />
+                    </div>
+                </>
+            )}
+            {!checkArrayEmpty(dashboard.countStatusresult) && (
+                <>
+                    <div className="count-chart">
+                        <BarChart labels={labels} dataset={dataset} />
+                    </div>
+                </>
+            )}
         </div>
     );
 };

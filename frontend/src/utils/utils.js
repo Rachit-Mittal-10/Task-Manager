@@ -17,4 +17,12 @@ const consoleFormData = (formData) => {
     }
 };
 
-export { checkTokenExpiry, consoleFormData };
+const checkArrayEmpty = (arr) => {
+    return (arr.length === 0);
+}
+
+export {
+    checkTokenExpiry,
+    consoleFormData,
+    checkArrayEmpty,
+};
