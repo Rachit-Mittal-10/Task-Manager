@@ -28,10 +28,9 @@ const TaskAPI = (() => {
     };
 
     const getTask = async (taskId) => {
+        console.log(`taskId in TaskAPI.getTask: ${taskId}`);
         try {
-            const response = await API.get("/task/", {
-                params: { taskId },
-            });
+            const response = await API.get(`/tasks/${taskId}`,);
             return response.data;
         } catch (err) {
             if (err.response) {

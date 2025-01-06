@@ -1,15 +1,15 @@
 import TaskAPI from "../api/TaskAPI";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { checkArrayEmpty } from "../utils/utils";
 import Table from "../Components/Table";
-import close from "../assets/images/close.png";
+import EditDialog from "../Components/EditDialog";
 
 const TasksPage = () => {
     const [ tasks, setTasks ] = useState("");
     const [ error, setError ] = useState("");
-    const [ dialogStatus, setDialogStatus ] = useState(false);
-    const [ dialogData, setDialogData ] = useState("");
-
+    const [ id, setID ] = useState(null);
+    const dialogRef = useRef(null);
+    
     useEffect(()=>{
         const fetchData = async () => {
             try{
@@ -42,8 +42,9 @@ const TasksPage = () => {
 
     const onRowClick = (id) => {
         console.log(id);
+        setID(id);
+        dialogRef.current.showModal();
     };
-
 
     return (
         <div className="task-page">
@@ -55,6 +56,7 @@ const TasksPage = () => {
                     <Table data={tasks.data} columns={columns} onRowClick={onRowClick} uniqueKey={"id"}/>
                 </div>
             )}
+            <EditDialog dialogRef={dialogRef} id={id} setID={setID} />
         </div>
     );
 };
