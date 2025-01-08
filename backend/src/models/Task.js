@@ -1,5 +1,6 @@
 import conn from "../config/mysql.js";
 import TaskError from "../utils/error/TaskError.js";
+import { stripTimeFromDate } from "../utils/utils.js";
 
 class Task {
     //* Create the task associated with userId
@@ -52,7 +53,8 @@ class Task {
                     `No Task Associated with this Task Id: ${taskId}`,
                 );
             }
-            return result;
+            const updatedResult = {...result, start_time: stripTimeFromDate(result.start_time), end_time: stripTimeFromDate(result.end_time)}
+            return updatedResult;
         } catch (err) {
             console.log(`Error getting the single task: ${err}`);
             throw err;

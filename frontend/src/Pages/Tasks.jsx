@@ -43,7 +43,9 @@ const TasksPage = () => {
     const onRowClick = (id) => {
         console.log(id);
         setID(id);
-        dialogRef.current.showModal();
+        if(dialogRef.current){
+            dialogRef.current.showModal();
+        }
     };
 
     return (

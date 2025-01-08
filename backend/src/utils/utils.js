@@ -76,6 +76,14 @@ const { customSort } = (() => {
     return { customSort };
 })();
 
+const stripTimeFromDate = (datetime) => {
+    if(!datetime){
+        return datetime;
+    }
+    const date = datetime.toISOString().split('T')[0];
+    return date;
+};
+
 export {
     hashPassword,
     verifyPassword,
@@ -83,4 +91,5 @@ export {
     jwtVerify,
     findRatio,
     customSort,
+    stripTimeFromDate
 };
