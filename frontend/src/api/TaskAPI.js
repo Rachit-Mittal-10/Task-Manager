@@ -1,3 +1,4 @@
+import { consoleFormData } from "../utils/utils";
 import API from "./axiosInstance";
 
 const TaskAPI = (() => {
@@ -28,9 +29,8 @@ const TaskAPI = (() => {
     };
 
     const getTask = async (taskId) => {
-        console.log(`taskId in TaskAPI.getTask: ${taskId}`);
         try {
-            const response = await API.get(`/tasks/${taskId}`,);
+            const response = await API.get(`/tasks/${taskId}`);
             return response.data;
         } catch (err) {
             if (err.response) {
@@ -41,10 +41,27 @@ const TaskAPI = (() => {
         }
     };
 
+    const updateTask = async (taskId, formData) => {
+        consoleFormData(formData);
+        try{
+            const response = await API.put(`/tasks/${taskId}`,formData);
+            return response.data;
+        }
+        catch(err){
+            if(err.response){
+                return err.response.data;
+            }
+            else{
+                console.log(err);
+            }
+        }
+    };
+
     return {
         createTask,
         getTasks,
         getTask,
+        updateTask
     };
 })();
 

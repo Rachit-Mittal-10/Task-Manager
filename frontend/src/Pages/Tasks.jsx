@@ -14,7 +14,6 @@ const TasksPage = () => {
         const fetchData = async () => {
             try{
                 const response = await TaskAPI.getTasks();
-                console.log(`Response: ${JSON.stringify(response)}`);
                 setTasks(response);
             }
             catch(err){
@@ -41,7 +40,6 @@ const TasksPage = () => {
     ];
 
     const onRowClick = (id) => {
-        console.log(id);
         setID(id);
         if(dialogRef.current){
             dialogRef.current.showModal();
