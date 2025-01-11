@@ -2,8 +2,7 @@ import { useEffect, useState } from "react";
 import close from "../assets/images/close.png";
 import styles from "./EditDialog.module.scss";
 import TaskAPI from "../api/TaskAPI";
-import { consoleFormData } from "../utils/utils";
-
+import { useAuth } from "../context/AuthContext";
 
 const EditDialog = (props) => {
     const dialogRef = props.dialogRef;
@@ -11,6 +10,7 @@ const EditDialog = (props) => {
     const setID = props.setID;
     const [ dialogData, setDialogData ] = useState({});
     const [ error, setError ] = useState("");
+    const { isAuthenticated } = useAuth();
 
     const closeDialog = () => {
         if(dialogRef.current){
@@ -19,6 +19,9 @@ const EditDialog = (props) => {
     };
 
     useEffect(() => {
+        if(!isAuthenticated){
+            return;
+        }
         const fetchData = async (id) => {
             if(!id){
                 closeDialog();
@@ -34,7 +37,7 @@ const EditDialog = (props) => {
             }
         }
         fetchData(id);
-    },[id])
+    },[id, isAuthenticated]);
 
     const handleCloseButtonClick = () => {
         closeDialog();

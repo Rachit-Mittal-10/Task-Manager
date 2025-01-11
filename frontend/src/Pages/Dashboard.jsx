@@ -14,6 +14,7 @@ import {
 import Table from "../Components/Table.jsx";
 import { checkArrayEmpty } from "../utils/utils.js";
 import styles from "./Dashboard.module.scss";
+import { useAuth } from "../context/AuthContext.jsx";
 
 Chart.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
@@ -54,8 +55,12 @@ const BarChart = (props) => {
 const DashboardPage = () => {
     const [dashboard, setDashboard] = useState("");
     const [error, setError] = useState("");
+    const { isAuthenticated } = useAuth();
 
     useEffect(() => {
+        if(!isAuthenticated){
+            return;
+        }
         const fetchData = async () => {
             try {
                 const response = await DashboardAPI.getDashboard();
@@ -65,7 +70,7 @@ const DashboardPage = () => {
             }
         };
         fetchData();
-    }, []);
+    }, [isAuthenticated]);
 
     if (!dashboard) {
         return <div>Loading!!!</div>;
