@@ -10,7 +10,7 @@
 - [ ] make entire front-end(so much work to do)
 - [ ] include the encryption library to send the data to backend encrypted
 - [X] rework on `onInputChange` in `editDialog.jsx`
-- [ ] `updateTask` in `TaskAPI.jsx` not working
+- [X] `updateTask` in `TaskAPI.jsx` not working
 
 ## Database Task to do:
 - [ ] modify the existing table to include name(first name, middle name, last name)
