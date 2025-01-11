@@ -4,6 +4,7 @@ import { checkArrayEmpty } from "../utils/utils";
 import Table from "../Components/Table";
 import EditDialog from "../Components/EditDialog";
 import { useAuth } from "../context/AuthContext";
+import styles from "./Tasks.module.scss";
 
 const TasksPage = () => {
     const [ tasks, setTasks ] = useState("");
@@ -52,16 +53,18 @@ const TasksPage = () => {
     };
 
     return (
-        <div className="task-page">
+        <div className={styles.tasks} >
             <div>
                 <h2>Tasks Page</h2>
             </div>
             {!checkArrayEmpty(tasks.data) && (
-                <div className="table-wrapper">
+                <div className={styles.tableWrapper} >
                     <Table data={tasks.data} columns={columns} onRowClick={onRowClick} uniqueKey={"id"}/>
                 </div>
             )}
-            <EditDialog dialogRef={dialogRef} id={id} setID={setID} />
+            <div className={styles.dialogOverlay} >
+                <EditDialog dialogRef={dialogRef} id={id} setID={setID} />
+            </div>
         </div>
     );
 };

@@ -71,45 +71,47 @@ const EditDialog = (props) => {
 
     return (
         <dialog ref={dialogRef} className={styles.editDialog} >
-            <div className={styles.header}>
-                <button onClick={handleCloseButtonClick} className={styles.closeButton}>
-                    <img src={close} alt="close button" className={styles.closeImage} />
-                </button>
-            </div>
-            <div className={styles.dataWrapper}>
-                <form>
-                    <div>
-                        <label htmlFor="id">ID:</label>
-                        <input type="number" id="id" name="id" value={dialogData?.id ?? ""} onChange={onInputChange} readOnly />
-                    </div>
-                    <div>
-                        <label htmlFor="title">Title:</label>
-                        <input type="text" id="title" name="title" value={dialogData?.title ?? ""} onChange={onInputChange} />
-                    </div>
-                    <div>
-                        <label htmlFor="status">Status:</label>
-                        <input type="text" id="status" name="status" value={dialogData?.status ?? ""} onChange={onInputChange} />
-                    </div>
-                    <div>
-                        <label htmlFor="priority">Priority:</label>
-                        <input type="text" id="priority" name="priority" value={dialogData?.priority ?? ""} onChange={onInputChange} />
-                    </div> 
-                    <div>
-                        <label htmlFor="start_time">Start Time:</label>
-                        <input type="date" id="start_time" name="start_time" value={dialogData?.start_time ?? ""} onChange={onInputChange} />
-                    </div>
-                    <div>
-                        <label htmlFor="end_time">End Time:</label>
-                        <input type="date" id="end_time" name="end_time" value={dialogData?.end_time ?? ""} onChange={onInputChange} />
-                    </div>
-                    <div>
-                        <label htmlFor="description">Description:</label>
-                        <input type="text" id="description" name="description" value={dialogData?.description ?? ""} onChange={onInputChange} />
-                    </div>
-                    <div className={styles.submitWrapper}>
-                        <button className={styles.submitButton} onClick={onSubmitClick}>Submit</button>
-                    </div>
-                </form>
+            <div className={styles.wrapper} >
+                <div className={styles.header}>
+                    <button onClick={handleCloseButtonClick} className={styles.closeButton}>
+                        <img src={close} alt="close button" className={styles.closeImage} />
+                    </button>
+                </div>
+                <div className={styles.dataWrapper}>
+                    <form>
+                        <div>
+                            <label htmlFor="id">ID:</label>
+                            <input type="number" id="id" name="id" value={dialogData?.id ?? ""} onChange={onInputChange} readOnly />
+                        </div>
+                        <div>
+                            <label htmlFor="title">Title:</label>
+                            <input type="text" id="title" name="title" value={dialogData?.title ?? ""} onChange={onInputChange} />
+                        </div>
+                        <div>
+                            <label htmlFor="status">Status:</label>
+                            <input type="text" id="status" name="status" value={dialogData?.status ?? ""} onChange={onInputChange} />
+                        </div>
+                        <div>
+                            <label htmlFor="priority">Priority:</label>
+                            <input type="text" id="priority" name="priority" value={dialogData?.priority ?? ""} onChange={onInputChange} />
+                        </div> 
+                        <div>
+                            <label htmlFor="start_time">Start Time:</label>
+                            <input type="date" id="start_time" name="start_time" value={dialogData?.start_time ?? ""} onChange={onInputChange} />
+                        </div>
+                        <div>
+                            <label htmlFor="end_time">End Time:</label>
+                            <input type="date" id="end_time" name="end_time" value={dialogData?.end_time ?? ""} onChange={onInputChange} />
+                        </div>
+                        <div>
+                            <label htmlFor="description">Description:</label>
+                            <input type="text" id="description" name="description" value={dialogData?.description ?? ""} onChange={onInputChange} />
+                        </div>
+                        <div className={styles.submitWrapper}>
+                            <button className={styles.submitButton} onClick={onSubmitClick}>Submit</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </dialog>
     );
