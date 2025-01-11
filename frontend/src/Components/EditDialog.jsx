@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import close from "../assets/images/close.png";
 import styles from "./EditDialog.module.scss";
 import TaskAPI from "../api/TaskAPI";
+import { consoleFormData } from "../utils/utils";
 
 
 const EditDialog = (props) => {
@@ -48,15 +49,8 @@ const EditDialog = (props) => {
 
     const onSubmitClick = async (e) => {
         e.preventDefault();
-        if(!dialogData.entries){
-            setError("No Input!!!");
-        }
-        const formData = new FormData();
-        for([key, value] in dialogData.entries){
-            if(key == "id"){
-                continue;
-            }
-            formData.append(key,value);
+        const formData = {
+            "task": dialogData
         }
         try{
             const response = await TaskAPI.updateTask(id,formData);
@@ -83,7 +77,7 @@ const EditDialog = (props) => {
                 <form>
                     <div>
                         <label htmlFor="id">ID:</label>
-                        <input type="number" id="id" name="id" value={dialogData?.id ?? ""} onChange={onInputChange} />
+                        <input type="number" id="id" name="id" value={dialogData?.id ?? ""} onChange={onInputChange} readOnly />
                     </div>
                     <div>
                         <label htmlFor="title">Title:</label>

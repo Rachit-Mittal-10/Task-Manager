@@ -1,4 +1,3 @@
-import { consoleFormData } from "../utils/utils";
 import API from "./axiosInstance";
 
 const TaskAPI = (() => {
@@ -42,7 +41,7 @@ const TaskAPI = (() => {
     };
 
     const updateTask = async (taskId, formData) => {
-        consoleFormData(formData);
+        console.log(formData);
         try{
             const response = await API.put(`/tasks/${taskId}`,formData);
             return response.data;
