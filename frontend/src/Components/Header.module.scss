@@ -1,6 +1,8 @@
 header{
     padding: 25px 100px;
     background-color: rgba(20, 65, 189, 0.9);
+    position: sticky;
+    top: 0;
     ul{
         display: flex;
         flex-direction: row;
