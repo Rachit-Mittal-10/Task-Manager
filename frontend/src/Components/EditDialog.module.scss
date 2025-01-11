@@ -1,14 +1,9 @@
 .editDialog{
-    padding: 15px 15px 25px 25px;
-    width: 50vw;
+    padding: 25px 10px 25px 25px;
     .wrapper{
         display: flex;
         flex-direction: row-reverse;
-        align-items: start;
         .header{
-            flex-direction: row;
-            justify-content: end;
-            align-items: center;
             button{
                 border: none;
                 background-color: black;
@@ -23,9 +18,21 @@
         }
         .dataWrapper{
             flex-direction: column;
-            gap: 20px;
             div+div{
                 margin-top: 20px;
+            }
+            .submitWrapper{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                .submitButton{
+                    border: none;
+                    padding: 10px 15px;
+                    background-color: rgba(20, 65, 189, 0.9);
+                    color: white;
+                    font-size: 20px;
+                    font-weight: 800;
+                }
             }
         }
     }
