@@ -1,18 +1,10 @@
 .editDialog{
-    padding: 15px 15px 20px 30px;
+    padding: 15px 15px 25px 25px;
     width: 50vw;
     .wrapper{
         display: flex;
         flex-direction: row-reverse;
         align-items: start;
-        form{
-            div+div{
-                margin-top: 20px;
-            }
-        }
-        div{
-            display: flex;
-        }
         .header{
             flex-direction: row;
             justify-content: end;
@@ -32,6 +24,9 @@
         .dataWrapper{
             flex-direction: column;
             gap: 20px;
+            div+div{
+                margin-top: 20px;
+            }
         }
     }
 }
