@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { classifyInput } from "../utils/sanitizeInput";
 import Button from "../Components/Button";
+import styles from "./Login.module.scss";
 
 const LoginPage = () => {
     const { login } = useAuth();
@@ -35,7 +36,7 @@ const LoginPage = () => {
     };
 
     return (
-        <div className="login">
+        <div className={styles.Login}>
             <div>
                 <h2>Login</h2>
             </div>
@@ -50,6 +51,7 @@ const LoginPage = () => {
                             type="text"
                             value={identifier}
                             onChange={(e) => setIdentifier(e.target.value)}
+                            autoComplete="on"
                             required
                         />
                     </div>
@@ -60,6 +62,8 @@ const LoginPage = () => {
                             name="password"
                             id="password"
                             onChange={(e) => setPassword(e.target.value)}
+                            autoComplete="current-password"
+                            placeholder="Password"
                             required
                         />
                     </div>

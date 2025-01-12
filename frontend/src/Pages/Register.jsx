@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import Button from "../Components/Button";
+import styles from "./Register.module.scss";
 
 const RegisterPage = () => {
     const { register } = useAuth();
@@ -32,7 +33,7 @@ const RegisterPage = () => {
         }
     };
     return (
-        <div className="register">
+        <div className={styles.Register}>
             <div>
                 <h2>Register</h2>
             </div>
@@ -48,8 +49,11 @@ const RegisterPage = () => {
                             type="text"
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
+                            autoComplete="on"
                             required
                         />
+                    </div>
+                    <div>
                         <label htmlFor="email">Email:</label>
                         <input
                             id="email"
@@ -58,8 +62,11 @@ const RegisterPage = () => {
                             type="text"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
+                            autoComplete="on"
                             required
                         />
+                    </div>
+                    <div>
                         <label htmlFor="password">Password:</label>
                         <input
                             id="password"
@@ -68,6 +75,7 @@ const RegisterPage = () => {
                             type="password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
+                            autoComplete="new-password"
                             required
                         />
                     </div>
