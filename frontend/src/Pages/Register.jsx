@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import Button from "../Components/Button";
 
 const RegisterPage = () => {
     const { register } = useAuth();
@@ -71,9 +72,7 @@ const RegisterPage = () => {
                         />
                     </div>
                     <div>
-                        <button type="submit" onClick={handleSubmit}>
-                            Submit
-                        </button>
+                        <Button text="Submit" type="submit" onClick={handleSubmit} />
                     </div>
                 </form>
             </div>

@@ -3,6 +3,7 @@ import close from "../assets/images/close.png";
 import styles from "./EditDialog.module.scss";
 import TaskAPI from "../api/TaskAPI";
 import { useAuth } from "../context/AuthContext";
+import Button from "./Button";
 
 const EditDialog = (props) => {
     const dialogRef = props.dialogRef;
@@ -97,7 +98,6 @@ const EditDialog = (props) => {
                         </div>
                         <div>
                             <label htmlFor="status">Status:</label>
-                            {/* <input type="text" id="status" name="status" value={dialogData?.status ?? ""} onChange={onInputChange} /> */}
                             <select id="status" name="status" value={dialogData?.status ?? "not_set"} onChange={onInputChange} >
                                 <option value="not_set">Not Set</option>
                                 <option value="planned">Planned</option>
@@ -107,7 +107,6 @@ const EditDialog = (props) => {
                         </div>
                         <div>
                             <label htmlFor="priority">Priority:</label>
-                            {/* <input type="text" id="priority" name="priority" value={dialogData?.priority ?? ""} onChange={onInputChange} /> */}
                             <select id="priority" name="priority" value={dialogData?.priority ?? ""} onChange={onInputChange} >
                                 <option value="low">Low</option>
                                 <option value="medium">Medium</option>
@@ -127,7 +126,7 @@ const EditDialog = (props) => {
                             <input type="text" id="description" name="description" value={dialogData?.description ?? ""} onChange={onInputChange} />
                         </div>
                         <div className={styles.submitWrapper}>
-                            <button className={styles.submitButton} onClick={onSubmitClick}>Submit</button>
+                            <Button text="Submit" type="submit" onClick={onSubmitClick} />
                         </div>
                     </form>
                 </div>

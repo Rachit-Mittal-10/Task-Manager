@@ -7,11 +7,11 @@
             button{
                 border: none;
                 background-color: black;
-                border-radius: 20px;
+                border-radius: 50%;
                 display: flex;
                 img{
-                    width: 40px;
-                    height: 40px;
+                    width: 30px;
+                    height: 30px;
                 }
                 align-items: center;
             }
@@ -25,14 +25,6 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                .submitButton{
-                    border: none;
-                    padding: 10px 15px;
-                    background-color: rgba(20, 65, 189, 0.9);
-                    color: white;
-                    font-size: 20px;
-                    font-weight: 800;
-                }
             }
         }
     }

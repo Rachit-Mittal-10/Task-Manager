@@ -2,6 +2,7 @@ import { useAuth } from "../context/AuthContext";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { classifyInput } from "../utils/sanitizeInput";
+import Button from "../Components/Button";
 
 const LoginPage = () => {
     const { login } = useAuth();
@@ -63,9 +64,7 @@ const LoginPage = () => {
                         />
                     </div>
                     <div>
-                        <button type="submit" onClick={handleSubmit}>
-                            Submit
-                        </button>
+                        <Button text="Submit" type="submit" onClick={handleSubmit}/>
                     </div>
                 </form>
             </div>
