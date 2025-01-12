@@ -2,7 +2,7 @@
 
 ### Prerequisites:
 - Docker or MySQL locally installed
-- NodeJS LTS Version
+- NodeJS Version 22.12.x
 
 ```
 Note: Docker Version is preferable.
