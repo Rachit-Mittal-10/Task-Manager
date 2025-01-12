@@ -3,15 +3,16 @@ import { useEffect, useState, useRef } from "react";
 import { checkArrayEmpty } from "../utils/utils";
 import Table from "../Components/Table";
 import EditDialog from "../Components/EditDialog";
-import { useAuth } from "../context/AuthContext";
 import styles from "./Tasks.module.scss";
+import { useAuth } from "../context/AuthContext";
+
 
 const TasksPage = () => {
     const [ tasks, setTasks ] = useState("");
     const [ error, setError ] = useState("");
     const [ id, setID ] = useState(null);
     const dialogRef = useRef(null);
-    const { isAuthenticated } = useAuth();
+    const  { isAuthenticated } = useAuth();
 
     useEffect(()=>{
         if(!isAuthenticated){
