@@ -8,9 +8,11 @@ const EditDialog = (props) => {
     const dialogRef = props.dialogRef;
     const id = props.id;
     const setID = props.setID;
+    const setTasks = props.setTasks;
     const [ dialogData, setDialogData ] = useState({});
     const [ error, setError ] = useState("");
     const { isAuthenticated } = useAuth();
+    const [ updated, setUpdated ] = useState(false);
 
     const closeDialog = () => {
         if(dialogRef.current){
@@ -30,6 +32,7 @@ const EditDialog = (props) => {
             try{
                 const response = await TaskAPI.getTask(id);
                 setDialogData(response?.data || {});
+                setUpdated(false);
             }
             catch(err){
                 setError(err);
@@ -48,6 +51,7 @@ const EditDialog = (props) => {
     const onInputChange = (e) => {
         const {name, value} = e.target;
         setDialogData({...dialogData, [name]:value});
+        setUpdated(true);
     };
 
     const onSubmitClick = async (e) => {
@@ -59,6 +63,10 @@ const EditDialog = (props) => {
             const response = await TaskAPI.updateTask(id,formData);
             if(response.message){
                 closeDialog();
+                if(updated){
+                    const responseNew = await TaskAPI.getTasks();
+                    setTasks(responseNew);
+                }
             }
             else{
                 setError(response);
@@ -89,11 +97,22 @@ const EditDialog = (props) => {
                         </div>
                         <div>
                             <label htmlFor="status">Status:</label>
-                            <input type="text" id="status" name="status" value={dialogData?.status ?? ""} onChange={onInputChange} />
+                            {/* <input type="text" id="status" name="status" value={dialogData?.status ?? ""} onChange={onInputChange} /> */}
+                            <select id="status" name="status" value={dialogData?.status ?? "not_set"} onChange={onInputChange} >
+                                <option value="not_set">Not Set</option>
+                                <option value="planned">Planned</option>
+                                <option value="pending">Pending</option>
+                                <option value="finished">Finished</option>
+                            </select>
                         </div>
                         <div>
                             <label htmlFor="priority">Priority:</label>
-                            <input type="text" id="priority" name="priority" value={dialogData?.priority ?? ""} onChange={onInputChange} />
+                            {/* <input type="text" id="priority" name="priority" value={dialogData?.priority ?? ""} onChange={onInputChange} /> */}
+                            <select id="priority" name="priority" value={dialogData?.priority ?? ""} onChange={onInputChange} >
+                                <option value="low">Low</option>
+                                <option value="medium">Medium</option>
+                                <option value="high">High</option>
+                            </select>;
                         </div> 
                         <div>
                             <label htmlFor="start_time">Start Time:</label>

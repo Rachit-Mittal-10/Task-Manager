@@ -63,7 +63,7 @@ const TasksPage = () => {
                 </div>
             )}
             <div className={styles.dialogOverlay} >
-                <EditDialog dialogRef={dialogRef} id={id} setID={setID} />
+                <EditDialog dialogRef={dialogRef} id={id} setID={setID} setTasks={setTasks}/>
             </div>
         </div>
     );
