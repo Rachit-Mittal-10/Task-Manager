@@ -53,7 +53,11 @@ class Task {
                     `No Task Associated with this Task Id: ${taskId}`,
                 );
             }
-            const updatedResult = {...result, start_time: stripTimeFromDate(result.start_time), end_time: stripTimeFromDate(result.end_time)}
+            const updatedResult = {
+                ...result,
+                start_time: stripTimeFromDate(result.start_time),
+                end_time: stripTimeFromDate(result.end_time),
+            };
             return updatedResult;
         } catch (err) {
             console.log(`Error getting the single task: ${err}`);

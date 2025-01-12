@@ -58,7 +58,7 @@ const DashboardPage = () => {
     const { isAuthenticated } = useAuth();
 
     useEffect(() => {
-        if(!isAuthenticated){
+        if (!isAuthenticated) {
             return;
         }
         const fetchData = async () => {
@@ -97,7 +97,10 @@ const DashboardPage = () => {
             {!checkArrayEmpty(dashboard.timeLapsedResult) && (
                 <>
                     <div>
-                        <Table data={dashboard.timeLapsedResult} columns={columns} />
+                        <Table
+                            data={dashboard.timeLapsedResult}
+                            columns={columns}
+                        />
                     </div>
                 </>
             )}

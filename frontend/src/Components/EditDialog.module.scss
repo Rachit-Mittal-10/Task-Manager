@@ -1,27 +1,27 @@
-.editDialog{
+.editDialog {
     padding: 25px 10px 25px 25px;
-    .wrapper{
+    .wrapper {
         display: flex;
         flex-direction: row-reverse;
-        .header{
-            button{
+        .header {
+            button {
                 border: none;
                 background-color: black;
                 border-radius: 50%;
                 display: flex;
-                img{
+                img {
                     width: 30px;
                     height: 30px;
                 }
                 align-items: center;
             }
         }
-        .dataWrapper{
+        .dataWrapper {
             flex-direction: column;
-            div+div{
+            div + div {
                 margin-top: 20px;
             }
-            .submitWrapper{
+            .submitWrapper {
                 display: flex;
                 justify-content: center;
                 align-items: center;

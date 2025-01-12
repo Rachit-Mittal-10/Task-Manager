@@ -77,10 +77,10 @@ const { customSort } = (() => {
 })();
 
 const stripTimeFromDate = (datetime) => {
-    if(!datetime){
+    if (!datetime) {
         return datetime;
     }
-    const date = datetime.toISOString().split('T')[0];
+    const date = datetime.toISOString().split("T")[0];
     return date;
 };
 
@@ -91,5 +91,5 @@ export {
     jwtVerify,
     findRatio,
     customSort,
-    stripTimeFromDate
+    stripTimeFromDate,
 };

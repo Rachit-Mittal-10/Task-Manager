@@ -1,15 +1,15 @@
-header{
+header {
     padding: 25px 100px;
     background-color: rgba(20, 65, 189, 0.9);
     position: sticky;
     top: 0;
-    ul{
+    ul {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
         list-style: none;
-        .link{
+        .link {
             text-decoration: none;
             color: white;
             font-weight: 800;

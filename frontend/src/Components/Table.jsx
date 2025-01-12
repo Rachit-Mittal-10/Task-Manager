@@ -7,7 +7,7 @@ const Table = (props) => {
     const uniqueKey = props.uniqueKey;
 
     const handleRowClick = (row) => {
-        if(onRowClick){
+        if (onRowClick) {
             onRowClick(row[uniqueKey]);
         }
     };
@@ -23,7 +23,12 @@ const Table = (props) => {
             </thead>
             <tbody>
                 {data.map((row, index) => (
-                    <tr key={index} onClick={() => {handleRowClick(row)}}>
+                    <tr
+                        key={index}
+                        onClick={() => {
+                            handleRowClick(row);
+                        }}
+                    >
                         {columns.map((column, index) => (
                             <td key={index}>{row[column.key]}</td>
                         ))}

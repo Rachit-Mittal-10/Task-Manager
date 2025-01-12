@@ -42,15 +42,13 @@ const TaskAPI = (() => {
 
     const updateTask = async (taskId, formData) => {
         console.log(formData);
-        try{
-            const response = await API.put(`/tasks/${taskId}`,formData);
+        try {
+            const response = await API.put(`/tasks/${taskId}`, formData);
             return response.data;
-        }
-        catch(err){
-            if(err.response){
+        } catch (err) {
+            if (err.response) {
                 return err.response.data;
-            }
-            else{
+            } else {
                 console.log(err);
             }
         }
@@ -60,7 +58,7 @@ const TaskAPI = (() => {
         createTask,
         getTasks,
         getTask,
-        updateTask
+        updateTask,
     };
 })();
 

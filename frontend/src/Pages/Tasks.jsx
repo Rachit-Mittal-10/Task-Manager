@@ -6,65 +6,69 @@ import EditDialog from "../Components/EditDialog";
 import styles from "./Tasks.module.scss";
 import { useAuth } from "../context/AuthContext";
 
-
 const TasksPage = () => {
-    const [ tasks, setTasks ] = useState("");
-    const [ error, setError ] = useState("");
-    const [ id, setID ] = useState(null);
+    const [tasks, setTasks] = useState("");
+    const [error, setError] = useState("");
+    const [id, setID] = useState(null);
     const dialogRef = useRef(null);
-    const  { isAuthenticated } = useAuth();
+    const { isAuthenticated } = useAuth();
 
-    useEffect(()=>{
-        if(!isAuthenticated){
+    useEffect(() => {
+        if (!isAuthenticated) {
             return;
         }
         const fetchData = async () => {
-            try{
+            try {
                 const response = await TaskAPI.getTasks();
                 setTasks(response);
-            }
-            catch(err){
+            } catch (err) {
                 setError(err);
             }
         };
         fetchData();
-    },[isAuthenticated]);
+    }, [isAuthenticated]);
     // Lovely: 9560070430
 
-    if(!tasks){
-        return (
-            <div>
-                Loading!!!
-            </div>
-        );
+    if (!tasks) {
+        return <div>Loading!!!</div>;
     }
 
     const columns = [
-        {label: "ID", key: "id"},
-        {label: "Title", key: "title"},
-        {label: "Status", key: "status"},
-        {label: "Priority", key: "priority"},
+        { label: "ID", key: "id" },
+        { label: "Title", key: "title" },
+        { label: "Status", key: "status" },
+        { label: "Priority", key: "priority" },
     ];
 
     const onRowClick = (id) => {
         setID(id);
-        if(dialogRef.current){
+        if (dialogRef.current) {
             dialogRef.current.showModal();
         }
     };
 
     return (
-        <div className={styles.tasks} >
+        <div className={styles.tasks}>
             <div>
                 <h2>Tasks Page</h2>
             </div>
             {!checkArrayEmpty(tasks.data) && (
-                <div className={styles.tableWrapper} >
-                    <Table data={tasks.data} columns={columns} onRowClick={onRowClick} uniqueKey={"id"}/>
+                <div className={styles.tableWrapper}>
+                    <Table
+                        data={tasks.data}
+                        columns={columns}
+                        onRowClick={onRowClick}
+                        uniqueKey={"id"}
+                    />
                 </div>
             )}
-            <div className={styles.dialogOverlay} >
-                <EditDialog dialogRef={dialogRef} id={id} setID={setID} setTasks={setTasks}/>
+            <div className={styles.dialogOverlay}>
+                <EditDialog
+                    dialogRef={dialogRef}
+                    id={id}
+                    setID={setID}
+                    setTasks={setTasks}
+                />
             </div>
         </div>
     );

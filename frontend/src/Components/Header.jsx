@@ -8,15 +8,35 @@ const Header = () => {
         <header className={styles.header}>
             <nav>
                 <ul>
-                    <li><Link to="/register" className={styles.link}>Register</Link></li>
-                    {!isAuthenticated &&
-                        <li><Link to="/login" className={styles.link}>Login</Link></li>
-                    }
+                    <li>
+                        <Link to="/register" className={styles.link}>
+                            Register
+                        </Link>
+                    </li>
+                    {!isAuthenticated && (
+                        <li>
+                            <Link to="/login" className={styles.link}>
+                                Login
+                            </Link>
+                        </li>
+                    )}
                     {isAuthenticated && (
                         <>
-                            <li><Link to="/dashboard" className={styles.link}>Dashboard</Link></li>
-                            <li><Link to="/tasks" className={styles.link}>Tasks</Link></li>
-                            <li><Link to="/user" className={styles.link}>User</Link></li>
+                            <li>
+                                <Link to="/dashboard" className={styles.link}>
+                                    Dashboard
+                                </Link>
+                            </li>
+                            <li>
+                                <Link to="/tasks" className={styles.link}>
+                                    Tasks
+                                </Link>
+                            </li>
+                            <li>
+                                <Link to="/user" className={styles.link}>
+                                    User
+                                </Link>
+                            </li>
                         </>
                     )}
                 </ul>

@@ -68,7 +68,11 @@ const LoginPage = () => {
                         />
                     </div>
                     <div>
-                        <Button text="Submit" type="submit" onClick={handleSubmit}/>
+                        <Button
+                            text="Submit"
+                            type="submit"
+                            onClick={handleSubmit}
+                        />
                     </div>
                 </form>
             </div>

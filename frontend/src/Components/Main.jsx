@@ -7,6 +7,6 @@ const Main = () => {
             <RoutesList />
         </main>
     );
-}
+};
 
 export default Main;
