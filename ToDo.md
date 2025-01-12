@@ -11,7 +11,9 @@
 - [ ] include the encryption library to send the data to backend encrypted
 - [X] rework on `onInputChange` in `editDialog.jsx`
 - [X] `updateTask` in `TaskAPI.jsx` not working
-- [ ] update the css
+- [X] update the css for dialog page
+- [ ] update the css for login, register and dashboard page
+- [ ] work on users page
 
 ## Database Task to do:
 - [ ] modify the existing table to include name(first name, middle name, last name)
