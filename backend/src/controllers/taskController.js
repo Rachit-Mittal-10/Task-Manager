@@ -1,5 +1,4 @@
 import { Task } from "../models/Task.js";
-import { findRatio } from "../utils/utils.js";
 import TaskError from "../utils/error/TaskError.js";
 
 const createTask = async (req, res) => {
@@ -18,7 +17,7 @@ const createTask = async (req, res) => {
             user.id,
             body.title,
             body.status || "planned",
-            body.priority || "not set",
+            body.priority || "not_set",
             body.start_time || null,
             body.end_time || null,
             body.description || null,
@@ -62,26 +61,6 @@ const getTask = async (req, res) => {
         return res.status(400).json({
             name: err.name,
             message: err.message,
-        });
-    }
-};
-
-const getCountInformation = async (req, res) => {
-    const userId = req.user.id;
-    try {
-        // const result = await Task.getCountInformation(userId);
-        const totalCount = await Task.getTotalCount(userId);
-        let result = await Task.getCountByStatus(userId);
-        result = findRatio(result, totalCount);
-        res.status(200).json({
-            message: "Data Fetched Successfully",
-            totalCount,
-            data: result,
-        });
-    } catch (err) {
-        console.log(err);
-        res.status(400).json({
-            message: "Data Fetch is unsuccessful",
         });
     }
 };
@@ -135,11 +114,14 @@ const deleteTask = async (req, res) => {
     }
 };
 
-export {
-    createTask,
-    getTasks,
-    getTask,
-    getCountInformation,
-    updateTask,
-    deleteTask,
+const getTimeLapse = async (req, res) => {
+    const userId = req.user.id;
+    try {
+        await Task.getTimelapse(userId);
+        res.status(200).json({ message: "Success" });
+    } catch (err) {
+        res.status(400).json({ message: "Error" });
+    }
 };
+
+export { createTask, getTasks, getTask, updateTask, deleteTask, getTimeLapse };

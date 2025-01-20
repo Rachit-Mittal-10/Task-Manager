@@ -1,0 +1,31 @@
+.editDialog {
+    padding: 25px 10px 25px 25px;
+    .wrapper {
+        display: flex;
+        flex-direction: row-reverse;
+        .header {
+            button {
+                border: none;
+                background-color: black;
+                border-radius: 50%;
+                display: flex;
+                img {
+                    width: 30px;
+                    height: 30px;
+                }
+                align-items: center;
+            }
+        }
+        .dataWrapper {
+            flex-direction: column;
+            div + div {
+                margin-top: 20px;
+            }
+            .submitWrapper {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+        }
+    }
+}

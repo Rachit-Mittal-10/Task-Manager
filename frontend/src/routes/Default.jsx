@@ -4,16 +4,15 @@ import { useNavigate } from "react-router-dom";
 
 const Default = () => {
     const navigate = useNavigate();
-    const {isAuthenticated} = useAuth();
-    
-    useEffect(()=>{
-        if(isAuthenticated){
-            navigate("/dashboard",{replace:true});
+    const { isAuthenticated } = useAuth();
+
+    useEffect(() => {
+        if (isAuthenticated) {
+            navigate("/dashboard", { replace: true });
+        } else {
+            navigate("/login", { replace: true });
         }
-        else{
-            navigate("/login", {replace: true});
-        }
-    },[isAuthenticated, navigate]);
+    }, [isAuthenticated, navigate]);
 };
 
 export default Default;

@@ -6,34 +6,15 @@ import User from "./User";
 import Tasks from "./Tasks";
 import Default from "./Default";
 
-
 const RoutesList = () => {
     return (
         <Routes>
-            <Route
-                path="/login"
-                element={<Login />}
-            />
-            <Route
-                path="/register"
-                element={<Register/>}
-            />
-            <Route
-                path="/dashboard"
-                element={<Dashboard/>}
-            />
-            <Route
-                path="/tasks"
-                element={<Tasks/>}
-            />
-            <Route
-                path="/user"
-                element={<User/>}
-            />
-            <Route
-                path="*"
-                element={<Default/>}
-            />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/tasks" element={<Tasks />} />
+            <Route path="/user" element={<User />} />
+            <Route path="*" element={<Default />} />
         </Routes>
     );
 };

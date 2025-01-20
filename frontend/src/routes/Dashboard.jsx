@@ -3,15 +3,14 @@ import { useAuth } from "../context/AuthContext";
 import DashboardPage from "../Pages/Dashboard";
 import { useEffect } from "react";
 
-
 const Dashboard = () => {
     const { isAuthenticated } = useAuth();
     const navigate = useNavigate();
-    useEffect(()=>{
-        if(!isAuthenticated){
-            navigate("/login",{replace: true});
+    useEffect(() => {
+        if (!isAuthenticated) {
+            navigate("/login", { replace: true });
         }
-    },[isAuthenticated,navigate]);
+    }, [isAuthenticated, navigate]);
     return <DashboardPage />;
 };
 

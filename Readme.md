@@ -2,7 +2,7 @@
 
 ### Prerequisites:
 - Docker or MySQL locally installed
-- NodeJS LTS Version
+- NodeJS Version 22.12.x
 
 ```
 Note: Docker Version is preferable.
@@ -69,4 +69,7 @@ For MySQL You would need to initialise the db.
 
 7. `DELETE /tasks/:taskId`: API End Point to delete the task. Protected
 
+- Parameters:
+
+8. `GET /`: API End Point to get the dashboard. Protected
 - Parameters:

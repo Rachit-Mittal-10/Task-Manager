@@ -1,0 +1,18 @@
+table {
+    border: 5px black solid;
+    border-collapse: collapse;
+    width: 100%;
+    thead {
+        border: 3px black solid;
+    }
+    th,
+    td {
+        padding: 12px 8px;
+        text-align: center;
+        border: 1px grey none;
+        font-weight: 500;
+    }
+    tr {
+        cursor: pointer;
+    }
+}

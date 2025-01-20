@@ -1,5 +1,6 @@
 import conn from "../config/mysql.js";
 import TaskError from "../utils/error/TaskError.js";
+import { stripTimeFromDate } from "../utils/utils.js";
 
 class Task {
     //* Create the task associated with userId
@@ -7,7 +8,7 @@ class Task {
         userId,
         title,
         status = "planned",
-        priority = "not set",
+        priority = "not_set",
         start_time = null,
         end_time = null,
         description = null,
@@ -33,7 +34,7 @@ class Task {
     };
 
     static getTasks = async (userId) => {
-        const query = `SELECT tasks.id, tasks.title, tasks.start_time, tasks.end_time, tasks.status, tasks.priority, tasks.description FROM tasks WHERE tasks.user_id = ?`;
+        const query = `SELECT tasks.id, tasks.title, tasks.status, tasks.priority FROM tasks WHERE tasks.user_id = ?`;
         try {
             const [results] = await conn.query(query, [userId]);
             return results;
@@ -52,7 +53,12 @@ class Task {
                     `No Task Associated with this Task Id: ${taskId}`,
                 );
             }
-            return result;
+            const updatedResult = {
+                ...result,
+                start_time: stripTimeFromDate(result.start_time),
+                end_time: stripTimeFromDate(result.end_time),
+            };
+            return updatedResult;
         } catch (err) {
             console.log(`Error getting the single task: ${err}`);
             throw err;
@@ -100,6 +106,16 @@ class Task {
         } catch (err) {
             console.log(`Error in getCountByStatus: ${err}`);
             throw err;
+        }
+    };
+
+    static getTimelapse = async (userId) => {
+        const query = `SELECT tasks.status,tasks.priority, SUM( CASE WHEN NOW() > tasks.end_time THEN 0 ELSE DATEDIFF(NOW(), tasks.start_time) END ) AS 'Time_Lapsed', SUM( CASE WHEN NOW() > tasks.end_time THEN 0 ELSE DATEDIFF(tasks.end_time, NOW()) END) AS 'Balanced_Time' FROM tasks WHERE tasks.user_id = ? AND tasks.status IN ('planned','pending') GROUP BY tasks.status, tasks.priority`;
+        try {
+            const [results] = await conn.query(query, [userId]);
+            return results;
+        } catch (err) {
+            console.log(`Error in getTimeLapse: ${err}`);
         }
     };
 

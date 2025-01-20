@@ -8,4 +8,7 @@ export default defineConfig({
         port: 5000,
         host: true,
     },
+    build: {
+        sourcemap: false,
+    }
 });

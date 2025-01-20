@@ -1,10 +1,12 @@
-import { useAPI } from "../context/APIContext";
+import { useAuth } from "../context/AuthContext";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { classifyInput } from "../utils/sanitizeInput";
+import Button from "../Components/Button";
+import styles from "./Login.module.scss";
 
 const LoginPage = () => {
-    const { login } = useAPI();
+    const { login } = useAuth();
     const [identifier, setIdentifier] = useState("");
     const [error, setError] = useState("");
     const [password, setPassword] = useState("");
@@ -22,10 +24,11 @@ const LoginPage = () => {
         formData.append(keyIdentifier, identifier);
         formData.append("password", password);
         try {
-            const message = await login(formData);
-            console.log(message);
-            if (message) {
+            const response = await login(formData);
+            if (response.status === 200) {
                 navigate("/dashboard");
+            } else if (response.status === 401) {
+                setError("Login Failed. Invalid Credentials");
             }
         } catch (err) {
             setError(err);
@@ -33,12 +36,12 @@ const LoginPage = () => {
     };
 
     return (
-        <div className="login">
+        <div className={styles.Login}>
             <div>
                 <h2>Login</h2>
             </div>
             <div>
-                <div>{error}</div>
+                <div>{error && <p>{error}</p>}</div>
                 <form onSubmit={handleSubmit}>
                     <div>
                         <label htmlFor="identifier">Username or Email:</label>
@@ -48,6 +51,7 @@ const LoginPage = () => {
                             type="text"
                             value={identifier}
                             onChange={(e) => setIdentifier(e.target.value)}
+                            autoComplete="on"
                             required
                         />
                     </div>
@@ -58,13 +62,17 @@ const LoginPage = () => {
                             name="password"
                             id="password"
                             onChange={(e) => setPassword(e.target.value)}
+                            autoComplete="current-password"
+                            placeholder="Password"
                             required
                         />
                     </div>
                     <div>
-                        <button type="submit" onClick={handleSubmit}>
-                            Submit Credentials
-                        </button>
+                        <Button
+                            text="Submit"
+                            type="submit"
+                            onClick={handleSubmit}
+                        />
                     </div>
                 </form>
             </div>
