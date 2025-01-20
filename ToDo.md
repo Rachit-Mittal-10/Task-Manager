@@ -14,6 +14,7 @@
 - [X] update the css for dialog page
 - [ ] update the css for login, register and dashboard page
 - [ ] work on users page
+- [ ] add the functionality to add a new a task. Button would open the dialog to enter the details.
 
 ## Database Task to do:
 - [ ] modify the existing table to include name(first name, middle name, last name)
