@@ -6,11 +6,25 @@ services:
         volumes:
             - ./cache/mysql-data:/var/lib/mysql
             - ./database/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+        networks:
+            - task_network
+        # ports:
+        #     - "3306:3306"
+        #     - "33060:33060"
+    backend:
+        build:
+            context: .
+            dockerfile: Dockerfile.backend
+        depends_on: [db]
+        # ports:
+        #     - "3000:3000"
+    frontend:
+        build:
+            context: .
+            dockerfile: Dockerfile.frontend
+        depends_on: [backend]
         ports:
-            - "3306:3306"
-    # backend:
-    #     build: ./backend
-    #     depends_on: db
-    # frontend:
-    #     build: ./frontend
-    #     depends_on: backend
+          - "5000:5000"
+networks:
+    task_network:
+        driver: bridge
