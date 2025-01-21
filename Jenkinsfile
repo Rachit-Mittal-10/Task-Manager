@@ -7,7 +7,7 @@ pipeline{
         stage("Checkout code"){
             steps{
                 echo "Checking out the code"
-                git credentialsID: "github-ssh" ,url: "git@github.com:Rachit-Mittal-10/Task-Manager.git", branch: "main"
+                git credentialsId: "github-ssh" ,url: "git@github.com:Rachit-Mittal-10/Task-Manager.git", branch: "main"
             }
         }
         stage("Deploy using Docker Compose"){
