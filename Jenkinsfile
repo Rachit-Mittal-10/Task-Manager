@@ -10,10 +10,10 @@ pipeline{
                 git "git@github.com:Rachit-Mittal-10/Task-Manager.git"
             }
         }
-        stage{
+        stage("Deploy using Docker Compose"){
             steps{
                 script{
-                    dir("C:/Users/sysad/test"){
+                    dir("C:/Users/sysad/test/task_manager"){
                         sh "docker-compose down && docker-compose up -d"
                     }                    
                 }
