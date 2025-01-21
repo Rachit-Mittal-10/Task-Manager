@@ -1,7 +1,7 @@
 pipeline{
     agent any
     environment{
-        GIT_SSH_KEY: "/var/jenkins_home/.ssh/id_rsa"
+        GIT_SSH_KEY="/var/jenkins_home/.ssh/id_rsa"
     }
     stages{
         stage("Checkout code"){
