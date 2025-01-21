@@ -14,11 +14,7 @@ pipeline{
         }
         stage("Deploy using Docker Compose"){
             steps{
-                script{
-                    sshagent(credentials: ["github-ssh"]){
-                        sh "ssh sysad@localhost 'cd C:/Users/sysad/test/tsk_manager'"
-                    }
-                }
+                
             }
         }
     }
