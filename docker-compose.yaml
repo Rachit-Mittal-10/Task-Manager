@@ -20,6 +20,8 @@ services:
             - "3000:3000"
         networks:
             - task_network
+        volumes:
+          - ./backend/src:/app/backend/src 
     frontend:
         build:
             context: .
@@ -29,6 +31,8 @@ services:
           - "5000:5000"
         networks:
            - task_network
+        volumes:
+          - ./frontend/src:/app/frontend/src
 networks:
     task_network:
         driver: bridge
