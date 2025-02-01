@@ -52,6 +52,11 @@ const TasksPage = () => {
             <div>
                 <h2>Tasks Page</h2>
             </div>
+            {/* <div>
+                // first div is for button and second div is for dialog that will be opened
+                <div><button>add</button></div>
+                <div></div>
+            </div> */}
             {!checkArrayEmpty(tasks.data) && (
                 <div className={styles.tableWrapper}>
                     <Table
