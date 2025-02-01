@@ -18,6 +18,7 @@ services:
         networks:
             - task_network
         volumes:
+          - ./.env:/app/.env
           - ./backend:/app/backend 
     frontend:
         build:

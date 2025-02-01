@@ -31,7 +31,7 @@ const LoginPage = () => {
                 setError("Login Failed. Invalid Credentials");
             }
         } catch (err) {
-            setError(err);
+            setError(err.message || "Unexpected Error occured");
         }
     };
 
