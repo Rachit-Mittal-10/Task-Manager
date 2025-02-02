@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import close from "../assets/images/close.png";
+import CloseButton from "./CloseButton";
 import styles from "./EditDialog.module.scss";
 import TaskAPI from "../api/TaskAPI";
 import { useAuth } from "../context/AuthContext";
@@ -79,16 +79,7 @@ const EditDialog = (props) => {
         <dialog ref={dialogRef} className={styles.editDialog}>
             <div className={styles.wrapper}>
                 <div className={styles.header}>
-                    <button
-                        onClick={handleCloseButtonClick}
-                        className={styles.closeButton}
-                    >
-                        <img
-                            src={close}
-                            alt="close button"
-                            className={styles.closeImage}
-                        />
-                    </button>
+                    <CloseButton onClick={handleCloseButtonClick} />
                 </div>
                 <div className={styles.dataWrapper}>
                     <form>
@@ -139,7 +130,6 @@ const EditDialog = (props) => {
                                 <option value="medium">Medium</option>
                                 <option value="high">High</option>
                             </select>
-                            ;
                         </div>
                         <div>
                             <label htmlFor="start_time">Start Time:</label>
