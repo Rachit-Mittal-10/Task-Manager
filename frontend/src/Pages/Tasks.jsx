@@ -5,12 +5,15 @@ import Table from "../Components/Table";
 import EditDialog from "../Components/EditDialog";
 import styles from "./Tasks.module.scss";
 import { useAuth } from "../context/AuthContext";
+import Button from "../Components/Button";
+import AddDialog from "../Components/AddDialog";
 
 const TasksPage = () => {
     const [tasks, setTasks] = useState("");
     const [error, setError] = useState("");
     const [id, setID] = useState(null);
-    const dialogRef = useRef(null);
+    const editDialogRef = useRef(null);
+    const addDialogRef = useRef(null);
     const { isAuthenticated } = useAuth();
 
     useEffect(() => {
@@ -42,8 +45,8 @@ const TasksPage = () => {
 
     const onRowClick = (id) => {
         setID(id);
-        if (dialogRef.current) {
-            dialogRef.current.showModal();
+        if (editDialogRef.current) {
+            editDialogRef.current.showModal();
         }
     };
 
@@ -52,11 +55,18 @@ const TasksPage = () => {
             <div>
                 <h2>Tasks Page</h2>
             </div>
-            {/* <div>
-                // first div is for button and second div is for dialog that will be opened
-                <div><button>add</button></div>
-                <div></div>
-            </div> */}
+            <div className={styles.buttonWrapper}>
+                <div>
+                    <Button
+                        text="Add"
+                    />
+                </div>
+                <div className={styles.dialogOverlay}>
+                    <AddDialog
+                        dialogRef={addDialogRef}
+                    />
+                </div>
+            </div>
             {!checkArrayEmpty(tasks.data) && (
                 <div className={styles.tableWrapper}>
                     <Table
@@ -69,7 +79,7 @@ const TasksPage = () => {
             )}
             <div className={styles.dialogOverlay}>
                 <EditDialog
-                    dialogRef={dialogRef}
+                    dialogRef={editDialogRef}
                     id={id}
                     setID={setID}
                     setTasks={setTasks}
