@@ -1,6 +1,7 @@
 import styles from "./AddDialog.module.scss";
 import { useEffect, useState } from "react";
 import CloseButton from "./CloseButton";
+import Button from "./Button";
 
 const AddDialog = (props) => {
     const dialogRef = props.dialogRef;
@@ -79,6 +80,9 @@ const AddDialog = (props) => {
                                 id="description"
                                 name="description"
                             />
+                        </div>
+                        <div>
+                            <Button type="submit" text="Submit" />
                         </div>
                     </form>
                 </div>

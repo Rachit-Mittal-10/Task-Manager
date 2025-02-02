@@ -1,7 +1,7 @@
 import styles from "./CloseButton.module.scss";
 import close from "../assets/images/close.png";
 
-const CloseButton = () => {
+const CloseButton = (props) => {
     return (
         <>
             <button
