@@ -57,9 +57,9 @@ const TasksPage = () => {
             </div>
             <div className={styles.buttonWrapper}>
                 <div>
-                    <Button
-                        text="Add"
-                    />
+                    <Button>
+                        Add
+                    </Button>
                 </div>
                 <div className={styles.dialogOverlay}>
                     <AddDialog
