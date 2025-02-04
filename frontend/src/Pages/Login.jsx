@@ -69,10 +69,11 @@ const LoginPage = () => {
                     </div>
                     <div>
                         <Button
-                            text="Submit"
                             type="submit"
                             onClick={handleSubmit}
-                        />
+                        >
+                            Login
+                        </Button>
                     </div>
                 </form>
             </div>
