@@ -1,14 +1,15 @@
 import styles from "./AddDialog.module.scss";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import CloseButton from "./CloseButton";
 import Button from "./Button";
 import TaskAPI from "../api/TaskAPI";
-
+import { useNavigate } from "react-router-dom";
 
 const AddDialog = (props) => {
     const dialogRef = props.dialogRef;
     const [ dialogData, setDialogData ] = useState({});
     const [ error, setError ] = useState("");
+    const navigate = useNavigate();
 
     const closeDialog = () => {
         if (dialogRef.current) {
@@ -18,9 +19,25 @@ const AddDialog = (props) => {
 
     const handleCloseButtonClick = () => {
         closeDialog();
+        setDialogData({});
     };
 
-    const onSubmitClick = () => {
+    const onInputChange = (e) => {
+        const {name, value} = e.target;
+        setDialogData({...dialogData, [name]: value});
+    };
+
+    const onSubmitClick = (e) => {
+        e.preventDefautl();
+        const formData = dialogData;
+        try{
+            const response = TaskAPI.createTask(formData);
+            closeDialog();
+            console.log(`${response} on submitting the new tasks`)
+        }
+        catch(err){
+            console.log(err);
+        }
     };
 
     return (
@@ -37,6 +54,8 @@ const AddDialog = (props) => {
                                 type="text"
                                 id="title"
                                 name="title"
+                                value={dialogData?.title ?? ""}
+                                onChange={onInputChange}
                             />
                         </div>
                         <div>
@@ -44,6 +63,8 @@ const AddDialog = (props) => {
                             <select
                                 id="status"
                                 name="status"
+                                value={dialogData?.status ?? "not_set"}
+                                onChange={onInputChange}
                             >
                                 <option value="not_set">Not Set</option>
                                 <option value="planned">Planned</option>
@@ -56,6 +77,8 @@ const AddDialog = (props) => {
                             <select
                                 id="priority"
                                 name="priority"
+                                value={dialogData?.priority ?? ""}
+                                onChange={onInputChange}
                             >
                                 <option value="low">Low</option>
                                 <option value="medium">Medium</option>
@@ -68,6 +91,8 @@ const AddDialog = (props) => {
                                 type="date"
                                 id="start_time"
                                 name="start_time"
+                                value={dialogData?.start_time ?? ""}
+                                onChange={onInputChange}
                             />
                         </div>
                         <div>
@@ -76,6 +101,8 @@ const AddDialog = (props) => {
                                 type="date"
                                 id="end_time"
                                 name="end_time"
+                                value={dialogData?.end_time ?? ""}
+                                onChange={onInputChange}
                             />
                         </div>
                         <div>
@@ -84,6 +111,8 @@ const AddDialog = (props) => {
                                 type="text"
                                 id="description"
                                 name="description"
+                                value={dialogData?.description ?? ""}
+                                onChange={onInputChange}
                             />
                         </div>
                         <div>

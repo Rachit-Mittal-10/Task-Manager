@@ -50,6 +50,12 @@ const TasksPage = () => {
         }
     };
 
+    const onAddClick = () => {
+        if(addDialogRef.current){
+            addDialogRef.current.showModal();
+        }
+    };
+
     return (
         <div className={styles.tasks}>
             <div>
@@ -57,7 +63,7 @@ const TasksPage = () => {
             </div>
             <div className={styles.buttonWrapper}>
                 <div>
-                    <Button>
+                    <Button onClick={onAddClick}>
                         Add
                     </Button>
                 </div>
