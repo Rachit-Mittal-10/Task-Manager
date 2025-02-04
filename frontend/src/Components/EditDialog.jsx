@@ -163,10 +163,11 @@ const EditDialog = (props) => {
                         </div>
                         <div className={styles.submitWrapper}>
                             <Button
-                                text="Submit"
-                                type="submit"
                                 onClick={onSubmitClick}
-                            />
+                                type="submit"
+                            >
+                                Submit
+                            </Button>
                         </div>
                     </form>
                 </div>

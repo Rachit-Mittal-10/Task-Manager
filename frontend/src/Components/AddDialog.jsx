@@ -2,6 +2,8 @@ import styles from "./AddDialog.module.scss";
 import { useEffect, useState } from "react";
 import CloseButton from "./CloseButton";
 import Button from "./Button";
+import TaskAPI from "../api/TaskAPI";
+
 
 const AddDialog = (props) => {
     const dialogRef = props.dialogRef;
@@ -16,6 +18,9 @@ const AddDialog = (props) => {
 
     const handleCloseButtonClick = () => {
         closeDialog();
+    };
+
+    const onSubmitClick = () => {
     };
 
     return (
@@ -82,7 +87,12 @@ const AddDialog = (props) => {
                             />
                         </div>
                         <div>
-                            <Button type="submit" text="Submit" />
+                            <Button
+                                type="submit"
+                                onClick={onSubmitClick}
+                            >
+                                Submit
+                            </Button>
                         </div>
                     </form>
                 </div>
