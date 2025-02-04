@@ -1,18 +1,18 @@
 import styles from "./CloseButton.module.scss";
 import close from "../assets/images/close.png";
+import Button from "./Button";
 
 const CloseButton = (props) => {
     return (
         <>
-            <button
+            <Button
                 onClick={props.onClick}
-                className={styles.button}
             >
                 <img
                     src={close}
                     alt="Close Button"
                 />
-            </button>
+            </Button>
         </>
     );
 };
