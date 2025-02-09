@@ -8,9 +8,6 @@ services:
             - ./database/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
         networks:
             - task_network
-        # ports:
-        #     - "3306:3306"
-        #     - "33060:33060"
     backend:
         build:
             context: .
@@ -21,6 +18,7 @@ services:
         networks:
             - task_network
         volumes:
+          - ./.env:/app/.env
           - ./backend:/app/backend 
     frontend:
         build:

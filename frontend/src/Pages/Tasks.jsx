@@ -5,12 +5,15 @@ import Table from "../Components/Table";
 import EditDialog from "../Components/EditDialog";
 import styles from "./Tasks.module.scss";
 import { useAuth } from "../context/AuthContext";
+import Button from "../Components/Button";
+import AddDialog from "../Components/AddDialog";
 
 const TasksPage = () => {
     const [tasks, setTasks] = useState("");
     const [error, setError] = useState("");
     const [id, setID] = useState(null);
-    const dialogRef = useRef(null);
+    const editDialogRef = useRef(null);
+    const addDialogRef = useRef(null);
     const { isAuthenticated } = useAuth();
 
     useEffect(() => {
@@ -27,7 +30,6 @@ const TasksPage = () => {
         };
         fetchData();
     }, [isAuthenticated]);
-    // Lovely: 9560070430
 
     if (!tasks) {
         return <div>Loading!!!</div>;
@@ -42,8 +44,14 @@ const TasksPage = () => {
 
     const onRowClick = (id) => {
         setID(id);
-        if (dialogRef.current) {
-            dialogRef.current.showModal();
+        if (editDialogRef.current) {
+            editDialogRef.current.showModal();
+        }
+    };
+
+    const onAddClick = () => {
+        if(addDialogRef.current){
+            addDialogRef.current.showModal();
         }
     };
 
@@ -51,6 +59,18 @@ const TasksPage = () => {
         <div className={styles.tasks}>
             <div>
                 <h2>Tasks Page</h2>
+            </div>
+            <div className={styles.buttonWrapper}>
+                <div>
+                    <Button onClick={onAddClick}>
+                        Add
+                    </Button>
+                </div>
+                <div className={styles.dialogOverlay}>
+                    <AddDialog
+                        dialogRef={addDialogRef}
+                    />
+                </div>
             </div>
             {!checkArrayEmpty(tasks.data) && (
                 <div className={styles.tableWrapper}>
@@ -64,7 +84,7 @@ const TasksPage = () => {
             )}
             <div className={styles.dialogOverlay}>
                 <EditDialog
-                    dialogRef={dialogRef}
+                    dialogRef={editDialogRef}
                     id={id}
                     setID={setID}
                     setTasks={setTasks}

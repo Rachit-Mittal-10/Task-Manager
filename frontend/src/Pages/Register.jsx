@@ -80,11 +80,12 @@ const RegisterPage = () => {
                         />
                     </div>
                     <div>
-                        <Button
-                            text="Submit"
+                        <Button 
                             type="submit"
                             onClick={handleSubmit}
-                        />
+                        >
+                            Resgister
+                        </Button>
                     </div>
                 </form>
             </div>

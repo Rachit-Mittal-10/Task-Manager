@@ -31,7 +31,7 @@ const LoginPage = () => {
                 setError("Login Failed. Invalid Credentials");
             }
         } catch (err) {
-            setError(err);
+            setError(err.message || "Unexpected Error occured");
         }
     };
 
@@ -69,10 +69,11 @@ const LoginPage = () => {
                     </div>
                     <div>
                         <Button
-                            text="Submit"
                             type="submit"
                             onClick={handleSubmit}
-                        />
+                        >
+                            Login
+                        </Button>
                     </div>
                 </form>
             </div>

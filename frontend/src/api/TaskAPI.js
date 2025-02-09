@@ -41,7 +41,6 @@ const TaskAPI = (() => {
     };
 
     const updateTask = async (taskId, formData) => {
-        console.log(formData);
         try {
             const response = await API.put(`/tasks/${taskId}`, formData);
             return response.data;
