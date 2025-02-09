@@ -30,7 +30,6 @@ const TasksPage = () => {
         };
         fetchData();
     }, [isAuthenticated]);
-    // Lovely: 9560070430
 
     if (!tasks) {
         return <div>Loading!!!</div>;

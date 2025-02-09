@@ -12,7 +12,7 @@
 - [X] rework on `onInputChange` in `editDialog.jsx`
 - [X] `updateTask` in `TaskAPI.jsx` not working
 - [X] update the css for dialog page
-- [ ] update the css for login, register and dashboard page
+- [X] update the css for login, register and dashboard page
 - [ ] work on users page
 - [ ] add the functionality to add a new a task. Button would open the dialog to enter the details.
 

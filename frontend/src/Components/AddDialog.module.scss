@@ -1,0 +1,18 @@
+.addDialog{
+    padding: 25px 10px 25px 25px;
+    .wrapper {
+        display: flex;
+        flex-direction: row-reverse;
+        .dataWrapper {
+            flex-direction: column;
+            div + div {
+                margin-top: 20px;
+            }
+            .submitWrapper {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+        }
+    }
+}

@@ -28,12 +28,12 @@ const AddDialog = (props) => {
     };
 
     const onSubmitClick = (e) => {
-        e.preventDefautl();
+        e.preventDefault();
         const formData = dialogData;
+        console.log(formData);
         try{
             const response = TaskAPI.createTask(formData);
             closeDialog();
-            console.log(`${response} on submitting the new tasks`)
         }
         catch(err){
             console.log(err);
