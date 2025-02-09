@@ -66,7 +66,6 @@ const AddDialog = (props) => {
                                 value={dialogData?.status ?? "not_set"}
                                 onChange={onInputChange}
                             >
-                                <option value="not_set">Not Set</option>
                                 <option value="planned">Planned</option>
                                 <option value="pending">Pending</option>
                                 <option value="finished">Finished</option>
@@ -80,6 +79,7 @@ const AddDialog = (props) => {
                                 value={dialogData?.priority ?? ""}
                                 onChange={onInputChange}
                             >
+                                <option value="not_set">Not Set</option>
                                 <option value="low">Low</option>
                                 <option value="medium">Medium</option>
                                 <option value="high">High</option>
