@@ -74,5 +74,4 @@ For MySQL You would need to initialise the db.
 8. `GET /`: API End Point to get the dashboard. Protected
 - Parameters:
 
------
-Gnitset
+Testing
