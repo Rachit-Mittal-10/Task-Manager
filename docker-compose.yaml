@@ -4,7 +4,7 @@ services:
         environment:
             MYSQL_ROOT_PASSWORD: ${DATABASE_PASSWORD}
         volumes:
-            - ./cache/mysql-data:/var/lib/mysql
+            - mysql-data:/var/lib/mysql
             - ./database/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
         networks:
             - task_network
@@ -34,3 +34,5 @@ services:
 networks:
     task_network:
         driver: bridge
+volumes:
+    mysql-data:
