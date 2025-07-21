@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 import { promisify } from "util";
 
 const env = dotenv.config({
-    path: "./.env",
+    path: "../.env",
 });
 
 const jwtVerify = promisify(jwt.verify);

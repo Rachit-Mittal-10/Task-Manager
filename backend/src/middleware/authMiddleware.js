@@ -2,7 +2,7 @@ import { jwtVerify } from "../utils/utils.js";
 import { config } from "dotenv";
 
 const env = config({
-    path: "./.env",
+    path: "../.env",
 });
 
 const authenticateToken = async (req, res, next) => {
