@@ -37,6 +37,11 @@ const Header = () => {
                                     User
                                 </Link>
                             </li>
+                            {/* <li>
+                                <Link to="/logout" className={styles.link} >
+                                    Logout
+                                </Link>
+                            </li> */}
                         </>
                     )}
                 </ul>
