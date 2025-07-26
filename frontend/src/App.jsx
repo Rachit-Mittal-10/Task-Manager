@@ -1,9 +1,8 @@
 import "./App.css";
-import React from "react";
 import { BrowserRouter } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
-import Main from "./Components/Main";
-import Header from "./Components/Header";
+import Main from "./Components/Main/Main";
+import Header from "./Components/Header/Header";
 
 function App() {
     return (
