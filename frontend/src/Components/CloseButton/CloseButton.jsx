@@ -7,10 +7,12 @@ const CloseButton = (props) => {
         <>
             <Button
                 onClick={props.onClick}
+                className={styles.CloseButton}
             >
                 <img
                     src={close}
                     alt="Close Button"
+                    // className={styles.CloseImg}
                 />
             </Button>
         </>
