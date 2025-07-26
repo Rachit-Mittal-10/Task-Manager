@@ -1,5 +1,5 @@
 import styles from "./CloseButton.module.scss";
-import close from "../../assets/images/close.png";
+import close from "./assets/close.png";
 import Button from "../Button/Button";
 
 const CloseButton = (props) => {
