@@ -1,6 +1,6 @@
-import { useAuth } from "../context/AuthContext";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
 import { classifyInput } from "../../utils/sanitizeInput.js";
 import Button from "../../Components/Button/Button";
 import styles from "./Login.module.scss";
