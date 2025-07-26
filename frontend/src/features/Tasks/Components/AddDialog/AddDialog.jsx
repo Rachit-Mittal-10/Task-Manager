@@ -1,19 +1,15 @@
-import { useEffect, useState } from "react";
-import CloseButton from "../CloseButton/CloseButton";
-import styles from "./EditDialog.module.scss";
-import TaskAPI from "../../api/TaskAPI";
-import { useAuth } from "../../context/AuthContext";
-import Button from "../Button/Button";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import styles from "./AddDialog.module.scss";
+import CloseButton from "../../../../Components/CloseButton/CloseButton";
+import Button from "../../../../Components/Button/Button";
+import TaskAPI from "../../../../api/TaskAPI";
 
-const EditDialog = (props) => {
+const AddDialog = (props) => {
     const dialogRef = props.dialogRef;
-    const id = props.id;
-    const setID = props.setID;
-    const setTasks = props.setTasks;
-    const [dialogData, setDialogData] = useState({});
-    const [error, setError] = useState("");
-    const { isAuthenticated } = useAuth();
-    const [updated, setUpdated] = useState(false);
+    const [ dialogData, setDialogData ] = useState({});
+    const [ error, setError ] = useState("");
+    const navigate = useNavigate();
 
     const closeDialog = () => {
         if (dialogRef.current) {
@@ -21,79 +17,37 @@ const EditDialog = (props) => {
         }
     };
 
-    useEffect(() => {
-        if (!isAuthenticated) {
-            return;
-        }
-        const fetchData = async (id) => {
-            if (!id) {
-                closeDialog();
-                return;
-            }
-            try {
-                const response = await TaskAPI.getTask(id);
-                setDialogData(response?.data || {});
-                setUpdated(false);
-            } catch (err) {
-                setError(err);
-                closeDialog();
-            }
-        };
-        fetchData(id);
-    }, [id, isAuthenticated]);
-
     const handleCloseButtonClick = () => {
         closeDialog();
-        setID(null);
         setDialogData({});
     };
 
     const onInputChange = (e) => {
-        const { name, value } = e.target;
-        setDialogData({ ...dialogData, [name]: value });
-        setUpdated(true);
+        const {name, value} = e.target;
+        setDialogData({...dialogData, [name]: value});
     };
 
-    const onSubmitClick = async (e) => {
+    const onSubmitClick = (e) => {
         e.preventDefault();
-        const formData = {
-            task: dialogData,
-        };
-        try {
-            const response = await TaskAPI.updateTask(id, formData);
-            if (response.message) {
-                closeDialog();
-                if (updated) {
-                    const responseNew = await TaskAPI.getTasks();
-                    setTasks(responseNew);
-                }
-            } else {
-                setError(response);
-            }
-        } catch (err) {
-            setError(err);
+        const formData = dialogData;
+        console.log(formData);
+        try{
+            const response = TaskAPI.createTask(formData);
+            closeDialog();
+        }
+        catch(err){
+            console.log(err);
         }
     };
 
     return (
-        <dialog ref={dialogRef} className={styles.editDialog}>
+        <dialog ref={dialogRef} className={styles.addDialog}>
             <div className={styles.wrapper}>
                 <div className={styles.header}>
                     <CloseButton onClick={handleCloseButtonClick} />
                 </div>
                 <div className={styles.dataWrapper}>
                     <form>
-                        <div>
-                            <label htmlFor="id">ID:</label>
-                            <input
-                                type="number"
-                                id="id"
-                                name="id"
-                                value={dialogData?.id ?? ""}
-                                onChange={onInputChange}
-                                readOnly
-                            />
-                        </div>
                         <div>
                             <label htmlFor="title">Title:</label>
                             <input
@@ -105,7 +59,7 @@ const EditDialog = (props) => {
                             />
                         </div>
                         <div>
-                            <label htmlFor="status">Status:</label>
+                            <label htmlFor="title">Status:</label>
                             <select
                                 id="status"
                                 name="status"
@@ -161,10 +115,10 @@ const EditDialog = (props) => {
                                 onChange={onInputChange}
                             />
                         </div>
-                        <div className={styles.submitWrapper}>
+                        <div>
                             <Button
-                                onClick={onSubmitClick}
                                 type="submit"
+                                onClick={onSubmitClick}
                             >
                                 Submit
                             </Button>
@@ -176,4 +130,4 @@ const EditDialog = (props) => {
     );
 };
 
-export default EditDialog;
+export default AddDialog;

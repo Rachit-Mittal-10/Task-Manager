@@ -1,5 +1,6 @@
 ## Common Task to do:
-- [ ] Write the Encryption and Decryption logic so that transmission happen securely between front end and backend 
+- [ ] Write the Encryption and Decryption logic so that transmission happen securely between front end and backend
+    - is this really needed if it is https based?
 
 ## Backend Work To Do:
 - [ ] include the name also in creating the user
