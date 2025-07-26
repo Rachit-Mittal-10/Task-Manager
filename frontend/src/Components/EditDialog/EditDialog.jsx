@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import CloseButton from "./CloseButton";
+import CloseButton from "../CloseButton/CloseButton";
 import styles from "./EditDialog.module.scss";
-import TaskAPI from "../api/TaskAPI";
-import { useAuth } from "../context/AuthContext";
-import Button from "./Button";
+import TaskAPI from "../../api/TaskAPI";
+import { useAuth } from "../../context/AuthContext";
+import Button from "../Button/Button";
 
 const EditDialog = (props) => {
     const dialogRef = props.dialogRef;

@@ -1,12 +1,12 @@
-import TaskAPI from "../api/TaskAPI";
 import { useEffect, useState, useRef } from "react";
-import { checkArrayEmpty } from "../utils/utils";
-import Table from "../Components/Table";
-import EditDialog from "../Components/EditDialog";
+import TaskAPI from "../../api/TaskAPI";
+import { checkArrayEmpty } from "../../utils/utils";
+import Table from "../../Components/Table/Table";
+import EditDialog from "../../Components/EditDialog/EditDialog";
 import styles from "./Tasks.module.scss";
-import { useAuth } from "../context/AuthContext";
-import Button from "../Components/Button";
-import AddDialog from "../Components/AddDialog";
+import { useAuth } from "../../context/AuthContext";
+import Button from "../../Components/Button/Button";
+import AddDialog from "../../Components/AddDialog/AddDialog";
 
 const TasksPage = () => {
     const [tasks, setTasks] = useState("");

@@ -1,6 +1,6 @@
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
-import AuthAPI from "../api/AuthAPI";
+import AuthAPI from "../../api/AuthAPI";
 
 const Logout = () => {
     const { setToken, setUser, setIsAuthenticated } = useAuth();

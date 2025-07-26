@@ -1,7 +1,7 @@
-import { useAuth } from "../context/AuthContext";
-import { useNavigate } from "react-router-dom";
-import UserPage from "../Pages/User";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
+import UserPage from "./User";
 
 const User = () => {
     const { isAuthenticated } = useAuth();

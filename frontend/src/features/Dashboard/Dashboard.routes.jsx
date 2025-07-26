@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
-import DashboardPage from "../Pages/Dashboard";
+import { useAuth } from "../../context/AuthContext";
+import DashboardPage from "./Dashboard";
 import { useEffect } from "react";
 
 const Dashboard = () => {

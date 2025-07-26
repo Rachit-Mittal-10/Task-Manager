@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
-import TasksPage from "../Pages/Tasks";
 import { useEffect } from "react";
+import { useAuth } from "../../context/AuthContext";
+import TasksPage from "./Tasks";
 
 const Tasks = () => {
     const { isAuthenticated } = useAuth();

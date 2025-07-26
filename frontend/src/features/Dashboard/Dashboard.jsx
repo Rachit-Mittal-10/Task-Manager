@@ -1,7 +1,6 @@
 import { useEffect } from "react";
-import DashboardAPI from "../api/DashboardAPI";
-import { useState } from "react";
 import { Bar } from "react-chartjs-2";
+import { useState } from "react";
 import {
     Chart,
     CategoryScale,
@@ -11,10 +10,11 @@ import {
     Tooltip,
     Legend,
 } from "chart.js";
-import Table from "../Components/Table.jsx";
-import { checkArrayEmpty } from "../utils/utils.js";
+import DashboardAPI from "../../api/DashboardAPI";
+import Table from "../../Components/Table/Table.jsx";
+import { checkArrayEmpty } from "../../utils/utils.js";
 import styles from "./Dashboard.module.scss";
-import { useAuth } from "../context/AuthContext.jsx";
+import { useAuth } from "../../context/AuthContext.jsx";
 
 Chart.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 

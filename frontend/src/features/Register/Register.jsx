@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
-import Button from "../Components/Button";
+import { useAuth } from "../../context/AuthContext";
+import Button from "../../Components/Button/Button";
 import styles from "./Register.module.scss";
 
 const RegisterPage = () => {

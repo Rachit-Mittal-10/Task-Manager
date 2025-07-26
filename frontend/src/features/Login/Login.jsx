@@ -1,8 +1,8 @@
 import { useAuth } from "../context/AuthContext";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { classifyInput } from "../utils/sanitizeInput";
-import Button from "../Components/Button";
+import { classifyInput } from "../../utils/sanitizeInput.js";
+import Button from "../../Components/Button/Button";
 import styles from "./Login.module.scss";
 
 const LoginPage = () => {
