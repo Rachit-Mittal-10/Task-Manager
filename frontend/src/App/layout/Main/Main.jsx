@@ -1,4 +1,4 @@
-import RoutesList from "../routes/Routes";
+import RoutesList from "../../routes/AppRoutes";
 import styles from "./Main.module.scss";
 
 const Main = () => {
