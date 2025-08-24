@@ -18,7 +18,7 @@ class User {
         }
     };
 
-    //* THis is the private function and ties the retrieved user information to class instance
+    //* This is the private function and ties the retrieved user information to class instance
     #checkUsername = async (username) => {
         const query = `SELECT * FROM users WHERE username=?`;
         try {
@@ -71,6 +71,18 @@ class User {
             return false;
         }
     };
+
+    static getUserDetails = async (userId) => {
+        const query = "SELECT username,email FROM users WHERE id = ?";
+        try {
+            const result = await conn.execute(query, [userId]);
+            return result[0][0];
+        }
+        catch (err) {
+            console.log(`Error while getting user data: ${err.message}`);
+            throw err;
+        }
+    }
 }
 
 export default User;

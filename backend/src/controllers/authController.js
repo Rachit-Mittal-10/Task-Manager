@@ -4,6 +4,7 @@ import { generateToken } from "../utils/utils.js";
 const login = async (req, res) => {
     const user = new User();
     const { username, email, password } = req.body;
+    // if password and any of email or username not provided then return the 400 error
     if (!password || (!username && !email)) {
         res.status(400).json({ message: "All Parameters not provided." });
     }

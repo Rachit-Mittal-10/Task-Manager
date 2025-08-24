@@ -11,5 +11,3 @@ const HOST = process.env.HOST;
 app.listen(PORT, HOST, () => {
     console.log(`Server is listening on ${HOST}:${PORT}`);
 });
-
-// app.listen(PORT);
