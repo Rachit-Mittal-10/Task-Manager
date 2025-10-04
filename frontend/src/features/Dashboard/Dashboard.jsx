@@ -11,7 +11,7 @@ import {
     Legend,
 } from "chart.js";
 import DashboardAPI from "../../api/DashboardAPI";
-import Table from "../../Components/Table/Table.jsx";
+import Table from "../../components/Table/Table.jsx";
 import { checkArrayEmpty } from "../../utils/utils.js";
 import styles from "./Dashboard.module.scss";
 import { useAuth } from "../../context/AuthContext.jsx";

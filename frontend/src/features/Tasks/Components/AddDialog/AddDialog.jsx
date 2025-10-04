@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./AddDialog.module.scss";
-import CloseButton from "../../../../Components/CloseButton/CloseButton";
-import Button from "../../../../Components/Button/Button";
+import CloseButton from "../../../../components/CloseButton/CloseButton";
+import Button from "../../../../components/Button/Button";
 import TaskAPI from "../../../../api/TaskAPI";
 
 const AddDialog = (props) => {
