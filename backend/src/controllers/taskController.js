@@ -1,5 +1,5 @@
 import { Task } from "../models/Task.js";
-import TaskError from "../utils/error/TaskError.js";
+import TaskError from "#error/TaskError.js";
 
 const createTask = async (req, res) => {
     const user = req.user;

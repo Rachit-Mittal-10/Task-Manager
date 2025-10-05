@@ -1,6 +1,6 @@
-import conn from "../config/mysql.js";
-import TaskError from "../utils/error/TaskError.js";
-import { stripTimeFromDate } from "../utils/utils.js";
+import conn from "#config/mysql.js";
+import TaskError from "#error/TaskError.js";
+import { stripTimeFromDate } from "#utils/utils.js";
 
 class Task {
     //* Create the task associated with userId

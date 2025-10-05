@@ -23,5 +23,19 @@
     "devDependencies": {
         "@types/bcryptjs": "^2.4.6",
         "@types/jsonwebtoken": "^9.0.7"
+    },
+    "imports": {
+        "#/*":"./src/*",
+        "#app/*":"./src/app/*",
+        "#auth/*":"./src/app/auth/*",
+        "#controllers/*": "./src/controllers/*",
+        "#services/*":"./src/services/*",
+        "#models/*":"./src/models/*",
+        "#utils/*":"./src/common/utils/*",
+        "#routes/*":"./src/routes/*",
+        "#middleware/*":"./src/middleware/*",
+        "#config/*":"./src/config/*",
+        "#common/*":"./src/common/*",
+        "#error/*": "./src/common/error/*"
     }
 }
