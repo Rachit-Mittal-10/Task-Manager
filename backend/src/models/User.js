@@ -1,4 +1,4 @@
-import conn from "#config/mysql.js";
+import conn from "../core/config/mysql.js";
 import { hashPassword, verifyPassword } from "#utils/utils.js";
 
 class User {

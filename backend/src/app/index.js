@@ -1,7 +1,6 @@
 import express from "express";
 import cors from "cors";
-import { publicRouter } from "#routes/publicRouter.js";
-import { protectedRouter } from "#routes/protectedRouter.js"
+import { publicRouter, protectedRouter } from "./routes/index.js";
 
 
 //* Getting the App from Express and adding cors and json middleware

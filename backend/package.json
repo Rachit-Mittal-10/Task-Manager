@@ -28,14 +28,15 @@
         "#/*":"./src/*",
         "#app/*":"./src/app/*",
         "#auth/*":"./src/app/auth/*",
-        "#controllers/*": "./src/controllers/*",
-        "#services/*":"./src/services/*",
-        "#models/*":"./src/models/*",
-        "#utils/*":"./src/common/utils/*",
-        "#routes/*":"./src/routes/*",
-        "#middleware/*":"./src/middleware/*",
-        "#config/*":"./src/config/*",
+        "#core/*":"./src/core",
         "#common/*":"./src/common/*",
-        "#error/*": "./src/common/error/*"
+        "#config/*":"./src/core/config/*",
+        "#controllers/*": "./src/controllers/*",
+        "#error/*": "./src/common/error/*",
+        "#middleware/*":"./src/middleware/*",
+        "#models/*":"./src/models/*",
+        "#routes/*":"./src/routes/*",
+        "#services/*":"./src/services/*",
+        "#utils/*":"./src/common/utils/*"
     }
 }

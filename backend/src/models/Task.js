@@ -1,4 +1,4 @@
-import conn from "#config/mysql.js";
+import conn from "../core/config/mysql.js";
 import TaskError from "#error/TaskError.js";
 import { stripTimeFromDate } from "#utils/utils.js";
 

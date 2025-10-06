@@ -1,4 +1,4 @@
-import CustomError from "./CustomError.js";
+import CustomError from "#error/CustomError.js";
 
 class DataError extends CustomError {
     constructor(message) {

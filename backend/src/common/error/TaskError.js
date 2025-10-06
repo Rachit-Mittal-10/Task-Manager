@@ -1,4 +1,4 @@
-import CustomError from "./CustomError.js";
+import CustomError from "#error/CustomError.js";
 
 class TaskError extends CustomError {
     constructor(message) {

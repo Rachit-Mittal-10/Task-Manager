@@ -2,7 +2,7 @@ import mysql from "mysql2/promise";
 import { config } from "dotenv";
 
 const env = config({
-    path: "../.env",
+    path: "../../.env",
 });
 
 const connectionString = {
