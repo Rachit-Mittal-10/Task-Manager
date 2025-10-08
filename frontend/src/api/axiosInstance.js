@@ -1,8 +1,12 @@
 import axios from "axios";
+import config from "@utils/config.js";
 
+const DEFAULT_LOCALHOST = `http://localhost:3000`
 //* Storing some common thing and creating the instance
+const CONFIG_BASE_URL = await config.get("baseUrl") || "";
 const API = axios.create({
-    baseURL: 'http://localhost:3000',
+    baseURL: CONFIG_BASE_URL || DEFAULT_LOCALHOST,
+    // baseURL: `http://localhost:3000`
     // baseURL: `http://backend:3000`,
     timeout: 10000,
     headers: {
