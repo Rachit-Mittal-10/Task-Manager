@@ -4,6 +4,8 @@ import path from "path";
 
 // https://vite.dev/config/
 export default defineConfig({
+    base: "/",
+    publicDir: "./public",
     plugins: [react()],
     server: {
         port: 5000,

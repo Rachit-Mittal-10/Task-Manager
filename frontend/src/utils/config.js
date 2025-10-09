@@ -3,7 +3,7 @@ class ConfigService{
         this._CONFIG = null;
     }
     load = async () => {
-        const res = await fetch("/config/config.json",{cache: 'no-store'});
+        const res = await fetch(`/config/config.json`,{cache: 'no-store'});
         if(!res.ok){
             throw new Error(`config.json file not found at /config/config.json url. Error Status: ${res.status}`);
         }
