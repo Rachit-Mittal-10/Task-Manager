@@ -1,7 +1,7 @@
 import React, { createContext, useState, useEffect, useContext } from "react";
 import { jwtDecode } from "jwt-decode";
-import { checkTokenExpiry } from "../utils/utils.js";
-import AuthAPI from "../api/AuthAPI.js";
+import { checkTokenExpiry } from "@utils/utils.js";
+import AuthAPI from "@api/AuthAPI.js";
 
 const AuthContext = createContext();
 
