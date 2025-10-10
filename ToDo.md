@@ -1,6 +1,7 @@
 ## Common Task to do:
 - [ ] Write the Encryption and Decryption logic so that transmission happen securely between front end and backend
-    - is this really needed if it is https based?
+    - is this really needed if it is https based? 
+    - e2e ancryption is nice to have feature if you want user can have 
 
 ## Backend Work To Do:
 - [ ] include the name also in creating the user
@@ -15,7 +16,7 @@
 - [X] update the css for dialog page
 - [X] update the css for login, register and dashboard page
 - [ ] work on users page
-- [ ] add the functionality to add a new a task. Button would open the dialog to enter the details.
+- [X] add the functionality to add a new a task. Button would open the dialog to enter the details.
 
 ## Database Task to do:
 - [ ] modify the existing table to include name(first name, middle name, last name)
