@@ -46,7 +46,6 @@ class BaseModel {
     update = async (id, data) => {
         if(Object.keys(data).length === 0){
             throw new Error("Empty data");
-            return;
         }
         const dataValuesArr = Object.values(data);
         let setString = Object.keys(data).map((key) => { return `${key} = ?`; }).join(", ");
