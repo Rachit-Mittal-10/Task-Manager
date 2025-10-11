@@ -1,8 +1,12 @@
-import conn from "../core/config/mysql.js";
+import conn from "#config/mysql.js";
 import TaskError from "#error/TaskError.js";
 import { stripTimeFromDate } from "#utils/utils.js";
 
 class Task {
+    constructor(){
+        this.table = "tasks";
+        // super("tasks");
+    }
     //* Create the task associated with userId
     static create = async (
         userId,

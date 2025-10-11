@@ -30,7 +30,7 @@
         "#auth/*":"./src/app/auth/*",
         "#core/*":"./src/core",
         "#common/*":"./src/common/*",
-        "#config/*":"./src/core/config/*",
+        "#config/*":"./src/config/*",
         "#controllers/*": "./src/controllers/*",
         "#error/*": "./src/common/error/*",
         "#middleware/*":"./src/middleware/*",

@@ -1,7 +1,11 @@
-import conn from "../core/config/mysql.js";
+import conn from "#config/mysql.js";
 import { hashPassword, verifyPassword } from "#utils/utils.js";
 
 class User {
+    constructor(){
+        this.table = "users";
+        // super("users");
+    }
     static create = async (username, email, password) => {
         const query =
             "INSERT INTO users(username, email, password) VALUES(?,?,?)";
