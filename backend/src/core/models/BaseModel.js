@@ -1,8 +1,12 @@
 import conn from "#config/mysql.js";
 
 class BaseModel {
+    #table;
     constructor(tableName = "base") {
-        this.table = tableName;
+        this.#table = tableName;
+    }
+    get table(){
+        return this.#table;
     }
     create = async (data) => {
         if(!data || Object.keys(data).length === 0){
