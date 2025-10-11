@@ -5,22 +5,13 @@ class BaseModel {
         this.table = tableName;
     }
     create = async (data) => {
-        if(Object.keys(data).length === 0){
+        if(!data || Object.keys(data).length === 0){
             throw new Error("Empty data");
-            return;
         }
         const dataValueArr = Object.values(data);
-        let valueString = "";
-        let keyString = "";
-        for (let key of Object.keys(data)) {
-            if (keyString) {
-                keyString += ", ";
-                valueString += ", ";
-            }
-            keyString += key;
-            valueString += "?";
-        }
-        const query = `INSERT INTO ${this.table}(${keyString}) VALUES(${valueString});`;
+        let cols = Object.keys(data).join(", ");
+        let placeholders = Object.keys(data).map(()=>{return "?"}).join(", ");
+        const query = `INSERT INTO ${this.table}(${cols}) VALUES(${placeholders});`;
         try {
             const [result] = await conn.execute(query, dataValueArr);
             return result;
@@ -57,10 +48,11 @@ class BaseModel {
             throw new Error("Empty data");
             return;
         }
-        let setString = Object.entries(data).map(([key, value]) => { return `${key} = ${value}`; }).join(", ");
+        const dataValuesArr = Object.values(data);
+        let setString = Object.keys(data).map((key) => { return `${key} = ?`; }).join(", ");
         const query = `UPDATE ${this.table} SET ${setString} WHERE id = ?;`;
         try {
-            const [result] = await conn.execute(query, [id]);
+            const [result] = await conn.execute(query, [...dataValuesArr, id]);
             return result;
         }
         catch (err) {

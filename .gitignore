@@ -19,3 +19,4 @@ logs
 
 *.bak
 .dependencygraph
+test*.js
