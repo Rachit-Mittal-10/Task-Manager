@@ -1,79 +1,78 @@
-import defaultConnection from "#config/mysql.js";
 /*
-
+* BaseModel.js
+* 
+* This class serves as abstract data layer for all the application model
+* It is mandatory to pass the tableName and db connection object. 
 */
+
+//! Never use the arrow function in class since they destroy the inheritance chain. rememeber this
 class BaseModel {
     #table;
-    constructor(tableName = "base",dbConnection=defaultConnection) {
-        this.#table = tableName;
-        this.db = dbConnection;
-    }   
-    get table(){
-        return this.#table;
-    }
-    create = async (data) => {
-        if(!data || Object.keys(data).length === 0){
-            throw new Error("Empty data");
+    #db;
+    constructor(tableName, dbConnection) {
+        if(!tableName || typeof tableName !== "string"){
+            throw new Error(`base Model requires valid table name of type "string"`)
         }
+        this.#table = tableName;
+        this.#db = dbConnection;
+    }
+    async create(data){
         const dataValueArr = Object.values(data);
         let cols = Object.keys(data).join(", ");
-        let placeholders = Object.keys(data).map(()=>{return "?"}).join(", ");
-        const query = `INSERT INTO ${this.table}(${cols}) VALUES(${placeholders});`;
+        let placeholders = Object.keys(data).map(() => { return "?" }).join(", ");
+        const query = `INSERT INTO ${this.#table}(${cols}) VALUES(${placeholders});`;
         try {
-            const [result] = await this.db.execute(query, dataValueArr);
+            const [result] = await this.#db.execute(query, dataValueArr);
             return result;
         }
         catch (err) {
-            console.log(`Error while adding data in table ${this.table}: ${err.message}`);
+            console.log(`Error while adding data in table ${this.#table}: ${err.message}`);
             throw err;
         }
     };
-    get = async (id) => {
-        const query = `SELECT * FROM ${this.table} WHERE id = ?;`;
+    async get(id){
+        const query = `SELECT * FROM ${this.#table} WHERE id = ?;`;
         try {
-            const [result] = await this.db.execute(query, [id]);
+            const [result] = await this.#db.execute(query, [id]);
             return result;
         }
         catch (err) {
-            console.log(`Error while get data in table ${this.table}: ${err.message}`);
+            console.log(`Error while get data in table ${this.#table}: ${err.message}`);
             throw err;
         }
     };
-    getAll = async () => {
-        const query = `SELECT * FROM ${this.table};`;
+    async getAll(){
+        const query = `SELECT * FROM ${this.#table};`;
         try {
-            const [result] = await this.db.execute(query);
+            const [result] = await this.#db.execute(query);
             return result;
         }
         catch (err) {
-            console.log(`Error while getting all data in the table ${this.table}: ${err.message}`);
+            console.log(`Error while getting all data in the table ${this.#table}: ${err.message}`);
             throw err;
         }
     }
-    update = async (id, data) => {
-        if(Object.keys(data).length === 0){
-            throw new Error("Empty data");
-        }
+    async update(id, data){
         const dataValuesArr = Object.values(data);
         let setString = Object.keys(data).map((key) => { return `${key} = ?`; }).join(", ");
-        const query = `UPDATE ${this.table} SET ${setString} WHERE id = ?;`;
+        const query = `UPDATE ${this.#table} SET ${setString} WHERE id = ?;`;
         try {
-            const [result] = await this.db.execute(query, [...dataValuesArr, id]);
+            const [result] = await this.#db.execute(query, [...dataValuesArr, id]);
             return result;
         }
         catch (err) {
-            console.log(`Error while updating data in the table ${this.table}: ${err.message}`);
+            console.log(`Error while updating data in the table ${this.#table}: ${err.message}`);
             throw err;
         }
     };
-    remove = async (id) => {
-        const query = `DELETE FROM ${this.table} WHERE id = ?;`;
+    async remove(id){
+        const query = `DELETE FROM ${this.#table} WHERE id = ?;`;
         try {
-            const [result] = await this.db.execute(query, [id]);
+            const [result] = await this.#db.execute(query, [id]);
             return result;
         }
         catch (err) {
-            console.log(`Error while deleting in the table ${this.table}: ${err.message}`);
+            console.log(`Error while deleting in the table ${this.#table}: ${err.message}`);
             throw err;
         }
     };

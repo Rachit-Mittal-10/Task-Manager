@@ -1,18 +1,22 @@
 class BaseController {
-    get = async (request, response) => {
+    #service;
+    constructor(service){
+        this.#service = service;
+    }
+    async get(request, response){
 
     };
-    getAll = async (request, response) => {
+    async getAll(request, response){
 
     };
-    create = async (request, response) => {
+    async create(request, response){
 
     };
-    update = async (request, response) => {
+    async update(request, response){
 
     };
-    delete = async (request, response) => {
-        
+    async delete(request, response){
+
     };
 };
 
