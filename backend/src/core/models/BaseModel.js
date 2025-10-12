@@ -1,10 +1,13 @@
-import conn from "#config/mysql.js";
+import defaultConnection from "#config/mysql.js";
+/*
 
+*/
 class BaseModel {
     #table;
-    constructor(tableName = "base") {
+    constructor(tableName = "base",dbConnection=defaultConnection) {
         this.#table = tableName;
-    }
+        this.db = dbConnection;
+    }   
     get table(){
         return this.#table;
     }
@@ -17,7 +20,7 @@ class BaseModel {
         let placeholders = Object.keys(data).map(()=>{return "?"}).join(", ");
         const query = `INSERT INTO ${this.table}(${cols}) VALUES(${placeholders});`;
         try {
-            const [result] = await conn.execute(query, dataValueArr);
+            const [result] = await this.db.execute(query, dataValueArr);
             return result;
         }
         catch (err) {
@@ -28,7 +31,7 @@ class BaseModel {
     get = async (id) => {
         const query = `SELECT * FROM ${this.table} WHERE id = ?;`;
         try {
-            const [result] = await conn.execute(query, [id]);
+            const [result] = await this.db.execute(query, [id]);
             return result;
         }
         catch (err) {
@@ -39,7 +42,7 @@ class BaseModel {
     getAll = async () => {
         const query = `SELECT * FROM ${this.table};`;
         try {
-            const [result] = await conn.execute(query);
+            const [result] = await this.db.execute(query);
             return result;
         }
         catch (err) {
@@ -55,7 +58,7 @@ class BaseModel {
         let setString = Object.keys(data).map((key) => { return `${key} = ?`; }).join(", ");
         const query = `UPDATE ${this.table} SET ${setString} WHERE id = ?;`;
         try {
-            const [result] = await conn.execute(query, [...dataValuesArr, id]);
+            const [result] = await this.db.execute(query, [...dataValuesArr, id]);
             return result;
         }
         catch (err) {
@@ -66,7 +69,7 @@ class BaseModel {
     remove = async (id) => {
         const query = `DELETE FROM ${this.table} WHERE id = ?;`;
         try {
-            const [result] = await conn.execute(query, [id]);
+            const [result] = await this.db.execute(query, [id]);
             return result;
         }
         catch (err) {
