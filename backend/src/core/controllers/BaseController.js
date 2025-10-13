@@ -70,9 +70,8 @@ class BaseController {
         const id = request.params.id;
         try {
             const result = await this.#service.remove(id);
-            response.status(200).json({
+            response.status(204).json({
                 ok: true,
-                data:result
             });
         } catch (error) {
             response.status(500).json({
