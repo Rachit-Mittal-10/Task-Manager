@@ -4,6 +4,9 @@ class BaseRouter {
     #router;
     #controller;
     constructor(controller) {
+        if(!controller){
+            throw new Error("Controller is required!!!")
+        }
         this.#router = new Router();
         this.#controller = controller;
     }

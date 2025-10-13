@@ -1,6 +1,9 @@
 class BaseController {
     #service;
     constructor(service){
+        if(!service){
+            throw new Error("Service is mandatory")
+        }
         this.#service = service;
     }
     async get(request, response){
