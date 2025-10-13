@@ -1,4 +1,4 @@
-import { Task } from "../models/Task.js";
+import Task from "../models/Task.js";
 import { customSort, findRatio } from "#utils/utils.js";
 
 const getDashboard = async (req, res) => {
