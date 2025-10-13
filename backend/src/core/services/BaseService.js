@@ -13,7 +13,7 @@ class BaseService {
         this.#dep = dep;
     }
     async create(data){
-        if(!data || Object.keys(data) === 0){
+        if(!data || Object.keys(data).length === 0){
             throw new Error("Data is empty");
         }
         try {
@@ -59,7 +59,7 @@ class BaseService {
             const result = await this.#model.remove(id);
             return result;
         }
-        catch {
+        catch (err) {
             throw err;
         }
     }
