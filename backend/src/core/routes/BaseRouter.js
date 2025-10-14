@@ -20,11 +20,6 @@ class BaseRouter {
         return this.controller[method].bind(this.controller);
     }
     registerBaseRoutes(){
-        // this.router.post("/",this.bindController("create"));
-        // this.router.get("/:id",this.bindController("get"));
-        // this.router.get("/",this.bindController("getAll"));
-        // this.router.put("/:id",this.bindController("update"));
-        // this.router.delete("/:id",this.bindController("delete"));
         this.registerRoute("post","/","create");
         this.registerRoute("get","/:id","get");
         this.registerRoute("get","/","getAll");
@@ -35,7 +30,6 @@ class BaseRouter {
         this.router[method](path, this.bindController(handler));
     }
     registerCustomRoutes() {
-        throw new Error("registerCustomRoutes method must be implemented in the subclass");
     }
 };
 
