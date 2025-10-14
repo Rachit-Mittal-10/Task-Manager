@@ -25,12 +25,13 @@ class BaseRouter {
         this.router.get("/",this.bindController("getAll"));
         this.router.put("/:id",this.bindController("update"));
         this.router.delete("/:id",this.bindController("delete"));
+        this.registerRoute("post","/","create");
     }
-    registerCustomRoutes(method, path, handler){
+    registerRoute(method, path, handler){
         this.router[method](path, this.bindController(handler));
     }
-    registerRoutes() {
-        throw new Error("registerRoutes method must be implemented in the subclass");
+    registerCustomRoutes() {
+        throw new Error("registerCustomRoutes method must be implemented in the subclass");
     }
 };
 
