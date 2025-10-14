@@ -79,6 +79,16 @@ class BaseModel {
             throw err;
         }
     };
+    async query(customQuery, params = []){
+        try {
+            const [result] = await this.#db.execute(customQuery, params);
+            return result;
+        }
+        catch (err) {
+            console.log(`Error while executing custom query in the table ${this.#table}: ${err.message}`);
+            throw err;
+        }
+    }
 };
 
 export default BaseModel;

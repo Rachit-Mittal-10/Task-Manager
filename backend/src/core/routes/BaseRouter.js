@@ -16,8 +16,8 @@ class BaseRouter {
     get controller() {
         return this.#controller;
     }
-    bindController(method){
-        return this.controller[method].bind(this.controller);
+    #bindController(method){
+        return this.#controller[method].bind(this.#controller);
     }
     registerBaseRoutes(){
         this.registerRoute("post","/","create");
@@ -27,7 +27,7 @@ class BaseRouter {
         this.registerRoute("delete","/:id","delete");
     }
     registerRoute(method, path, handler){
-        this.router[method](path, this.bindController(handler));
+        this.router[method](path, this.#bindController(handler));
     }
     registerCustomRoutes() {
     }
