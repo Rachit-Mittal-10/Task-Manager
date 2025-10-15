@@ -6,6 +6,9 @@ class BaseController {
         }
         this.#service = service;
     }
+    get service(){
+        return this.#service;
+    }
     async create(request, response){
         const data = request.body;
         try {

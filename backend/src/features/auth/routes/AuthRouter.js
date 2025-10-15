@@ -7,7 +7,8 @@ class AuthRouter extends BaseRouter {
     }
     registerCustomRoutes(){
         this.registerRoute("post", "/login", "login");
-        this.registerRoute("post", "/register", "register");
+        // this.registerRoute("post", "/register", "register");
+        this.registerRoute("get","/me","me");
     }
 }
 

@@ -1,7 +1,7 @@
-import BaseService from "#core/services/BaseService.js";
-import { hashPassword } from "../utils/AuthUtils";
+import BaseCrudService from "#core/services/BaseCrudService.js";
+import { hashPassword } from "../utils/AuthUtils.js";
 
-class AuthService extends BaseService {
+class AuthService extends BaseCrudService {
     constructor(model) {
         super(model);
     }
@@ -31,6 +31,9 @@ class AuthService extends BaseService {
             throw new Error("All parameters are required for registration");
         }
 
+    }
+    async me(){
+        return await this.model.me();
     }
 };
 

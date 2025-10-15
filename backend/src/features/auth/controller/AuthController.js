@@ -8,12 +8,20 @@ class AuthController extends BaseController {
         const { username, email, password } = request.body;
         try {
             const loginStatus = await this.service.login(username, email, password);
+            return response.status(200);
         }
         catch (err) {
             response.status(401).json({
                 message: "Login Failed. Invalid Credentials!!!"
             })
         }
+    }
+    async me (request, response) {
+        const message = await this.service.me();
+
+        response.status(200).json({
+            message
+        });
     }
 };
 

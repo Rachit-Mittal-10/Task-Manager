@@ -1,5 +1,5 @@
-import { protectedRouter } from "./protected/index.js";
-import { publicRouter } from "./public/index.js";
+import { protectedRouter } from "./protected/ProtectedRoutes.js";
+import { publicRouter } from "./public/PublicRoutes.js";
 
 export {
     protectedRouter,

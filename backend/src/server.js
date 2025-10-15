@@ -1,5 +1,5 @@
 // import app from "./app.js";
-import App from "#app/index.js";
+import App from "#app/App.js";
 import { config } from "dotenv";
 
 const env = config({

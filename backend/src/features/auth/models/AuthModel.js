@@ -1,5 +1,4 @@
 import BaseModel from "#core/models/BaseModel.js";
-import { verifyPassword } from "../utils/AuthUtils.js";
 
 class AuthModel extends BaseModel {
     constructor(conn) {
@@ -53,6 +52,9 @@ class AuthModel extends BaseModel {
             console.log(`Error during registration in table ${this.table}: ${err.message}`);
             throw err;
         }
+    }
+    async me(){
+        return "This is reching the model";
     }
 };
 

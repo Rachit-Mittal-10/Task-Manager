@@ -1,4 +1,4 @@
-import BaseService from "./BaseService";
+import BaseService from "./BaseService.js";
 /*
 * BaseCrudService.js
 * This provides the basic functionality for all the application service layers
@@ -9,8 +9,11 @@ class BaseCrudService extends BaseService {
         if(!model){
             throw new Error("Model is mandatory!!!")
         }
-        this.#model = model;
         super(dep);
+        this.#model = model;
+    }
+    get model(){
+        return this.#model;
     }
     async create(data){
         if(!data || Object.keys(data).length === 0){

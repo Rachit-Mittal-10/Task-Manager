@@ -1,20 +1,20 @@
 import conn from "#config/mysql.js";
-import AuthModel from "./models/AuthModel";
-import AuthController from "./controllers/AuthController";
-import AuthService from "./services/AuthService";
-import AuthRouter from "./routes/AuthRouter";
+import AuthModel from "./models/AuthModel.js";
+import AuthController from "./controller/AuthController.js";
+import AuthService from "./services/AuthService.js";
+import AuthRouter from "./routes/AuthRouter.js";
 
 // Initialise model with db connection instance.
-const authModel = new AuthModel(conn);
+const AuthModelInstance = new AuthModel(conn);
 // Initialise service with model instance.
-const authService = new AuthService(authModel);
+const AuthServiceInstance = new AuthService(AuthModelInstance);
 // Initialise controller with service instance.
-const authController = new AuthController(authService);
+const AuthControllerInstance = new AuthController(AuthServiceInstance);
 // Initialise router with controller instance.
-const authRouter = new AuthRouter(authController);
+const AuthRouterInstance = new AuthRouter(AuthControllerInstance);
 
 // Export the router and service instances.
 export {
-    authService,
-    authRouter
+    AuthServiceInstance,
+    AuthRouterInstance
 };

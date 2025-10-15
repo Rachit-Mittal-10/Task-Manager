@@ -19,6 +19,9 @@ class BaseModel {
     get table(){
         return this.#table;
     }
+    get db(){
+        return this.#db;
+    }
     async create(data){
         const dataValueArr = Object.values(data);
         let cols = Object.keys(data).join(", ");
