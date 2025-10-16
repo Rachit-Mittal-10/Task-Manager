@@ -4,9 +4,6 @@ USE task_manager;
 
 CREATE TABLE IF NOT EXISTS users(
     id INT PRIMARY KEY AUTO_INCREMENT,
-    username VARCHAR(50) UNIQUE NOT NULL,
-    email VARCHAR(255) UNIQUE NOT NULL,
-    password VARCHAR(256) NOT NULL,
     firstname VARCHAR(255) NOT NULL,
     middlename VARCHAR(255),
     lastname VARCHAR(255) NOT NULL,
