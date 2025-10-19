@@ -30,6 +30,15 @@ class AuthService extends BaseCrudService {
         if(!(username && email && password)){
             throw new Error("All parameters are required for registration");
         }
+        try{
+            const hashedPassword = await hashPassword(password);
+            const result = await this.model.register(username, email, hashedPassword);
+            return result;
+        }
+        catch (err) {
+            console.log(err);
+            throw err;
+        }
 
     }
     async me(){

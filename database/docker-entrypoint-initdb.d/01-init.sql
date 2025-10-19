@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS tasks(
 
 CREATE TABLE IF NOT EXISTS auth (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    user_id INT NOT NULL,
+    user_id INT,
     username VARCHAR(50) UNIQUE,
     email VARCHAR(255) UNIQUE,
     password VARCHAR(256),

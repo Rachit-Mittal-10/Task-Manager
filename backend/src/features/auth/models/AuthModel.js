@@ -43,7 +43,7 @@ class AuthModel extends BaseModel {
         }
     }
     async register(username, email, password) {
-        const userData = { username, email, password };
+        const userData = { username, email, password, };
         try {
             const result = await this.create(userData);
             return result;
