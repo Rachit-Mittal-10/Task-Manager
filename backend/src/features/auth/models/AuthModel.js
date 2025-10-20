@@ -49,7 +49,7 @@ class AuthModel extends BaseModel {
             return result;
         }
         catch (err) {
-            console.log(`Error during registration in table ${this.table}: ${err.message}`);
+            // console.log(`Error during registration in table ${this.table}: ${err.message}`);
             throw err;
         }
     }
