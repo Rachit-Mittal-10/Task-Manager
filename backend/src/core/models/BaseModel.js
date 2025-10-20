@@ -32,7 +32,7 @@ class BaseModel {
             return result;
         }
         catch (err) {
-            console.log(`Error while adding data in table ${this.#table}: ${err.message}`);
+            // console.log(`Error while adding data in table ${this.#table}: ${err.message}`);
             throw err;
         }
     };
@@ -43,7 +43,7 @@ class BaseModel {
             return result;
         }
         catch (err) {
-            console.log(`Error while get data in table ${this.#table}: ${err.message}`);
+            // console.log(`Error while get data in table ${this.#table}: ${err.message}`);
             throw err;
         }
     };
@@ -54,7 +54,7 @@ class BaseModel {
             return result;
         }
         catch (err) {
-            console.log(`Error while getting all data in the table ${this.#table}: ${err.message}`);
+            // console.log(`Error while getting all data in the table ${this.#table}: ${err.message}`);
             throw err;
         }
     }
@@ -67,7 +67,7 @@ class BaseModel {
             return result;
         }
         catch (err) {
-            console.log(`Error while updating data in the table ${this.#table}: ${err.message}`);
+            // console.log(`Error while updating data in the table ${this.#table}: ${err.message}`);
             throw err;
         }
     };
@@ -78,7 +78,7 @@ class BaseModel {
             return result;
         }
         catch (err) {
-            console.log(`Error while deleting in the table ${this.#table}: ${err.message}`);
+            // console.log(`Error while deleting in the table ${this.#table}: ${err.message}`);
             throw err;
         }
     };
@@ -88,7 +88,7 @@ class BaseModel {
             return result;
         }
         catch (err) {
-            console.log(`Error while executing custom query in the table ${this.#table}: ${err.message}`);
+            // console.log(`Error while executing custom query in the table ${this.#table}: ${err.message}`);
             throw err;
         }
     }
