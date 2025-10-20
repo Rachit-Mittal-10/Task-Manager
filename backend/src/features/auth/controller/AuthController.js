@@ -1,9 +1,6 @@
 import BaseController from "#core/controllers/BaseController.js";
 
 class AuthController extends BaseController {
-    constructor(service){
-        super(service);
-    }
     async login (request, response) {
         const { username, email, password } = request.body;
         try {

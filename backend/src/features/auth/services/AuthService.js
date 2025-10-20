@@ -2,9 +2,6 @@ import BaseCrudService from "#core/services/BaseCrudService.js";
 import { hashPassword } from "../utils/AuthUtils.js";
 
 class AuthService extends BaseCrudService {
-    constructor(model) {
-        super(model);
-    }
     async login(username, email, password){
         if(!password || (!username && !email)){
             throw new Error("Username or email and password are required for login");
@@ -22,7 +19,7 @@ class AuthService extends BaseCrudService {
             return user;
         }
         catch(err){
-            console.log(`Error during login in service: ${err.message}`);
+            console.log(`Error during login in service: ${err}`)
             throw err;
         }
     }
@@ -36,7 +33,16 @@ class AuthService extends BaseCrudService {
             return result;
         }
         catch (err) {
-            console.log(err);
+            switch(err.code){
+                case "ER_DUP_ENTRY":
+                    console.log(`Error due to duplicate entry: ${err}`);
+                    throw new Error("Duplicate Entry");
+                    break;
+                default:
+                    console.log(`Error during registration in service: ${err}`);
+                    throw err;
+                    break;
+            }
             throw err;
         }
 
