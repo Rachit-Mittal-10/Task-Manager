@@ -4,8 +4,6 @@
 * This class serves as abstract data layer for all the application model
 * It is mandatory to pass the tableName and db connection object. 
 */
-
-//! Never use the arrow function in class since they destroy the inheritance chain. rememeber this
 class BaseModel {
     #table;
     #db;
@@ -22,6 +20,13 @@ class BaseModel {
     get db(){
         return this.#db;
     }
+    /*
+    * @method: create
+    * @params: Object key value pair
+    * @return: Array
+    * 
+    * This will create the entry in table
+    */
     async create(data){
         const dataValueArr = Object.values(data);
         let cols = Object.keys(data).join(", ");
@@ -36,6 +41,13 @@ class BaseModel {
             throw err;
         }
     };
+    /*
+    * @method: get 
+    * @params: Int
+    * @return: array of objects
+    * 
+    * This will return the row with provided id
+    */
     async get(id){
         const query = `SELECT * FROM ${this.#table} WHERE id = ?;`;
         try {
@@ -47,6 +59,13 @@ class BaseModel {
             throw err;
         }
     };
+    /* 
+    * @method: getAll
+    * @params: None
+    * @return: Array of Objects
+    * 
+    * This will return the entire data in the table
+    */
     async getAll(){
         const query = `SELECT * FROM ${this.#table};`;
         try {
@@ -58,6 +77,13 @@ class BaseModel {
             throw err;
         }
     }
+    /* 
+    * @method: update
+    * @params: Int, Object
+    * @return: Array of Objects
+    * 
+    * This will update the value of provided id
+    */
     async update(id, data){
         const dataValuesArr = Object.values(data);
         let setString = Object.keys(data).map((key) => { return `${key} = ?`; }).join(", ");
@@ -71,6 +97,13 @@ class BaseModel {
             throw err;
         }
     };
+    /* 
+    * @method: remove
+    * @params: Int
+    * @return: Array of Objects
+    * 
+    * This will delete the row with provided id
+    */
     async remove(id){
         const query = `DELETE FROM ${this.#table} WHERE id = ?;`;
         try {
@@ -82,6 +115,13 @@ class BaseModel {
             throw err;
         }
     };
+    /* 
+    * @method: query
+    * @params: String, Array
+    * @return: Array of Objects
+    * 
+    * this will execute the provided query with provided params on the db.
+    */
     async query(customQuery, params = []){
         try {
             const [result] = await this.#db.execute(customQuery, params);
@@ -91,6 +131,10 @@ class BaseModel {
             // console.log(`Error while executing custom query in the table ${this.#table}: ${err.message}`);
             throw err;
         }
+    }
+    // Here data is key value pair.
+    async findBy(data, options){
+
     }
 };
 

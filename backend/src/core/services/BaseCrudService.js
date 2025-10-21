@@ -30,7 +30,7 @@ class BaseCrudService extends BaseService {
     async get(id){
         try {
             const result = await this.#model.get(id);
-            return result;
+            return result[0];
         }
         catch (err){
             throw err;

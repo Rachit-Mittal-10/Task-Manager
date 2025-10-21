@@ -1,5 +1,10 @@
 import BaseCrudService from "#core/services/BaseCrudService.js";
-import { hashPassword } from "../utils/AuthUtils.js";
+import { generateToken, hashPassword, verifyPassword } from "../utils/AuthUtils.js";
+import dotenv from "dotenv";
+
+const env = dotenv.config({
+    path: "../.env"
+});
 
 class AuthService extends BaseCrudService {
     async login(username, email, password){
@@ -8,28 +13,44 @@ class AuthService extends BaseCrudService {
         }
         try {
             let user = null;
-            // const nonHashedPassword = password;
-            // password = await hashPassword(password);
             if(username){
-                user = await this.model.loginByUsername(username, password);
+                user = await this.model.getUserByUsername(username, password);
             }
             else if(email){
-                user = await this.model.loginByEmail(email, password);
+                user = await this.model.getUserByEmail(email, password);
             }
-            return user;
+            if(!user){
+                return null;
+            }
+            const userPassword = user[0]["password"];
+            if(!verifyPassword(password,userPassword)){
+                return null;
+            }
+            // this means user exist and password is verified
+            const token = generateToken(user[0],process.env.JWT_SECRET_KEY);
+            return {
+                token
+            };
         }
         catch(err){
             console.log(`Error during login in service: ${err}`)
             throw err;
         }
     }
+    /* 
+    insertId is result.insertId
+    */
     async register(username, email, password){
         if(!(username && email && password)){
             throw new Error("All parameters are required for registration");
         }
         try{
             const hashedPassword = await hashPassword(password);
-            const result = await this.model.register(username, email, hashedPassword);
+            const result = await this.model.create({
+                username,
+                email,
+                password: hashedPassword
+            });
             return result;
         }
         catch (err) {

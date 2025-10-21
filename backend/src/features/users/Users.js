@@ -1,7 +1,7 @@
-import UserModel from "./models/UserModel";
-import UserService from "./services/UserService";
-import UserController from "./controller/UserController";
-import UserRouter from "./routes/UserRouter";
+import UserModel from "./models/UserModel.js";
+import UserService from "./services/UserService.js";
+import UserController from "./controller/UserController.js";
+import UserRouter from "./routes/UserRouter.js";
 import conn from "#config/mysql.js";
 
 const userModel = new UserModel(conn);

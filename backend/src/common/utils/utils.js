@@ -1,11 +1,6 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import dotenv from "dotenv";
 import { promisify } from "util";
-
-const env = dotenv.config({
-    path: "../.env",
-});
 
 const jwtVerify = promisify(jwt.verify);
 

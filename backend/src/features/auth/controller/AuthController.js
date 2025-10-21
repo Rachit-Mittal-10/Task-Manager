@@ -4,8 +4,16 @@ class AuthController extends BaseController {
     async login (request, response) {
         const { username, email, password } = request.body;
         try {
-            const loginStatus = await this.service.login(username, email, password);
-            return response.status(200);
+            const result = await this.service.login(username, email, password);
+            if(result && result.token){
+                return response.status(200).json({
+                    message: "Login Successful",
+                    token: result.token
+                });
+            }
+            return response.status(404).json({
+                message: "Something went wrong"
+            });
         }
         catch (err) {
             return response.status(401).json({
