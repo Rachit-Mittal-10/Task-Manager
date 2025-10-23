@@ -1,18 +1,20 @@
-import { Router } from "express";
-import { authenticateToken } from "#middleware/authMiddleware.js";
-import { router as taskRouter } from "#routes/taskRouter.js";
-import { router as dashboardRouter } from "#routes/dashboardRouter.js";
-import { router as userRouter } from "#routes/userRouter.js";
+import { authenticateToken } from "#features/auth/middleware/AuthMiddleware.js";
 
+import taskRouter from "#features/tasks/Tasks.js";
+import userRouter from "#features/users/Users.js";
+import StaticRouter from "#core/routes/StaticRouter.js";
 
-const protectedRouter = Router();
-//* adding the authenticate middleware 
-protectedRouter.use(authenticateToken);
-
-protectedRouter.use("/tasks", taskRouter);
-protectedRouter.use("/users", userRouter);
-protectedRouter.use("/dashboard", dashboardRouter);
+class ProtectedRouter extends StaticRouter {
+    constructor(){
+        super();
+        this.registerMiddleware(authenticateToken)
+            .registerRouter("/tasks",taskRouter)
+            .registerRouter("/users",userRouter);
+    }
+};
+const protectedRouterInstanceRouter = new ProtectedRouter().router;
 
 export {
-    protectedRouter
+    protectedRouter,
+    protectedRouterInstanceRouter
 };

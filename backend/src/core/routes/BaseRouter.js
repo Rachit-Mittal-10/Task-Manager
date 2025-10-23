@@ -1,35 +1,41 @@
-import { Router } from "express";
-
-class BaseRouter {
-    #router;
+import StaticRouter from "./StaticRouter";
+/* 
+* BaseRouter
+*/
+class BaseRouter extends StaticRouter {
     #controller;
     constructor(controller) {
         if(!controller){
             throw new Error("Controller is required!!!")
         }
-        this.#router = Router();
+        super();
         this.#controller = controller;
-    }
-    get router() {
-        return this.#router;
     }
     get controller() {
         return this.#controller;
     }
-    #bindController(method){
-        return this.#controller[method].bind(this.#controller);
-    }
-    registerBaseRoutes(){
-        this.registerRoute("post","/","create");
-        this.registerRoute("get","/:id","get");
-        this.registerRoute("get","/","getAll");
-        this.registerRoute("put","/:id","update");
-        this.registerRoute("delete","/:id","delete");
+    #bindController(handler){
+        if(!handler || typeof handler !== "string"){
+            throw new Error("Invalid Handler");
+        }
+        const fn = this.#controller[handler];
+        if(typeof fn !== "function"){
+            throw new Error("Invalid Handler");
+        }
+        return fn.bind(this.#controller);
     }
     registerRoute(method, path, handler){
-        this.router[method](path, this.#bindController(handler));
-    }
-    registerCustomRoutes() {
+        const validMethods = ["post","get","put","patch","delete","head","options"];
+        if(!method || typeof method !== "string" || !validMethods.includes(method.toLowerCase())){
+            throw new Error("Empty or Invalid Method");
+        }
+        if(!path || typeof path !== "string" || !path.trim()){
+            throw new Error("Empty or Invalid Path");
+        }
+        if(!handler || typeof handler !== "string"){
+            throw new Error("Empty or Invalid Handler");
+        }
+        this.router[method.toLowerCase()](path, this.#bindController(handler));
     }
 };
 

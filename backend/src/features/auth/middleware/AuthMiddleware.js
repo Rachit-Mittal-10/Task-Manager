@@ -1,4 +1,4 @@
-import { jwtVerify } from "#utils/utils.js";
+import { jwtVerify } from "../utils/AuthUtils.js";
 
 const authenticateToken = async (req, res, next) => {
     //* Extract the token from HTTP request incoming
