@@ -1,10 +1,16 @@
-class BaseService {
-    #dep;
-    constructor(dep = {}){
-        this.#dep = dep;
+import StaticService from "./StaticService.js";
+
+class BaseService extends StaticService {
+    #model;
+    constructor(model, dep = {}){
+        if(!model){
+            throw new Error("Model is mandatory");
+        }
+        super(dep);
+        this.#model = model;
     }
-    get dep(){
-        return this.dep;
+    get model(){
+        return this.#model;
     }
 };
 

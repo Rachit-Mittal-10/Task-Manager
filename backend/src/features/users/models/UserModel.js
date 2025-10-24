@@ -1,6 +1,6 @@
-import BaseModel from "#core/models/BaseModel.js";
+import BaseCrudModel from "#core/models/BaseModel.js";
 
-class UserModel extends BaseModel {
+class UserModel extends BaseCrudModel {
     constructor(conn){
         super("users",conn);
     }

@@ -1,4 +1,4 @@
-import BaseCrudService from "#core/services/BaseCrudService.js";
+import BaseService from "#core/services/BaseCrudService.js";
 import { generateToken, hashPassword, verifyPassword } from "../utils/AuthUtils.js";
 import dotenv from "dotenv";
 
@@ -6,7 +6,7 @@ const env = dotenv.config({
     path: "../.env"
 });
 
-class AuthService extends BaseCrudService {
+class AuthService extends BaseService {
     async login(username, email, password){
         if(!password || (!username && !email)){
             throw new Error("Username or email and password are required for login");

@@ -1,6 +1,6 @@
-import BaseModel from "#core/models/BaseModel.js";
+import BaseCrudModel from "#core/models/BaseModel.js";
 
-class TaskModel extends BaseModel {
+class TaskModel extends BaseCrudModel {
     constructor(conn){
         super("tasks",conn);
     }
