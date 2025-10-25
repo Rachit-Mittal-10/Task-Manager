@@ -23,7 +23,8 @@ class AuthService extends BaseService {
                 return null;
             }
             const userPassword = user[0]["password"];
-            if(!verifyPassword(password,userPassword)){
+            const passwordStatus = await verifyPassword(password,userPassword);
+            if(passwordStatus){
                 return null;
             }
             // this means user exist and password is verified

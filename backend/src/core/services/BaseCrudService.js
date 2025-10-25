@@ -42,6 +42,7 @@ class BaseCrudService extends BaseService {
             return result;
         }
         catch (err) {
+            console.log(`Err during service: ${err}`);
             throw err;
         }
     }

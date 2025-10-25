@@ -1,4 +1,4 @@
-import BaseModel from "./BaseModel";
+import BaseModel from "./BaseModel.js";
 /*
 * BaseCrudModel.js
 * 
@@ -62,7 +62,7 @@ class BaseCrudModel extends BaseModel {
             return result;
         }
         catch (err) {
-            // console.log(`Error while getting all data in the table ${this.table}: ${err.message}`);
+            console.log(`Error while getting all data in the table ${this.table}: ${err.message}`);
             throw err;
         }
     }
@@ -110,4 +110,4 @@ class BaseCrudModel extends BaseModel {
     }
 };
 
-export default BaseModel;
+export default BaseCrudModel;

@@ -1,6 +1,6 @@
 import UserModel from "./models/UserModel.js";
 import UserService from "./services/UserService.js";
-import UserController from "./controller/UserController.js";
+import UserController from "./controllers/UserController.js";
 import UserRouter from "./routes/UserRouter.js";
 import conn from "#config/mysql.js";
 

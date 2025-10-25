@@ -8,6 +8,7 @@ const connectionString = {
     database: process.env.DATABASE_NAME,
 };
 
+// console.log(process.env);
 // console.log(connectionString);
 
 let conn = mysql.createPool(connectionString);

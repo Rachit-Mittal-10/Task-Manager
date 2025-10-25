@@ -1,4 +1,4 @@
-import BaseRouter from "./BaseRouter";
+import BaseRouter from "./BaseRouter.js";
 
 class BaseCrudRouter extends BaseRouter {
     constructor(controller){

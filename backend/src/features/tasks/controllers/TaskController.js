@@ -1,6 +1,6 @@
-import BaseController from "#core/controllers/BaseController.js";
+import BaseCrudController from "#core/controllers/BaseCrudController.js";
 
-class TaskController extends BaseController {
+class TaskController extends BaseCrudController {
 };
 
 export default TaskController;

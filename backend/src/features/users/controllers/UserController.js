@@ -1,6 +1,6 @@
-import BaseController from "#core/controllers/BaseController.js";
+import BaseCrudController from "#core/controllers/BaseCrudController.js";
 
-class UserController extends BaseController {
+class UserController extends BaseCrudController {
 };
 
 export default UserController;

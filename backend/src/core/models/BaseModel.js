@@ -33,7 +33,6 @@ class BaseModel {
             return result;
         }
         catch (err) {
-            // console.log(`Error while executing custom query in the table ${this.#table}: ${err.message}`);
             throw err;
         }
     }

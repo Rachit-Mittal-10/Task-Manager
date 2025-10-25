@@ -33,6 +33,7 @@ class StaticRouter {
 
             this.router.use(...handlers);
         }
+        return this;
     }
     registerRouter(routerPath, routerHandler){
         if(!routerPath || typeof routerPath !== "string" || !routerPath.trim()){
@@ -42,6 +43,7 @@ class StaticRouter {
             throw new Error("Invalid Router");
         }
         this.router.use(routerPath,routerHandler);
+        return this;
     }
 };
 

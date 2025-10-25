@@ -1,6 +1,6 @@
 import conn from "#config/mysql.js";
 import AuthModel from "./models/AuthModel.js";
-import AuthController from "./controller/AuthController.js";
+import AuthController from "./controllers/AuthController.js";
 import AuthService from "./services/AuthService.js";
 import AuthRouter from "./routes/AuthRouter.js";
 

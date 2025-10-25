@@ -1,4 +1,4 @@
-import BaseController from "./BaseController";
+import BaseController from "./BaseController.js";
 
 class BaseCrudController extends BaseController {
     #service;

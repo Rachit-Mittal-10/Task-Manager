@@ -1,4 +1,4 @@
-import StaticRouter from "./StaticRouter";
+import StaticRouter from "./StaticRouter.js";
 /* 
 * BaseRouter
 */
@@ -16,11 +16,12 @@ class BaseRouter extends StaticRouter {
     }
     #bindController(handler){
         if(!handler || typeof handler !== "string"){
-            throw new Error("Invalid Handler");
+            throw new Error("Invalid Handler. It needs to be string");
         }
         const fn = this.#controller[handler];
+        // console.log(`Handler: ${handler}\nController:${this.#controller}\nType of Controller:${typeof this.#controller}\nfn: ${fn}\ntype: ${typeof fn}`);
         if(typeof fn !== "function"){
-            throw new Error("Invalid Handler");
+            throw new Error("Invalid Handler. function does not exists on the controller");
         }
         return fn.bind(this.#controller);
     }
