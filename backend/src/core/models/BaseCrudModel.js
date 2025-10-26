@@ -25,7 +25,7 @@ class BaseCrudModel extends BaseModel {
         let placeholders = Object.keys(data).map(() => { return "?" }).join(", ");
         const query = `INSERT INTO ${this.table}(${cols}) VALUES(${placeholders});`;
         try {
-            const [result] = await this.db.execute(query, dataValueArr);
+            const [result] = await this.query(query, dataValueArr);
             return result;
         }
         catch (err) {
@@ -43,7 +43,7 @@ class BaseCrudModel extends BaseModel {
     async get(id){
         const query = `SELECT * FROM ${this.table} WHERE id = ?;`;
         try {
-            const [result] = await this.db.execute(query, [id]);
+            const [result] = await this.query(query, [id]);
             return result;
         }
         catch (err) {
@@ -61,7 +61,7 @@ class BaseCrudModel extends BaseModel {
     async getAll(){
         const query = `SELECT * FROM ${this.table};`;
         try {
-            const [result] = await this.db.execute(query);
+            const [result] = await this.query(query);
             return result;
         }
         catch (err) {
@@ -81,7 +81,7 @@ class BaseCrudModel extends BaseModel {
         let setString = Object.keys(data).map((key) => { return `${key} = ?`; }).join(", ");
         const query = `UPDATE ${this.table} SET ${setString} WHERE id = ?;`;
         try {
-            const [result] = await this.db.execute(query, [...dataValuesArr, id]);
+            const [result] = await this.query(query, [...dataValuesArr, id]);
             return result;
         }
         catch (err) {
@@ -99,11 +99,10 @@ class BaseCrudModel extends BaseModel {
     async remove(id){
         const query = `DELETE FROM ${this.table} WHERE id = ?;`;
         try {
-            const [result] = await this.db.execute(query, [id]);
+            const [result] = await this.query(query, [id]);
             return result;
         }
         catch (err) {
-            // console.log(`Error while deleting in the table ${this.table}: ${err.message}`);
             throw err;
         }
     };

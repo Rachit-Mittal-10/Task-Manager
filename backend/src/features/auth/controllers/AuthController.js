@@ -5,7 +5,6 @@ class AuthController extends BaseController {
         const { username, email, password } = request.body;
         try {
             const result = await this.service.login(username, email, password);
-            console.log(result);
             if(result && result.token){
                 return response.status(200).json({
                     message: "Login Successful",
