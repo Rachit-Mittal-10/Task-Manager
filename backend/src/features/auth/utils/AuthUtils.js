@@ -28,8 +28,8 @@ const verifyPassword = async (inputPassword, storedHashedPassword) => {
 
 const generateToken = (user, jwtSecretKey = process.env.JWT_SECRET_KEY) => {
     const payload = {
-        id: user.id,
-        user_id : user.user_id
+        auth_id: user.id,
+        user_id : user.user_id,
     };
     const options = {
         expiresIn: "1h",
