@@ -1,3 +1,7 @@
+/* 
+* @file: BaseController.js
+* @description: 
+*/
 class BaseController {
     #service;
     constructor(service){

@@ -42,16 +42,21 @@ class AuthService extends BaseService {
     /* 
     insertId is result.insertId
     */
-    async register(username, email, password){
-        if(!(username && email && password)){
+    async register(username, email, password, firstname){
+        if(!(username && email && password &&  firstname)){
             throw new Error("All parameters are required for registration");
         }
         try{
+            const provider = this.getDep("user-service");
+            const userResult = await provider.create({
+                firstname
+            });
             const hashedPassword = await hashPassword(password);
             const result = await this.model.create({
                 username,
                 email,
-                password: hashedPassword
+                password: hashedPassword,
+                user_id: userResult.insertId
             });
             return result;
         }
@@ -68,7 +73,6 @@ class AuthService extends BaseService {
             }
             throw err;
         }
-
     }
     async me(){
         return await this.model.me();

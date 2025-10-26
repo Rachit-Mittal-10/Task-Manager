@@ -1,20 +1,23 @@
 import BaseModel from "./BaseModel.js";
 /*
-* BaseCrudModel.js
-* 
-* This class serves as abstract data layer for all the application model
+* @file: BaseCrudModel.js
+* @description: This class serves as abstract data layer for all the application model
 * It is mandatory to pass the tableName and db connection object. 
 */
 class BaseCrudModel extends BaseModel {
+    /* 
+    * @constructor
+    * @params: string and Object
+    */
     constructor(tableName, dbConnection) {
         super(tableName, dbConnection);
     }
     /*
+    * @public
     * @method: create
     * @params: Object key value pair
     * @return: Array
-    * 
-    * This will create the entry in table
+    * @description: This will create the entry in table
     */
     async create(data){
         const dataValueArr = Object.values(data);
@@ -31,11 +34,11 @@ class BaseCrudModel extends BaseModel {
         }
     };
     /*
+    * @public
     * @method: get 
     * @params: Int
     * @return: array of objects
-    * 
-    * This will return the row with provided id
+    * @description: This will return the row with provided id
     */
     async get(id){
         const query = `SELECT * FROM ${this.table} WHERE id = ?;`;
@@ -49,11 +52,11 @@ class BaseCrudModel extends BaseModel {
         }
     };
     /* 
+    * @public
     * @method: getAll
     * @params: None
     * @return: Array of Objects
-    * 
-    * This will return the entire data in the table
+    * @description: This will return the entire data in the table
     */
     async getAll(){
         const query = `SELECT * FROM ${this.table};`;
@@ -67,11 +70,11 @@ class BaseCrudModel extends BaseModel {
         }
     }
     /* 
+    * @public
     * @method: update
     * @params: Int, Object
-    * @return: Array of Objects
-    * 
-    * This will update the value of provided id
+    * @return: Array of Objects 
+    * @description: This will update the value of provided id
     */
     async update(id, data){
         const dataValuesArr = Object.values(data);
@@ -87,11 +90,11 @@ class BaseCrudModel extends BaseModel {
         }
     };
     /* 
+    * @public
     * @method: remove
     * @params: Int
     * @return: Array of Objects
-    * 
-    * This will delete the row with provided id
+    * @description: This will delete the row with provided id
     */
     async remove(id){
         const query = `DELETE FROM ${this.table} WHERE id = ?;`;
