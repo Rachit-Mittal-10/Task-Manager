@@ -107,8 +107,30 @@ class BaseCrudModel extends BaseModel {
         }
     };
     // Here data is key value pair.
-    async findBy(data, options){
-
+    async findBy(data, options = {}){
+        const limit = options.limit;
+        const offset = options.offset;
+        const WHERE = Object.key(data).map((key) => {
+            `${key} = ?`
+        }).join(", ");
+        console.log(WHERE);
+        const placeholders = Object.values(data);
+        const query = `SELECT * FROM ${this.table} WHERE ${WHERE}`;
+        if(limit){
+            query += `LIMIT ${limit}`;
+        }
+        if(offset){
+            query += `OFFSET ${offset}`;
+        }
+        console.log(query);
+        query += `;`;
+        try {
+            const result = await this.query(query,placeholders);
+            return result;
+        }
+        catch (err) {
+            throw err;
+        }
     }
 };
 

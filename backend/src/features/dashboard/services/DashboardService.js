@@ -1,9 +1,11 @@
-import BaseService from "#core/services/BaseService.js";
+import StaticService from "#core/services/StaticService.js";
 
-class DashboardService extends BaseService {
-    constructor(model){
-        super(model);
+
+class DashboardService extends StaticService {
+    constructor(dep){
+        super(dep);
     }
+    
 };
 
 export default DashboardService;
