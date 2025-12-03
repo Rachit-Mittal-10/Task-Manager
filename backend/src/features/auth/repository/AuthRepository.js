@@ -1,6 +1,6 @@
-import BaseCrudModel from "#core/models/BaseCrudModel.js";
+import BaseCrudRepository from "#core/models/BaseCrudRepository.js";
 
-class AuthModel extends BaseCrudModel {
+class AuthModel extends BaseCrudRepository {
     constructor(conn) {
         super("auth", conn);
     }

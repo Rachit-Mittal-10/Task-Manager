@@ -37,7 +37,7 @@
         "backend"
     ],
     "devDependencies": {
-        "@babel/eslint-parser": "^7.25.9",
+        "@babel/eslint-parser": "^7.28.5",
         "concurrently": "^9.1.0",
         "eslint": "^9.17.0",
         "eslint-config-eslint": "^11.0.0",
