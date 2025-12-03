@@ -1,11 +1,11 @@
 import conn from "#config/mysql.js";
-import TaskModel from "./models/TaskModel.js";
+import TaskRepository from "./repository/TaskRepository.js";
 import TaskService from "./services/TaskService.js";
 import TaskController from "./controllers/TaskController.js";
 import TaskRouter from "./routes/TaskRouter.js";
 
-const taskModel = new TaskModel(conn);
-const taskService = new TaskService(taskModel);
+const taskRepository = new TaskRepository(conn);
+const taskService = new TaskService(taskRepository);
 const taskController = new TaskController(taskService);
 const taskRouter = new TaskRouter(taskController);
 

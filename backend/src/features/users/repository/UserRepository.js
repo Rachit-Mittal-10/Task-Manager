@@ -1,9 +1,9 @@
 import BaseCrudRepository from "#core/models/BaseCrudRepository.js";
 
-class UserModel extends BaseCrudRepository {
+class UserRepository extends BaseCrudRepository {
     constructor(conn){
         super("users",conn);
     }
 };
 
-export default UserModel;
+export default UserRepository;

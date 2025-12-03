@@ -1,6 +1,6 @@
 import BaseCrudRepository from "#core/models/BaseCrudRepository.js";
 
-class TaskModel extends BaseCrudRepository {
+class TaskRepository extends BaseCrudRepository {
     constructor(conn){
         super("tasks",conn);
     }
@@ -9,4 +9,4 @@ class TaskModel extends BaseCrudRepository {
     }
 };
 
-export default TaskModel;
+export default TaskRepository;

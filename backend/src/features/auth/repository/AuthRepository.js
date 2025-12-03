@@ -1,6 +1,6 @@
 import BaseCrudRepository from "#core/models/BaseCrudRepository.js";
 
-class AuthModel extends BaseCrudRepository {
+class AuthRepository extends BaseCrudRepository {
     constructor(conn) {
         super("auth", conn);
     }
@@ -29,4 +29,4 @@ class AuthModel extends BaseCrudRepository {
     }
 };
 
-export default AuthModel;
+export default AuthRepository;
