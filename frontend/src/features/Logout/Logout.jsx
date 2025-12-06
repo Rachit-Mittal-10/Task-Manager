@@ -5,10 +5,10 @@ import { useAuth } from "../../context/AuthContext";
 const Logout = () => {
     const { logout } = useAuth();
     const navigate = useNavigate();
-    useEffect(()=>{
+    useEffect(() => {
         logout();
         navigate("/login", { replace: true });
-    },[logout,navigate]);
+    }, [logout, navigate]);
 };
 
 export default Logout;

@@ -2,6 +2,7 @@ import eslintPluginReact from "eslint-plugin-react"; // React plugin
 import eslintPluginPrettier from "eslint-plugin-prettier"; // Prettier plugin
 import eslintPluginReactHooks from "eslint-plugin-react-hooks"; // React Hooks plugin
 import eslintPluginImport from "eslint-plugin-import"; // Import plugin for managing import rules
+import babelParser from "@babel/eslint-parser";
 
 export default [
     // Base configuration for all files
@@ -12,17 +13,18 @@ export default [
                 node: true, // Enable Node.js globals
                 es2021: true, // Enable ECMAScript 2021 features
             },
-            parser: "@babel/eslint-parser", // Use Babel parser to handle JSX
+            parser: babelParser, // Use Babel parser to handle JSX
             parserOptions: {
                 ecmaVersion: 12, // Enable ECMAScript 2021 syntax
                 sourceType: "module", // Use ES modules (import/export)
                 jsx: true, // Enable JSX parsing
+		requireConfigFile: false
             },
         },
         plugins: {
             react: eslintPluginReact, // Define React plugin
             prettier: eslintPluginPrettier, // Define Prettier plugin
-            reactHooks: eslintPluginReactHooks, // Define React Hooks plugin
+            'react-hooks': eslintPluginReactHooks, // Define React Hooks plugin
             import: eslintPluginImport, // Define import plugin
         },
         rules: {

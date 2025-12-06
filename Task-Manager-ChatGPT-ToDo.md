@@ -3,6 +3,8 @@
 This TODO lists feature ideas, prioritized tasks, and implementation tips for the **Task-Manager** repository.
 ---
 
+This would be Jira for Personal Use. 
+
 ## 🚀 Prioritized Features (High impact)
 
 ### 🔐 Authentication & Security

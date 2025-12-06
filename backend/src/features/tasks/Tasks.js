@@ -9,7 +9,4 @@ const taskService = new TaskService(taskRepository);
 const taskController = new TaskController(taskService);
 const taskRouter = new TaskRouter(taskController);
 
-export {
-    taskService,
-    taskRouter
-};
+export { taskService, taskRouter };

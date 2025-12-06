@@ -1,9 +1,9 @@
 import axios from "axios";
 import config from "@utils/config.js";
 
-const DEFAULT_LOCALHOST = `http://localhost:3000`
+const DEFAULT_LOCALHOST = `http://localhost:3000`;
 //* Storing some common thing and creating the instance
-const CONFIG_BASE_URL = await config.get("baseUrl") || "";
+const CONFIG_BASE_URL = (await config.get("baseUrl")) || "";
 const API = axios.create({
     baseURL: CONFIG_BASE_URL || DEFAULT_LOCALHOST,
     // baseURL: `http://localhost:3000`

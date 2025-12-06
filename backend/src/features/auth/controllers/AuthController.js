@@ -1,47 +1,50 @@
 import BaseController from "#core/controllers/BaseController.js";
 
 class AuthController extends BaseController {
-    async login (request, response) {
+    async login(request, response) {
         const { username, email, password } = request.body;
         try {
             const result = await this.service.login(username, email, password);
-            if(result && result.token){
+            if (result && result.token) {
                 return response.status(200).json({
                     message: "Login Successful",
-                    token: result.token
+                    token: result.token,
                 });
             }
             return response.status(404).json({
-                message: "Something went wrong"
+                message: "Something went wrong",
             });
-        }
-        catch (err) {
+        } catch (err) {
             return response.status(401).json({
-                message: "Login Failed. Invalid Credentials!!!"
-            })
+                message: "Login Failed. Invalid Credentials!!!",
+            });
         }
     }
-    async register(request, response){
-        const {username, email, password, firstname} = request.body;
-        try{
-            const result = await this.service.register(username, email, password, firstname);
+    async register(request, response) {
+        const { username, email, password, firstname } = request.body;
+        try {
+            const result = await this.service.register(
+                username,
+                email,
+                password,
+                firstname,
+            );
             return response.status(201).json({
-                result
+                result,
             });
-        }
-        catch(err) {
+        } catch (err) {
             return response.status(404).json({
-                message: "Error Occured!!!"
+                message: "Error Occured!!!",
             });
         }
     }
-    async me (request, response) {
+    async me(request, response) {
         const message = await this.service.me();
 
         response.status(200).json({
-            message
+            message,
         });
     }
-};
+}
 
 export default AuthController;

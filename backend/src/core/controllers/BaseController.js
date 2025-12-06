@@ -1,18 +1,18 @@
-/* 
-* @file: BaseController.js
-* @description: 
-*/
+/*
+ * @file: BaseController.js
+ * @description:
+ */
 class BaseController {
     #service;
-    constructor(service){
-        if(!service){
+    constructor(service) {
+        if (!service) {
             throw new Error("service cannot be empty");
         }
         this.#service = service;
     }
-    get service(){
+    get service() {
         return this.#service;
     }
-};
+}
 
 export default BaseController;

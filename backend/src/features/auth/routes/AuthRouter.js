@@ -5,10 +5,10 @@ class AuthRouter extends BaseRouter {
         super(controller);
         this.registerCustomRoutes();
     }
-    registerCustomRoutes(){
+    registerCustomRoutes() {
         this.registerRoute("post", "/login", "login");
         this.registerRoute("post", "/register", "register");
-        this.registerRoute("get","/me","me");
+        this.registerRoute("get", "/me", "me");
     }
 }
 

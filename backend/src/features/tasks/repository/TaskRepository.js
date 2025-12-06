@@ -1,12 +1,10 @@
-import BaseCrudRepository from "#core/models/BaseCrudRepository.js";
+import BaseCrudRepository from "#core/repository/BaseCrudRepository.js";
 
 class TaskRepository extends BaseCrudRepository {
-    constructor(conn){
-        super("tasks",conn);
+    constructor(conn) {
+        super("tasks", conn);
     }
-    async getByUserId(user_id){
-
-    }
-};
+    async getByUserId(user_id) {}
+}
 
 export default TaskRepository;

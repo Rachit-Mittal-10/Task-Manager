@@ -5,15 +5,13 @@ import { userRouter } from "#features/users/Users.js";
 import StaticRouter from "#core/routes/StaticRouter.js";
 
 class ProtectedRouter extends StaticRouter {
-    constructor(){
+    constructor() {
         super();
         this.registerMiddleware(authenticateToken)
             .registerRouter("/tasks", taskRouter.router)
             .registerRouter("/users", userRouter.router);
     }
-};
+}
 const protectedRouter = new ProtectedRouter().router;
 
-export {
-    protectedRouter
-};
+export { protectedRouter };

@@ -29,7 +29,7 @@ const verifyPassword = async (inputPassword, storedHashedPassword) => {
 const generateToken = (user, jwtSecretKey = process.env.JWT_SECRET_KEY) => {
     const payload = {
         auth_id: user.id,
-        user_id : user.user_id,
+        user_id: user.user_id,
     };
     const options = {
         expiresIn: "1h",
@@ -38,9 +38,4 @@ const generateToken = (user, jwtSecretKey = process.env.JWT_SECRET_KEY) => {
     return token;
 };
 
-export {
-    jwtVerify,
-    hashPassword,
-    generateToken,
-    verifyPassword
-};
+export { jwtVerify, hashPassword, generateToken, verifyPassword };
