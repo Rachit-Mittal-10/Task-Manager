@@ -8,6 +8,7 @@ class PublicRouter extends StaticRouter {
     }
 }
 
-const publicRouter = new PublicRouter().router;
+const publicRouterInstance = new PublicRouter();
+const publicRouter = publicRouterInstance.router;
 
 export { publicRouter };

@@ -12,6 +12,8 @@ class ProtectedRouter extends StaticRouter {
             .registerRouter("/users", userRouter.router);
     }
 }
-const protectedRouter = new ProtectedRouter().router;
+
+const protectedRouterInstance = new ProtectedRouter();
+const protectedRouter = protectedRouterInstance.router;
 
 export { protectedRouter };

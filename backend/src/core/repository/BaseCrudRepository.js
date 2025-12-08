@@ -1,6 +1,6 @@
 import BaseRepository from "./BaseRepository.js";
 /*
- * @file: BaseCrudModel.js
+ * @file: BaseCrudRepository.js
  * @description: This class serves as abstract data layer for all the application model
  * It is mandatory to pass the tableName and db connection object.
  */
