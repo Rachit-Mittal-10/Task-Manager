@@ -9,7 +9,9 @@ class BaseCrudRepository extends BaseRepository {
      * @constructor
      * @params: string and Object
      */
+    // constructor(tableName, dbConnection, Model){
     constructor(tableName, dbConnection) {
+        // super(tableName, dbConnection, Model);
         super(tableName, dbConnection);
     }
     /*
@@ -47,6 +49,7 @@ class BaseCrudRepository extends BaseRepository {
         const query = `SELECT * FROM ${this.table} WHERE id = ?;`;
         try {
             const [result] = await this.query(query, [id]);
+            // return this.Model(result)
             return result;
         } catch (err) {
             // console.log(`Error while get data in table ${this.table}: ${err.message}`);

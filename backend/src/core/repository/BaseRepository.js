@@ -16,10 +16,12 @@ class BaseRepository {
      * @description: this variable contains the model details. this is used to run the queries on the database
      */
     #db;
+    // #Model;
     /*
      * @constructor
      * @params: string tablename and Object dbConnectioon
      */
+    // constructor(tableName, dbConnection,. Model) {
     constructor(tableName, dbConnection) {
         if (!tableName || typeof tableName !== "string") {
             throw new Error(
@@ -28,6 +30,7 @@ class BaseRepository {
         }
         this.#table = tableName;
         this.#db = dbConnection;
+        // this.Model = Model;
     }
     /*
      * @public
