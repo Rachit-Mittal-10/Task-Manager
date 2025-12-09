@@ -10,24 +10,25 @@ class BaseService extends StaticService {
      * @description: contains the model object. used to talk to model
      */
     #model;
+    #repository;
     /*
      * @constructor
      * @params: Object and Object
      */
-    constructor(model, dep = {}) {
-        if (!model) {
-            throw new Error("Model is mandatory");
+    constructor(repository, dep = {}) {
+        if (!repository) {
+            throw new Error("Repository is mandatory");
         }
         super(dep);
-        this.#model = model;
+        this.#repository = repository;
     }
     /*
      * @public
-     * @method: get model
-     * @description: returns the model
+     * @method: get repository
+     * @description: returns the repository
      */
-    get model() {
-        return this.#model;
+    get repository() {
+        return this.#repository;
     }
 }
 

@@ -9,11 +9,11 @@ class BaseCrudService extends BaseService {
      * @constructor
      * @params: Object and Object
      */
-    constructor(model, dep = {}) {
-        if (!model) {
-            throw new Error("Model is mandatory!!!");
+    constructor(repository, dep = {}) {
+        if (!repository) {
+            throw new Error("Repository is mandatory!!!");
         }
-        super(model, dep);
+        super(repository, dep);
     }
     /*
      * @public
@@ -27,7 +27,7 @@ class BaseCrudService extends BaseService {
             throw new Error("Data is empty");
         }
         try {
-            const result = await this.model.create(data);
+            const result = await this.repository.create(data);
             return result;
         } catch (err) {
             throw err;
@@ -42,7 +42,7 @@ class BaseCrudService extends BaseService {
      */
     async get(id) {
         try {
-            const result = await this.model.get(id);
+            const result = await this.repository.get(id);
             return result[0];
         } catch (err) {
             throw err;
@@ -57,7 +57,7 @@ class BaseCrudService extends BaseService {
      */
     async getAll() {
         try {
-            const result = await this.model.getAll();
+            const result = await this.repository.getAll();
             return result;
         } catch (err) {
             console.log(`Err during service: ${err}`);
@@ -76,7 +76,7 @@ class BaseCrudService extends BaseService {
             throw new Error("Data is Empty");
         }
         try {
-            const result = await this.model.update(id, data);
+            const result = await this.repository.update(id, data);
             return result;
         } catch (err) {
             throw err;
@@ -91,7 +91,7 @@ class BaseCrudService extends BaseService {
      */
     async remove(id) {
         try {
-            const result = await this.model.remove(id);
+            const result = await this.repository.remove(id);
             return result;
         } catch (err) {
             throw err;

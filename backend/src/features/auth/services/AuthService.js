@@ -20,9 +20,9 @@ class AuthService extends BaseService {
         try {
             let user = null;
             if (username) {
-                user = await this.model.getUserByUsername(username, password);
+                user = await this.repository.getUserByUsername(username, password);
             } else if (email) {
-                user = await this.model.getUserByEmail(email, password);
+                user = await this.repository.getUserByEmail(email, password);
             }
             if (!user) {
                 return null;
@@ -56,7 +56,7 @@ class AuthService extends BaseService {
                 firstname,
             });
             const hashedPassword = await hashPassword(password);
-            const result = await this.model.create({
+            const result = await this.repository.create({
                 username,
                 email,
                 password: hashedPassword,
@@ -78,7 +78,7 @@ class AuthService extends BaseService {
         }
     }
     async me() {
-        return await this.model.me();
+        return await this.repository.me();
     }
 }
 
