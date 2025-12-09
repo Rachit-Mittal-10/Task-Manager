@@ -5,7 +5,10 @@
     "private": true,
     "scripts": {
         "dev": "node --watch src/server.js",
-        "debug": "node --watch --inspect src/server.js"
+        "debug": "node --watch --inspect src/server.js",
+        "dev:ts": "tsx watch src/server.ts",
+        "build": "tsc -p tsconfig.json",
+        "typecheck": "tsc -p tsconfig.json --noEmit"
     },
     "keywords": [],
     "author": "",
@@ -22,7 +25,11 @@
     },
     "devDependencies": {
         "@types/bcryptjs": "^2.4.6",
-        "@types/jsonwebtoken": "^9.0.7"
+        "@types/express": "^4.17.21",
+        "@types/jsonwebtoken": "^9.0.7",
+        "@types/node": "^22.9.4",
+        "tsx": "^4.19.2",
+        "typescript": "^5.6.3"
     },
     "imports": {
         "#/*":"./src/*",
