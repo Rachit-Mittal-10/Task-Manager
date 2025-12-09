@@ -1,0 +1,38 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["ES2022"],
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "allowJs": true,
+    "checkJs": false,
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "baseUrl": "./src",
+    "paths": {
+      "#/*": ["./*"],
+      "#app/*": ["./app/*"],
+      "#common/*": ["./common/*"],
+      "#config/*": ["./config/*"],
+      "#controllers/*": ["./controllers/*"],
+      "#core/*": ["./core/*"],
+      "#error/*": ["./common/error/*"],
+      "#features/*": ["./features/*"],
+      "#middleware/*": ["./middleware/*"],
+      "#models/*": ["./models/*"],
+      "#routes/*": ["./routes/*"],
+      "#services/*": ["./services/*"],
+      "#utils/*": ["./common/utils/*"]
+    },
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmitOnError": false,
+    "skipLibCheck": true,
+    "strict": false
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist"]
+}
+
