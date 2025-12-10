@@ -21,10 +21,12 @@
         "express": "^4.21.2",
         "jsonwebtoken": "^9.0.2",
         "mysql2": "^3.11.5",
+        "ts-node": "^10.9.2",
         "util": "^0.12.5"
     },
     "devDependencies": {
         "@types/bcryptjs": "^2.4.6",
+        "@types/dotenv": "^6.1.1",
         "@types/express": "^4.17.21",
         "@types/jsonwebtoken": "^9.0.7",
         "@types/node": "^22.9.4",
@@ -32,18 +34,18 @@
         "typescript": "^5.6.3"
     },
     "imports": {
-        "#/*":"./src/*",
-        "#app/*":"./src/app/*",
-        "#common/*":"./src/common/*",
-        "#config/*":"./src/config/*",
+        "#/*": "./src/*",
+        "#app/*": "./src/app/*",
+        "#common/*": "./src/common/*",
+        "#config/*": "./src/config/*",
         "#controllers/*": "./src/controllers/*",
-        "#core/*":"./src/core/*",
+        "#core/*": "./src/core/*",
         "#error/*": "./src/common/error/*",
-        "#features/*":"./src/features/*",
-        "#middleware/*":"./src/middleware/*",
-        "#models/*":"./src/models/*",
-        "#routes/*":"./src/routes/*",
-        "#services/*":"./src/services/*",
-        "#utils/*":"./src/common/utils/*"
+        "#features/*": "./src/features/*",
+        "#middleware/*": "./src/middleware/*",
+        "#models/*": "./src/models/*",
+        "#routes/*": "./src/routes/*",
+        "#services/*": "./src/services/*",
+        "#utils/*": "./src/common/utils/*"
     }
 }
