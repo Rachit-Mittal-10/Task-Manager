@@ -23,8 +23,10 @@
         "lint:format:fix:backend": "eslint backend/ --fix && prettier --write backend/",
         "lint:format:fix:frontend": "eslint frontend/ --fix && prettier --write frontend/",
         "dev": "concurrently \"npm run dev --workspace backend\" \"npm run dev --workspace frontend\"",
+        "dev-ts":"concurrently \"npm run dev:ts --workspace backend \" \"npm run dev --workspace frontend\"",
         "dev:frontend": "npm run dev --workspace frontend",
         "dev:backend": "npm run dev --workspace backend",
+        "dev-ts:backend":"npm run dev:ts --workspace backend",
         "clear:cache": "rm -rf node_modules",
         "build:frontend": "npm run build --workspace frontend"
     },
