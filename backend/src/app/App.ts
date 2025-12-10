@@ -1,9 +1,9 @@
-import express from "express";
+import express, {type Express} from "express";
 import cors from "cors";
 import { publicRouter, protectedRouter } from "./routes/AppRoutes.js";
 
 //* Getting the App from Express and adding cors and json middleware
-const App = express();
+const App: Express = express();
 App.use(cors());
 App.use(express.json());
 

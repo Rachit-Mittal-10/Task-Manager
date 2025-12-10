@@ -1,16 +1,17 @@
 /*
- * @file: BaseController.js
- * @description:
+ * @file: BaseController.ts
+ * @description: This is the abstract class for providing base of controller to be used by all the controllers
  */
-class BaseController {
-    #service;
-    constructor(service) {
+
+abstract class BaseController {
+    #service: any;
+    public constructor(service: any) {
         if (!service) {
             throw new Error("service cannot be empty");
         }
         this.#service = service;
     }
-    get service() {
+    public get service() {
         return this.#service;
     }
 }
