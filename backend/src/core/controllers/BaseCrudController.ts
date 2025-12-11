@@ -1,10 +1,11 @@
+import type {Request, Response} from "express";
 import BaseController from "./BaseController.js";
 
 class BaseCrudController extends BaseController {
     constructor(service) {
         super(service);
     }
-    async create(request, response) {
+    async create(request: Request, response: Response) {
         const data = request.body;
         try {
             const result = await this.service.create(data);
@@ -19,7 +20,7 @@ class BaseCrudController extends BaseController {
             });
         }
     }
-    async get(request, response) {
+    async get(request: Request, response: Response) {
         const id = request.params.id;
         try {
             const result = await this.service.get(id);
@@ -34,7 +35,7 @@ class BaseCrudController extends BaseController {
             });
         }
     }
-    async getAll(request, response) {
+    async getAll(request: Request, response: Response) {
         try {
             const result = await this.service.getAll();
             response.status(200).json({
@@ -48,7 +49,7 @@ class BaseCrudController extends BaseController {
             });
         }
     }
-    async update(request, response) {
+    async update(request: Request, response: Response) {
         const id = request.params.id;
         const data = request.body;
         try {
@@ -64,7 +65,7 @@ class BaseCrudController extends BaseController {
             });
         }
     }
-    async delete(request, response) {
+    async delete(request: Request, response: Response) {
         const id = request.params.id;
         try {
             const result = await this.service.remove(id);

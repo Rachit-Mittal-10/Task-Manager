@@ -3,13 +3,13 @@
  * @descripiton: This class serves as abstract data layer for all the application model
  * It is mandatory to pass the tableName and db connection object.
  */
-class BaseRepository {
+abstract class BaseRepository {
     /*
      * @private
      * @type: string
      * @description: contains the table name exactly same as db. This is used in building the queries.
      */
-    #table;
+    #table: string;
     /*
      * @private
      * @type: Object
