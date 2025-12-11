@@ -1,8 +1,11 @@
+import { type Pool } from "mysql2/promise";
+
 /*
  * @file: BaseRepository.js
  * @descripiton: This class serves as abstract data layer for all the application model
  * It is mandatory to pass the tableName and db connection object.
  */
+
 abstract class BaseRepository {
     /*
      * @private
@@ -15,14 +18,14 @@ abstract class BaseRepository {
      * @type: Object
      * @description: this variable contains the model details. this is used to run the queries on the database
      */
-    #db;
+    #db: Pool;
     // #Model;
     /*
      * @constructor
      * @params: string tablename and Object dbConnectioon
      */
     // constructor(tableName, dbConnection,. Model) {
-    constructor(tableName, dbConnection) {
+    public constructor(tableName: string, dbConnection: Pool) {
         if (!tableName || typeof tableName !== "string") {
             throw new Error(
                 `base Model requires valid table name of type "string"`,
@@ -39,7 +42,7 @@ abstract class BaseRepository {
      * @return: string
      * @description: returns the table
      */
-    get table() {
+    public get table() {
         return this.#table;
     }
     /*
@@ -49,7 +52,7 @@ abstract class BaseRepository {
      * @return: Object
      * @description: returns the db
      */
-    get db() {
+    public get db(): Pool {
         return this.#db;
     }
     /*
@@ -59,7 +62,7 @@ abstract class BaseRepository {
      * @return: Array of Objects
      * @description: this will execute the provided query with provided params on the db.
      */
-    async query(customQuery, params = []) {
+    public async query(customQuery: string, params = []) {
         try {
             const [result] = await this.#db.execute(customQuery, params);
             return result;
