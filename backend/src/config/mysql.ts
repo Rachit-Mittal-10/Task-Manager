@@ -1,11 +1,11 @@
 import mysql, { type Pool } from "mysql2/promise";
 
 interface IConnectionString {
-    host: string,
-    port: number,
-    user: string,
-    password: string,
-    database: string
+    host: string;
+    port: number;
+    user: string;
+    password: string;
+    database: string;
 };
 
 const connectionString: IConnectionString = {

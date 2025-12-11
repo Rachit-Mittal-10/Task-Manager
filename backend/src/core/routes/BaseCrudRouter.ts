@@ -1,6 +1,6 @@
 import BaseRouter from "./BaseRouter.js";
 
-class BaseCrudRouter extends BaseRouter {
+abstract class BaseCrudRouter extends BaseRouter {
     #disabledRoutes;
     constructor(controller, disabledRoutes = []) {
         if (!controller) {

@@ -2,7 +2,7 @@ import StaticRouter from "./StaticRouter.js";
 /*
  * BaseRouter
  */
-class BaseRouter extends StaticRouter {
+abstract class BaseRouter extends StaticRouter {
     #controller;
     constructor(controller) {
         if (!controller) {

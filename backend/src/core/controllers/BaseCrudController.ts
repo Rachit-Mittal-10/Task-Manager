@@ -1,7 +1,7 @@
 import type {Request, Response} from "express";
 import BaseController from "./BaseController.js";
 
-class BaseCrudController extends BaseController {
+abstract class BaseCrudController extends BaseController {
     constructor(service) {
         super(service);
     }

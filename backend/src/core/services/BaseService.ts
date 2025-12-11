@@ -3,7 +3,7 @@ import StaticService from "./StaticService.js";
  * @file: BaseService.js
  * @description: Extends Static Service and adds the Model into class
  */
-class BaseService extends StaticService {
+abstract class BaseService extends StaticService {
     /*
      * @private
      * @type: Object

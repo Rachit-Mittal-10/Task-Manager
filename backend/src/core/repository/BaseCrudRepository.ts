@@ -1,16 +1,17 @@
 import BaseRepository from "./BaseRepository.js";
+import { type Pool } from "mysql2/promise";
 /*
  * @file: BaseCrudRepository.js
  * @description: This class serves as abstract data layer for all the application model
  * It is mandatory to pass the tableName and db connection object.
  */
-class BaseCrudRepository extends BaseRepository {
+abstract class BaseCrudRepository extends BaseRepository {
     /*
      * @constructor
      * @params: string and Object
      */
     // constructor(tableName, dbConnection, Model){
-    constructor(tableName, dbConnection) {
+    public constructor(tableName: string, dbConnection: Pool): void {
         // super(tableName, dbConnection, Model);
         super(tableName, dbConnection);
     }
@@ -21,7 +22,7 @@ class BaseCrudRepository extends BaseRepository {
      * @return: Array
      * @description: This will create the entry in table
      */
-    async create(data) {
+    protected async create(data: any) {
         const dataValueArr = Object.values(data);
         let cols = Object.keys(data).join(", ");
         let placeholders = Object.keys(data)
@@ -45,7 +46,7 @@ class BaseCrudRepository extends BaseRepository {
      * @return: array of objects
      * @description: This will return the row with provided id
      */
-    async get(id) {
+    protected async get(id) {
         const query = `SELECT * FROM ${this.table} WHERE id = ?;`;
         try {
             const [result] = await this.query(query, [id]);
@@ -63,7 +64,7 @@ class BaseCrudRepository extends BaseRepository {
      * @return: Array of Objects
      * @description: This will return the entire data in the table
      */
-    async getAll() {
+    protected async getAll() {
         const query = `SELECT * FROM ${this.table};`;
         try {
             const [result] = await this.query(query);
@@ -82,7 +83,7 @@ class BaseCrudRepository extends BaseRepository {
      * @return: Array of Objects
      * @description: This will update the value of provided id
      */
-    async update(id, data) {
+    protected async update(id, data) {
         const dataValuesArr = Object.values(data);
         let setString = Object.keys(data)
             .map((key) => {
@@ -105,7 +106,7 @@ class BaseCrudRepository extends BaseRepository {
      * @return: Array of Objects
      * @description: This will delete the row with provided id
      */
-    async remove(id) {
+    protected async remove(id) {
         const query = `DELETE FROM ${this.table} WHERE id = ?;`;
         try {
             const [result] = await this.query(query, [id]);
@@ -115,7 +116,7 @@ class BaseCrudRepository extends BaseRepository {
         }
     }
     // Here data is key value pair.
-    async findBy(data, options = {}) {
+    protected async findBy(data, options = {}) {
         const limit = options.limit;
         const offset = options.offset;
         const WHERE = Object.key(data)

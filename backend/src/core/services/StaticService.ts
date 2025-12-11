@@ -2,7 +2,7 @@
  * @file: StaticService.js
  * @description: Static Service class designed to build service which requires no model. Optional Dependencies array using dependency injection.
  */
-class StaticService {
+abstract class StaticService {
     /*
      * @private
      * @type: Object of Object

@@ -1,6 +1,6 @@
 import { Router } from "express";
 
-class StaticRouter {
+abstract class StaticRouter {
     #router;
     constructor() {
         this.#router = Router();

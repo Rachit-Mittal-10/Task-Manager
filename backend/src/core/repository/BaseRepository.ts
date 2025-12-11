@@ -42,7 +42,7 @@ abstract class BaseRepository {
      * @return: string
      * @description: returns the table
      */
-    public get table() {
+    protected get table() {
         return this.#table;
     }
     /*
@@ -52,7 +52,7 @@ abstract class BaseRepository {
      * @return: Object
      * @description: returns the db
      */
-    public get db(): Pool {
+    protected get db(): Pool {
         return this.#db;
     }
     /*
@@ -62,7 +62,7 @@ abstract class BaseRepository {
      * @return: Array of Objects
      * @description: this will execute the provided query with provided params on the db.
      */
-    public async query(customQuery: string, params = []) {
+    protected async query(customQuery: string, params = []) {
         try {
             const [result] = await this.#db.execute(customQuery, params);
             return result;

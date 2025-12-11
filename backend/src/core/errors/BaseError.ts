@@ -1,4 +1,4 @@
-class BaseError extends Error {
+abstract class BaseError extends Error {
     constructor(
         message,
         name = "BaseError",
