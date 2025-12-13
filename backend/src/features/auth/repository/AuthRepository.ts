@@ -1,4 +1,4 @@
-import BaseCrudRepository from "#core/repository/BaseCrudRepository.js";
+import { BaseCrudRepository } from "#core/repository/BaseCrudRepository.js";
 
 class AuthRepository extends BaseCrudRepository {
     constructor(conn) {

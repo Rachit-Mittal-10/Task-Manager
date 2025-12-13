@@ -6,70 +6,48 @@ import { type Pool } from "mysql2/promise";
  * It is mandatory to pass the tableName and db connection object.
  */
 
-abstract class BaseRepository {
+export abstract class BaseRepository {
     /*
      * @private
      * @type: string
      * @description: contains the table name exactly same as db. This is used in building the queries.
      */
-    #table: string;
+    protected readonly table: string;
     /*
      * @private
-     * @type: Object
+     * @type: Pool
      * @description: this variable contains the model details. this is used to run the queries on the database
      */
     #db: Pool;
-    // #Model;
     /*
      * @constructor
      * @params: string tablename and Object dbConnectioon
      */
-    // constructor(tableName, dbConnection,. Model) {
     public constructor(tableName: string, dbConnection: Pool) {
-        if (!tableName || typeof tableName !== "string") {
-            throw new Error(
-                `base Model requires valid table name of type "string"`,
-            );
-        }
-        this.#table = tableName;
+        this.table = tableName;
         this.#db = dbConnection;
-        // this.Model = Model;
     }
     /*
-     * @public
-     * @method: get table
-     * @params: None
-     * @return: string
-     * @description: returns the table
+     * @method: getter db
+     * @return: Pool object
+     * @description: this will returrn the db connection pool
      */
-    protected get table() {
-        return this.#table;
-    }
-    /*
-     * @public
-     * @method: get db
-     * @params: None
-     * @return: Object
-     * @description: returns the db
-     */
-    protected get db(): Pool {
+    protected get db() : Pool {
         return this.#db;
     }
     /*
-     * @public
+     * @protected
      * @method: query
      * @params: String, Array
      * @return: Array of Objects
      * @description: this will execute the provided query with provided params on the db.
      */
-    protected async query(customQuery: string, params = []) {
+    protected async query(customQuery: string, params = []) : Promise<any> {
         try {
-            const [result] = await this.#db.execute(customQuery, params);
+            const [result]:any = await this.db.execute(customQuery, params);
             return result;
         } catch (err) {
             throw err;
         }
     }
 }
-
-export default BaseRepository;

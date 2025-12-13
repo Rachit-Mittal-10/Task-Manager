@@ -1,4 +1,4 @@
-import BaseService from "#core/services/BaseCrudService.js";
+import { BaseService } from "#core/services/BaseService.js";
 import {
     generateToken,
     hashPassword,
@@ -43,7 +43,7 @@ class AuthService extends BaseService {
             throw err;
         }
     }
-    /* 
+    /*
     insertId is result.insertId
     */
     async register(username, email, password, firstname) {

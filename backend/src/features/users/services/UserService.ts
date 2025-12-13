@@ -1,4 +1,4 @@
-import BaseCrudService from "#core/services/BaseCrudService.js";
+import { BaseCrudService } from "#core/services/BaseCrudService.js";
 
 class UserService extends BaseCrudService {}
 

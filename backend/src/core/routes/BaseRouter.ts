@@ -1,8 +1,8 @@
-import StaticRouter from "./StaticRouter.js";
+import { StaticRouter } from "./StaticRouter.js";
 /*
  * BaseRouter
  */
-abstract class BaseRouter extends StaticRouter {
+export abstract class BaseRouter extends StaticRouter {
     #controller;
     constructor(controller) {
         if (!controller) {
@@ -53,5 +53,3 @@ abstract class BaseRouter extends StaticRouter {
         this.router[method.toLowerCase()](path, this.#bindController(handler));
     }
 }
-
-export default BaseRouter;

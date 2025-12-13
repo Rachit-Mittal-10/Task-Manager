@@ -1,4 +1,4 @@
-import BaseCrudController from "#core/controllers/BaseCrudController.js";
+import { BaseCrudController } from "#core/controllers/BaseCrudController.js";
 
 class TaskController extends BaseCrudController {}
 

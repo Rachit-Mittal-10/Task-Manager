@@ -1,4 +1,4 @@
-import BaseCrudRouter from "#core/routes/BaseCrudRouter.js";
+import { BaseCrudRouter } from "#core/routes/BaseCrudRouter.js";
 
 class TaskRouter extends BaseCrudRouter {
     constructor(controller) {

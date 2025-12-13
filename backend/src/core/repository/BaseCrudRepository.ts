@@ -1,4 +1,4 @@
-import BaseRepository from "./BaseRepository.js";
+import { BaseRepository } from "./BaseRepository.js";
 import { type Pool } from "mysql2/promise";
 
 /*
@@ -6,7 +6,7 @@ import { type Pool } from "mysql2/promise";
  * @description: This class serves as abstract data layer for all the application model
  * It is mandatory to pass the tableName and db connection object.
  */
-abstract class BaseCrudRepository extends BaseRepository {
+export abstract class BaseCrudRepository extends BaseRepository {
     /*
      * @constructor
      * @params: string and Object
@@ -144,5 +144,3 @@ abstract class BaseCrudRepository extends BaseRepository {
         }
     }
 }
-
-export default BaseCrudRepository;

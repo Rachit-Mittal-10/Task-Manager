@@ -1,7 +1,7 @@
 import type {Request, Response} from "express";
-import BaseController from "./BaseController.js";
+import { BaseController } from "./BaseController.js";
 
-abstract class BaseCrudController extends BaseController {
+export abstract class BaseCrudController extends BaseController {
     constructor(service) {
         super(service);
     }
@@ -80,5 +80,3 @@ abstract class BaseCrudController extends BaseController {
         }
     }
 }
-
-export default BaseCrudController;

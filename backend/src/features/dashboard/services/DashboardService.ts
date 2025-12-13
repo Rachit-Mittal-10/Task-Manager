@@ -1,4 +1,4 @@
-import StaticService from "#core/services/StaticService.js";
+import { StaticService } from "#core/services/StaticService.js";
 
 class DashboardService extends StaticService {
     constructor(dep) {

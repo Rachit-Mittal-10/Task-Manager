@@ -1,35 +1,33 @@
-import BaseRouter from "./BaseRouter.js";
+import { BaseRouter } from "./BaseRouter.js";
 
-abstract class BaseCrudRouter extends BaseRouter {
-    #disabledRoutes;
-    constructor(controller, disabledRoutes = []) {
+export abstract class BaseCrudRouter extends BaseRouter {
+    #disabledBaseRoutes: string[];
+    constructor(controller, disabledBaseRoutes = []) {
         if (!controller) {
             throw new Error("Empty or Invalid Controller");
         }
         super(controller);
-        this.#disabledRoutes = disabledRoutes;
+        this.#disabledBaseRoutes = disabledBaseRoutes;
         this.registerBaseRoutes();
     }
-    get disabledRoutes() {
-        return this.#disabledRoutes;
+    get disabledBaseRoutes() {
+        return this.#disabledBaseRoutes;
     }
     registerBaseRoutes() {
-        if (!this.disabledRoutes.includes("create")) {
+        if (!this.disabledBaseRoutes.includes("create")) {
             this.registerRoute("post", "/", "create");
         }
-        if (!this.disabledRoutes.includes("get")) {
+        if (!this.disabledBaseRoutes.includes("get")) {
             this.registerRoute("get", "/:id", "get");
         }
-        if (!this.disabledRoutes.includes("getAll")) {
+        if (!this.disabledBaseRoutes.includes("getAll")) {
             this.registerRoute("get", "/", "getAll");
         }
-        if (!this.disabledRoutes.includes("update")) {
+        if (!this.disabledBaseRoutes.includes("update")) {
             this.registerRoute("put", "/:id", "update");
         }
-        if (!this.disabledRoutes.includes("delete")) {
+        if (!this.disabledBaseRoutes.includes("delete")) {
             this.registerRoute("delete", "/:id", "delete");
         }
     }
 }
-
-export default BaseCrudRouter;

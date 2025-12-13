@@ -3,7 +3,7 @@
  * @description: This is the abstract class for providing base of controller to be used by all the controllers
  */
 
-abstract class BaseController {
+export abstract class BaseController {
     #service: any;
     public constructor(service: any) {
         if (!service) {
@@ -16,4 +16,3 @@ abstract class BaseController {
     }
 }
 
-export default BaseController;

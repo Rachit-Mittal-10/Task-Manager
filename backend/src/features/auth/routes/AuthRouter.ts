@@ -1,4 +1,4 @@
-import BaseRouter from "#core/routes/BaseRouter.js";
+import { BaseRouter } from "#core/routes/BaseRouter.js";
 
 class AuthRouter extends BaseRouter {
     constructor(controller) {

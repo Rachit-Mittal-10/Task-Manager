@@ -1,9 +1,9 @@
-import StaticService from "./StaticService.js";
+import { StaticService } from "./StaticService.js";
 /*
  * @file: BaseService.js
  * @description: Extends Static Service and adds the Model into class
  */
-abstract class BaseService extends StaticService {
+export abstract class BaseService extends StaticService {
     /*
      * @private
      * @type: Object
@@ -31,4 +31,3 @@ abstract class BaseService extends StaticService {
     }
 }
 
-export default BaseService;

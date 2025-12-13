@@ -1,4 +1,4 @@
-import BaseController from "#core/controllers/BaseController.js";
+import { BaseController } from "#core/controllers/BaseController.js";
 
 class AuthController extends BaseController {
     async login(request, response) {

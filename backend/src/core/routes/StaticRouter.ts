@@ -1,6 +1,6 @@
 import { Router } from "express";
 
-abstract class StaticRouter {
+export abstract class StaticRouter {
     #router;
     constructor() {
         this.#router = Router();
@@ -47,5 +47,3 @@ abstract class StaticRouter {
         return this;
     }
 }
-
-export default StaticRouter;

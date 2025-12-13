@@ -2,8 +2,9 @@
  * @file: BaseModel.js
  * @descripiton: this is the abstract class. not to be instantiated.
  */
+import { IBaseModel } from "./IBaseModel.js";
 
-abstract class BaseModel {
+export abstract class BaseModel implements IBaseModel {
     id: number | null;
     created_at: Date | null;
     updated_at: Date | null;
@@ -13,5 +14,3 @@ abstract class BaseModel {
         this.updated_at = data.updated_at ? new Date(data.updated_at) : null;
     }
 }
-
-export default BaseModel;
