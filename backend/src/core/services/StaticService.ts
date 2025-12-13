@@ -8,7 +8,7 @@ abstract class StaticService {
      * @type: Object of Object
      * @description: contains the dependencies
      */
-    #dep;
+    #dep: Record<string,any>;
     /*
      * @constructor
      * @params: Object

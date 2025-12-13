@@ -9,7 +9,6 @@ abstract class BaseService extends StaticService {
      * @type: Object
      * @description: contains the model object. used to talk to model
      */
-    #model;
     #repository;
     /*
      * @constructor

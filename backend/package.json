@@ -6,7 +6,7 @@
     "scripts": {
         "dev": "node --watch src/server.js",
         "debug": "node --watch --inspect src/server.js",
-        "dev:ts": "tsx watch src/server.ts",
+        "dev:ts": "tsx --watch src/server.ts",
         "build": "tsc -p tsconfig.json",
         "typecheck": "tsc -p tsconfig.json --noEmit"
     },

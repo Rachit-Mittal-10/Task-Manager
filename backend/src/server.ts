@@ -1,6 +1,6 @@
 import { config } from "dotenv";
 import type { DotenvConfigOutput } from "dotenv";
-import path from "path";
+import path from "node:path";
 import { fileURLToPath } from "url";
 
 const __filename: string = fileURLToPath(import.meta.url);
@@ -12,7 +12,8 @@ const env:DotenvConfigOutput = config({
 });
 
 // Dynamic Import
-const { default: App } = await import("#app/App.js");
+// const { default: App } = await import("#app/App.js");
+const { default: App } = await import("./app/App.js");
 //* Listening on host:port
 const PORT:number = Number(process.env.PORT);
 const HOST:string = process.env.HOST;

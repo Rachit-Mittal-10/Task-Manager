@@ -1,5 +1,6 @@
 import BaseRepository from "./BaseRepository.js";
 import { type Pool } from "mysql2/promise";
+
 /*
  * @file: BaseCrudRepository.js
  * @description: This class serves as abstract data layer for all the application model
@@ -11,7 +12,7 @@ abstract class BaseCrudRepository extends BaseRepository {
      * @params: string and Object
      */
     // constructor(tableName, dbConnection, Model){
-    public constructor(tableName: string, dbConnection: Pool): void {
+    public constructor(tableName: string, dbConnection: Pool) {
         // super(tableName, dbConnection, Model);
         super(tableName, dbConnection);
     }
