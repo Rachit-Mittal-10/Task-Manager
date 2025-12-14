@@ -1,3 +1,4 @@
+import { BaseModel } from "#core/models/BaseModel.js";
 import { type Pool } from "mysql2/promise";
 
 /*
@@ -6,7 +7,7 @@ import { type Pool } from "mysql2/promise";
  * It is mandatory to pass the tableName and db connection object.
  */
 
-export abstract class BaseRepository {
+export abstract class BaseRepository<TRow, TModel extends BaseModel> {
     /*
      * @private
      * @type: string
@@ -35,6 +36,7 @@ export abstract class BaseRepository {
     protected get db() : Pool {
         return this.#db;
     }
+    protected abstract toModel(row: TRow): TModel;
     /*
      * @protected
      * @method: query
