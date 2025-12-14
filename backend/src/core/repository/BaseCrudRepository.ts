@@ -1,6 +1,6 @@
 import { BaseModel } from "#core/models/BaseModel.js";
 import { BaseRepository } from "./BaseRepository.js";
-import { type Pool } from "mysql2/promise";
+import { ResultSetHeader, type Pool } from "mysql2/promise";
 
 /*
  * @file: BaseCrudRepository.js
@@ -32,7 +32,7 @@ export abstract class BaseCrudRepository<TRow,TModel extends BaseModel> extends 
             })
             .join(", ");
         const query = `INSERT INTO ${this.table}(${cols}) VALUES(${placeholders});`;
-        const result = await this.query(query, dataValueArr);
+        const result:ResultSetHeader = await this.query(query, dataValueArr);
         return result;
     }
     /*
@@ -42,9 +42,9 @@ export abstract class BaseCrudRepository<TRow,TModel extends BaseModel> extends 
      * @return: array of objects
      * @description: This will return the row with provided id
      */
-    protected async get(id: number): Promise<any> {
+    protected async get(id: number): Promise<ResultSetHeader> {
         const query = `SELECT * FROM ${this.table} WHERE id = ?;`;
-        const result = await this.query(query, [id]);
+        const result: ResultSetHeader = await this.query(query, [id]);
         return result;
     }
     /*
@@ -54,9 +54,12 @@ export abstract class BaseCrudRepository<TRow,TModel extends BaseModel> extends 
      * @return: Array of Objects
      * @description: This will return the entire data in the table
      */
-    protected async getAll(): Promise<any> {
+    protected async getAll(): Promise<ResultSetHeader> {
         const query = `SELECT * FROM ${this.table};`;
-        const result = await this.query(query);
+        const result: any = await this.query(query);
+        // return result.map((temp: TRow) => {
+        //     return temp ? this.toModel(temp) : null;
+        // });
         return result;
     }
     /*
@@ -74,7 +77,7 @@ export abstract class BaseCrudRepository<TRow,TModel extends BaseModel> extends 
             })
             .join(", ");
         const query = `UPDATE ${this.table} SET ${setString} WHERE id = ?;`;
-        const result = await this.query(query, [...dataValuesArr, id]);
+        const result: ResultSetHeader = await this.query(query, [...dataValuesArr, id]);
         return result;
     }
     /*
@@ -86,11 +89,11 @@ export abstract class BaseCrudRepository<TRow,TModel extends BaseModel> extends 
      */
     protected async remove(id: number): Promise<any> {
         const query = `DELETE FROM ${this.table} WHERE id = ?;`;
-        const result = await this.query(query, [id]);
+        const result: ResultSetHeader = await this.query(query, [id]);
         return result;
     }
     // Here data is key value pair.
-    protected async findBy(data: any, options: any = {}): Promise<any> {
+    protected async findBy(data: any, options: any = {}): Promise<ResultSetHeader> {
         const limit = options.limit;
         const offset = options.offset;
         const WHERE = Object.keys(data)
