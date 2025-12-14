@@ -2,7 +2,7 @@ import { type Pool } from "mysql2/promise";
 
 /*
  * @file: BaseRepository.js
- * @descripiton: This class serves as abstract data layer for all the application model
+ * @descripiton: This class serves as abstract data layer for all the application repository
  * It is mandatory to pass the tableName and db connection object.
  */
 
@@ -42,12 +42,8 @@ export abstract class BaseRepository {
      * @return: Array of Objects
      * @description: this will execute the provided query with provided params on the db.
      */
-    protected async query(customQuery: string, params = []) : Promise<any> {
-        try {
-            const [result]:any = await this.db.execute(customQuery, params);
-            return result;
-        } catch (err) {
-            throw err;
-        }
+    protected async query(customQuery: string, params: readonly unknown[] = []) : Promise<any> {
+        const [result]:any = await this.db.execute(customQuery, params);
+        return result;
     }
 }
