@@ -13,7 +13,7 @@ export abstract class BaseCrudRepository<TRow,TModel extends BaseModel> extends 
      * @constructor
      * @params: string and Object
      */
-    public constructor(tableName: string, dbConnection: Pool) {
+    public constructor(tableName: string, dbConnection: Pool) {  
         super(tableName, dbConnection);
     }
     /*

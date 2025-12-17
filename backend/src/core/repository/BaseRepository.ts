@@ -1,5 +1,5 @@
 import { BaseModel } from "#core/models/BaseModel.js";
-import { ResultSetHeader, type Pool } from "mysql2/promise";
+import { ResultSetHeader, RowDataPacket, type Pool } from "mysql2/promise";
 
 /*
  * @file: BaseRepository.js
@@ -44,7 +44,7 @@ export abstract class BaseRepository<TRow, TModel extends BaseModel> {
      * @return: Array of Objects
      * @description: this will execute the provided query with provided params on the db.
      */
-    protected async query(customQuery: string, params: readonly unknown[] = []) : Promise<ResultSetHeader> {
+    protected async query(customQuery: string, params: readonly unknown[] = []) : Promise<ResultSetHeader | ResultSetHeader[] | RowDataPacket[] | RowDataPacket[]> {
         const result:any = await this.db.execute(customQuery, params);
         // result is [ResultSetHeader, FieldPacket]
         return result[0];
