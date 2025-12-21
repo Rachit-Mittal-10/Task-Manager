@@ -1,33 +1,26 @@
+import { IData } from "#common/types/IData.js";
 import { StaticService } from "./StaticService.js";
 /*
  * @file: BaseService.js
  * @description: Extends Static Service and adds the Model into class
  */
-export abstract class BaseService extends StaticService {
+export abstract class BaseService<R> extends StaticService {
     /*
      * @private
      * @type: Object
-     * @description: contains the model object. used to talk to model
+     * @description: contains the repository object. used to talk to repository
      */
-    #repository;
+    protected readonly repository: R;
     /*
      * @constructor
      * @params: Object and Object
      */
-    constructor(repository, dep = {}) {
+    constructor(repository: R, dep: IData = {}) {
         if (!repository) {
             throw new Error("Repository is mandatory");
         }
         super(dep);
-        this.#repository = repository;
-    }
-    /*
-     * @public
-     * @method: get repository
-     * @description: returns the repository
-     */
-    get repository() {
-        return this.#repository;
+        this.repository = repository;
     }
 }
 

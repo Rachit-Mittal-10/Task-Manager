@@ -1,18 +1,17 @@
+import { IData } from "#common/types/IData.js";
+import { IBaseCrudRepository } from "#core/repository/IBaseCrudRepository.js";
 import { BaseService } from "./BaseService.js";
 
 /*
  * @file: BaseCrudService.js
  * @description: This provides the basic crud functionality for all the application service layers by calling methods on model
  */
-export abstract class BaseCrudService extends BaseService {
+export abstract class BaseCrudService<R extends IBaseCrudRepository> extends BaseService<R> {
     /*
      * @constructor
      * @params: Object and Object
      */
-    constructor(repository, dep = {}) {
-        if (!repository) {
-            throw new Error("Repository is mandatory!!!");
-        }
+    constructor(repository: R, dep: IData = {}) {
         super(repository, dep);
     }
     /*
@@ -22,7 +21,7 @@ export abstract class BaseCrudService extends BaseService {
      * @return: array of Object
      * @description: adds the row in the database using model
      */
-    async create(data) {
+    async create(data: IData) {
         if (!data || Object.keys(data).length === 0) {
             throw new Error("Data is empty");
         }
@@ -40,7 +39,7 @@ export abstract class BaseCrudService extends BaseService {
      * @return: Object
      * @description: return the row with particular id
      */
-    async get(id) {
+    async get(id: number) {
         try {
             const result = await this.repository.get(id);
             return result[0];
@@ -71,8 +70,8 @@ export abstract class BaseCrudService extends BaseService {
      * @return: Array of Objects
      * @description: update data of particular row in table
      */
-    async update(id, data) {
-        if (!data || Object.keys(data) === 0) {
+    async update(id: number, data: IData) {
+        if (!data || Object.keys(data).length === 0) {
             throw new Error("Data is Empty");
         }
         try {
@@ -89,7 +88,7 @@ export abstract class BaseCrudService extends BaseService {
      * @return: Array of Objects
      * @description: deletes the particular row of table
      */
-    async remove(id) {
+    async remove(id: number) {
         try {
             const result = await this.repository.remove(id);
             return result;

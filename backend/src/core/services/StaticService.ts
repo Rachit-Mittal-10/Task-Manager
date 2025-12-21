@@ -2,29 +2,22 @@
  * @file: StaticService.js
  * @description: Static Service class designed to build service which requires no model. Optional Dependencies array using dependency injection.
  */
+
+import { IData } from "#common/types/IData.js";
+
 export abstract class StaticService {
     /*
      * @private
      * @type: Object of Object
      * @description: contains the dependencies
      */
-    #dep: Record<string,any>;
+    protected readonly dep: IData;
     /*
      * @constructor
      * @params: Object
      */
-    constructor(dep = {}) {
-        this.#dep = dep;
-    }
-    /*
-     * @public
-     * @method: getter dep
-     * @params: None
-     * @return: Object
-     * @description: returns the dependency array
-     */
-    get dep() {
-        return this.#dep;
+    constructor(dep: IData = {}) {
+        this.dep = dep;
     }
     /*
      * @public
@@ -33,7 +26,7 @@ export abstract class StaticService {
      * @return: Object
      * @description: returns the particular dependency identified by key
      */
-    getDep(key) {
+    getDep(key: string) {
         if (key in this.dep) {
             return this.dep[key];
         }

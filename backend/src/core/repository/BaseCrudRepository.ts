@@ -11,7 +11,7 @@ import { type Pool } from "mysql2/promise";
 import { ReadOutput, WriteOutput } from "./IQueryOutput.js";
 
 type IData = Record<string, unknown>;
-type IOptions = {
+export type IOptions = {
     limit?: number;
     offset?: number;
 };
@@ -31,7 +31,7 @@ export abstract class BaseCrudRepository extends BaseRepository {
      * @return: Array
      * @description: This will create the entry in table
      */
-    protected async create(data: IData): Promise<WriteOutput> {
+    public async create(data: IData): Promise<WriteOutput> {
         const dataValueArr = Object.values(data);
         let cols = Object.keys(data).join(", ");
         let placeholders = Object.keys(data)
@@ -50,7 +50,7 @@ export abstract class BaseCrudRepository extends BaseRepository {
      * @return: array of objects
      * @description: This will return the row with provided id
      */
-    protected async get(id: number): Promise<ReadOutput> {
+    public async get(id: number): Promise<ReadOutput> {
         const query = `SELECT * FROM ${this.table} WHERE id = ?;`;
         const result: ReadOutput = await this.read(query, [id]);
         return result;
@@ -62,7 +62,7 @@ export abstract class BaseCrudRepository extends BaseRepository {
      * @return: Array of Objects
      * @description: This will return the entire data in the table
      */
-    protected async getAll(): Promise<ReadOutput> {
+    public async getAll(): Promise<ReadOutput> {
         const query = `SELECT * FROM ${this.table};`;
         const result: ReadOutput = await this.read(query);
         return result;
@@ -74,7 +74,7 @@ export abstract class BaseCrudRepository extends BaseRepository {
      * @return: Array of Objects
      * @description: This will update the value of provided id
      */
-    protected async update(id: number, data: IData): Promise<WriteOutput> {
+    public async update(id: number, data: IData): Promise<WriteOutput> {
         const dataValuesArr = Object.values(data);
         let setString = Object.keys(data)
             .map((key) => {
@@ -92,13 +92,13 @@ export abstract class BaseCrudRepository extends BaseRepository {
      * @return: Array of Objects
      * @description: This will delete the row with provided id
      */
-    protected async remove(id: number): Promise<WriteOutput> {
+    public async remove(id: number): Promise<WriteOutput> {
         const query = `DELETE FROM ${this.table} WHERE id = ?;`;
         const result: WriteOutput = await this.write(query, [id]);
         return result;
     }
     // Here data is key value pair.
-    protected async findBy(data: IData, options: IOptions = {}): Promise<ReadOutput> {
+    public async findBy(data: IData, options: IOptions = {}): Promise<ReadOutput> {
         const limit = options.limit;
         const offset = options.offset;
         const WHERE = Object.keys(data)
