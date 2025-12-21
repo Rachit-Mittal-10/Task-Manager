@@ -1,13 +1,13 @@
 import { BaseModel } from "#core/models/BaseModel.js";
-import { ResultSetHeader, RowDataPacket, type Pool } from "mysql2/promise";
+import { type Pool } from "mysql2/promise";
+import { ExecuteOutput, QueryOutput, ReadOutput, WriteOutput } from "./IQueryOutput.js";
 
 /*
  * @file: BaseRepository.js
  * @descripiton: This class serves as abstract data layer for all the application repository
  * It is mandatory to pass the tableName and db connection object.
  */
-
-export abstract class BaseRepository<TRow, TModel extends BaseModel> {
+export abstract class BaseRepository {
     /*
      * @private
      * @type: string
@@ -36,7 +36,6 @@ export abstract class BaseRepository<TRow, TModel extends BaseModel> {
     protected get db() : Pool {
         return this.#db;
     }
-    protected abstract toModel(row: TRow): TModel;
     /*
      * @protected
      * @method: query
@@ -44,9 +43,16 @@ export abstract class BaseRepository<TRow, TModel extends BaseModel> {
      * @return: Array of Objects
      * @description: this will execute the provided query with provided params on the db.
      */
-    protected async query(customQuery: string, params: readonly unknown[] = []) : Promise<ResultSetHeader | ResultSetHeader[] | RowDataPacket[] | RowDataPacket[]> {
-        const result:any = await this.db.execute(customQuery, params);
-        // result is [ResultSetHeader, FieldPacket]
-        return result[0];
+    private async query(customQuery: string, params: readonly unknown[] = []) : Promise<QueryOutput> {
+        const result:ExecuteOutput = await this.db.execute(customQuery, params);
+        return result[0] as QueryOutput;
+    }
+    protected async read(customQuery: string, params: readonly unknown[] = []): Promise<ReadOutput>{
+        const result = await this.query(customQuery,params);
+        return result as ReadOutput;
+    }
+    protected async write(customQuery: string, params: readonly unknown[] = []): Promise<WriteOutput>{
+        const result = await this.query(customQuery,params);
+        return result as WriteOutput;
     }
 }

@@ -6,6 +6,7 @@ interface IConnectionString {
     user: string;
     password: string;
     database: string;
+    multipleStatements: boolean;
 };
 
 const connectionString: IConnectionString = {
@@ -14,6 +15,7 @@ const connectionString: IConnectionString = {
     user: process.env.DATABASE_USER,
     password: process.env.DATABASE_PASSWORD,
     database: process.env.DATABASE_NAME,
+    multipleStatements: false,
 };
 
 const conn: Pool = mysql.createPool(connectionString);

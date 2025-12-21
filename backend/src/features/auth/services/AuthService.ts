@@ -11,7 +11,7 @@ const env = dotenv.config({
 });
 
 class AuthService extends BaseService {
-    async login(username, email, password) {
+    async login(username: string, email: string, password: string) {
         if (!password || (!username && !email)) {
             throw new Error(
                 "Username or email and password are required for login",
@@ -46,7 +46,7 @@ class AuthService extends BaseService {
     /*
     insertId is result.insertId
     */
-    async register(username, email, password, firstname) {
+    async register(username: string, email: string, password: string, firstname: string) {
         if (!(username && email && password && firstname)) {
             throw new Error("All parameters are required for registration");
         }

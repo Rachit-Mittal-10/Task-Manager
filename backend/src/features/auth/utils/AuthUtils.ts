@@ -4,7 +4,7 @@ import { promisify } from "util";
 
 const jwtVerify = promisify(jwt.verify);
 
-const hashPassword = async (password, salt = 10) => {
+const hashPassword = async (password: string, salt = 10) : Promise<string> => {
     try {
         const hashedPassword = await bcrypt.hash(password, salt);
         return hashedPassword;
@@ -13,7 +13,7 @@ const hashPassword = async (password, salt = 10) => {
     }
 };
 
-const verifyPassword = async (inputPassword, storedHashedPassword) => {
+const verifyPassword = async (inputPassword: string, storedHashedPassword: string): Promise<Boolean> => {
     try {
         const isMatch = await bcrypt.compare(
             inputPassword,
@@ -38,4 +38,9 @@ const generateToken = (user, jwtSecretKey = process.env.JWT_SECRET_KEY) => {
     return token;
 };
 
-export { jwtVerify, hashPassword, generateToken, verifyPassword };
+export {
+    jwtVerify,
+    hashPassword,
+    generateToken,
+    verifyPassword
+};
