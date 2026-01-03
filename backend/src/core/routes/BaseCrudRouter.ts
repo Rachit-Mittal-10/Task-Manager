@@ -2,7 +2,7 @@ import { BaseRouter } from "./BaseRouter.js";
 
 export abstract class BaseCrudRouter extends BaseRouter {
     #disabledBaseRoutes: string[];
-    constructor(controller, disabledBaseRoutes = []) {
+    constructor(controller, disabledBaseRoutes: string[] = []) {
         if (!controller) {
             throw new Error("Empty or Invalid Controller");
         }
@@ -10,10 +10,10 @@ export abstract class BaseCrudRouter extends BaseRouter {
         this.#disabledBaseRoutes = disabledBaseRoutes;
         this.registerBaseRoutes();
     }
-    get disabledBaseRoutes() {
+    get disabledBaseRoutes(): string[] {
         return this.#disabledBaseRoutes;
     }
-    registerBaseRoutes() {
+    protected registerBaseRoutes(): this {
         if (!this.disabledBaseRoutes.includes("create")) {
             this.registerRoute("post", "/", "create");
         }
@@ -29,5 +29,6 @@ export abstract class BaseCrudRouter extends BaseRouter {
         if (!this.disabledBaseRoutes.includes("delete")) {
             this.registerRoute("delete", "/:id", "delete");
         }
+        return this;
     }
 }

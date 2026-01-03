@@ -1,5 +1,4 @@
-import { config } from "dotenv";
-import type { DotenvConfigOutput } from "dotenv";
+import { config, type DotenvConfigOutput } from "dotenv";
 import path from "node:path";
 import { fileURLToPath } from "url";
 

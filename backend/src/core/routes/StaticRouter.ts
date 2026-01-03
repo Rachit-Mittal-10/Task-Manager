@@ -1,46 +1,37 @@
 import { Router } from "express";
+import type { Router as RouterType, RequestHandler } from "express";
 
 export abstract class StaticRouter {
-    #router;
+    #router: RouterType;
     constructor() {
         this.#router = Router();
     }
-    get router() {
+    get router(): RouterType {
         return this.#router;
     }
-    registerMiddleware(...args) {
-        if (args.length === 0) {
-            throw new Error("Empty Middlewares");
+    // this needs to be worked on.
+    // overrloading signatures
+    protected registerMiddleware(pathOrHandler: string, ...handlers: RequestHandler[]): this;
+    protected registerMiddleware(...handlers: RequestHandler[]): this;
+    protected registerMiddleware(pathOrHandler: string | RequestHandler, ...handlers: RequestHandler[]): this {
+        if(typeof pathOrHandler === "string" && handlers.length === 0) {
+            throw new Error("At least one middleware must be provided");
         }
-        let path;
-        let handlers;
-        if (typeof args[0] === "string") {
-            path = args[0];
-            handlers = args.slice(1);
+        if (typeof pathOrHandler === "string") {
+            this.router.use(pathOrHandler, ...handlers);
         } else {
-            handlers = args;
-        }
-        for (let handler of handlers) {
-            if (typeof handler !== "function") {
-                throw new Error("Invalid Handler");
-            }
-        }
-        if (path) {
-            this.router.use(path, ...handlers);
-        } else {
-            this.router.use(...handlers);
+            this.router.use(pathOrHandler,...handlers);
         }
         return this;
     }
-    registerRouter(routerPath, routerHandler) {
+    protected registerRouter(routerPath: string, routerHandler: RouterType ): this {
         if (
             !routerPath ||
-            typeof routerPath !== "string" ||
             !routerPath.trim()
         ) {
             throw new Error("Path cannot be empty");
         }
-        if (!routerHandler || typeof routerHandler.use !== "function") {
+        if (!routerHandler) {
             throw new Error("Invalid Router");
         }
         this.router.use(routerPath, routerHandler);

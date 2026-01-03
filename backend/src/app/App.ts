@@ -1,4 +1,4 @@
-import express, {type Express} from "express";
+import express, { type Express } from "express";
 import cors from "cors";
 import { publicRouter, protectedRouter } from "./routes/AppRoutes.js";
 

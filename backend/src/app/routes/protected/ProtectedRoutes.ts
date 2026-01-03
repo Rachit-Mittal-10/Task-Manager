@@ -1,8 +1,8 @@
 import { authenticateToken } from "#features/auth/middleware/AuthMiddleware.js";
-
 import { taskRouter } from "#features/tasks/Tasks.js";
 import { userRouter } from "#features/users/Users.js";
 import { StaticRouter } from "#core/routes/StaticRouter.js";
+import type { Router } from "express";
 
 class ProtectedRouter extends StaticRouter {
     constructor() {
@@ -13,7 +13,7 @@ class ProtectedRouter extends StaticRouter {
     }
 }
 
-const protectedRouterInstance = new ProtectedRouter();
-const protectedRouter = protectedRouterInstance.router;
+const protectedRouterInstance: ProtectedRouter = new ProtectedRouter();
+const protectedRouter: Router = protectedRouterInstance.router;
 
 export { protectedRouter };

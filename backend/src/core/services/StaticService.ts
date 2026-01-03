@@ -26,7 +26,7 @@ export abstract class StaticService {
      * @return: Object
      * @description: returns the particular dependency identified by key
      */
-    getDep(key: string) {
+    getDep(key: string)  {
         if (key in this.dep) {
             return this.dep[key];
         }

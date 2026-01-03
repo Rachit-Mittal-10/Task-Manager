@@ -1,5 +1,6 @@
 import { authRouter } from "#features/auth/Auth.js";
 import { StaticRouter } from "#core/routes/StaticRouter.js";
+import type { Router } from "express";
 
 class PublicRouter extends StaticRouter {
     constructor() {
@@ -8,7 +9,7 @@ class PublicRouter extends StaticRouter {
     }
 }
 
-const publicRouterInstance = new PublicRouter();
-const publicRouter = publicRouterInstance.router;
+const publicRouterInstance: PublicRouter = new PublicRouter();
+const publicRouter: Router = publicRouterInstance.router;
 
 export { publicRouter };
