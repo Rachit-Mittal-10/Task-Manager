@@ -4,7 +4,7 @@ import { StaticService } from "./StaticService.js";
  * @file: BaseService.js
  * @description: Extends Static Service and adds the Model into class
  */
-export abstract class BaseService<R> extends StaticService {
+export abstract class BaseService<R = any> extends StaticService {
     /*
      * @private
      * @type: Object
