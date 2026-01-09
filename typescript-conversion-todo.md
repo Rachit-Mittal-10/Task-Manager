@@ -1,0 +1,65 @@
+- [X] types/environment.d.ts
+- [ ] features/users/routes/UserRouter.ts
+- [ ] features/users/services/UserService.ts
+- [ ] features/users/repository/UserRepository.ts
+- [ ] features/users/Users.ts
+- [ ] features/users/utils/UserUtils.ts
+- [ ] features/users/controllers/UserController.ts
+- [ ] features/users/middleware/UserMiddleware.ts
+- [ ] features/users/models/UserModel.ts
+- [ ] features/auth/routes/AuthRouter.ts
+- [ ] features/auth/services/AuthService.ts
+- [ ] features/auth/repository/AuthRepository.ts
+- [ ] features/auth/utils/AuthUtils.ts
+- [ ] features/auth/controllers/AuthController.ts
+- [ ] features/auth/middleware/AuthMiddleware.ts
+- [ ] features/auth/models/AuthModel.ts
+- [ ] features/auth/Auth.ts
+- [ ] features/tasks/routes/TaskRouter.ts
+- [ ] features/tasks/services/TaskService.ts
+- [ ] features/tasks/repository/TaskRepository.ts
+- [ ] features/tasks/utils/TaskUtils.ts
+- [ ] features/tasks/controllers/TaskController.ts
+- [ ] features/tasks/middleware/TaskMiddleware.ts
+- [ ] features/tasks/models/TaskModel.ts
+- [ ] features/tasks/Tasks.ts
+- [ ] features/dashboard/routes/DashboardRouter.ts
+- [ ] features/dashboard/services/DashboardService.ts
+- [ ] features/dashboard/Dashboard.ts
+- [ ] features/dashboard/controllers/DashboardController.ts
+- [X] config/mysql.ts
+- [X] app/routes/public/PublicRoutes.ts
+- [X] app/routes/AppRoutes.ts
+- [X] app/routes/protected/ProtectedRoutes.ts
+- [X] app/App.ts
+- [ ] core/routes/IBaseRouter.d.ts
+- [ ] core/routes/IBaseCrudRouter.d.ts
+- [ ] core/routes/BaseRouter.ts
+- [ ] core/routes/BaseCrudRouter.ts
+- [X] core/routes/StaticRouter.ts
+- [ ] core/services/IBaseCrudService.d.ts
+- [ ] core/services/IStaticService.d.ts
+- [ ] core/services/IBaseService.d.ts
+- [ ] core/services/BaseService.ts
+- [ ] core/services/BaseCrudService.ts
+- [ ] core/services/StaticService.ts
+- [X] core/repository/BaseRepository.ts
+- [X] core/repository/IBaseCrudRepository.ts
+- [X] core/repository/BaseCrudRepository.ts
+- [ ] core/repository/IQueryOutput.ts
+- [ ] core/controllers/BaseCrudController.ts
+- [ ] core/controllers/IBaseCrudController.d.ts
+- [ ] core/controllers/IBaseController.d.ts
+- [ ] core/controllers/BaseController.ts
+- [ ] core/errors/BaseError.ts
+- [ ] core/errors/IBaseError.d.ts
+- [ ] core/models/BaseModel.ts
+- [ ] core/models/IBaseModel.d.ts
+- [ ] common/types/IData.ts
+- [ ] common/error/UserError.ts
+- [ ] common/error/DataError.ts
+- [ ] common/error/CustomError.ts
+- [ ] common/error/TaskError.ts
+- [ ] common/utils/dbUtils.ts
+- [ ] common/utils/utils.ts
+- [X] server.ts

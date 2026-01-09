@@ -1,8 +1,9 @@
-import type {Request, Response} from "express";
+import type { Request, Response } from "express";
 import { BaseController } from "./BaseController.js";
+import { IBaseCrudService } from "#core/services/IBaseCrudService.js";
 
-export abstract class BaseCrudController extends BaseController {
-    constructor(service) {
+export abstract class BaseCrudController<S extends IBaseCrudService> extends BaseController<S> {
+    constructor(service:S) {
         super(service);
     }
     async create(request: Request, response: Response) {
@@ -21,7 +22,7 @@ export abstract class BaseCrudController extends BaseController {
         }
     }
     async get(request: Request, response: Response) {
-        const id = request.params.id;
+        const id: number = Number(request.params.id);
         try {
             const result = await this.service.get(id);
             response.status(200).json({
@@ -50,7 +51,7 @@ export abstract class BaseCrudController extends BaseController {
         }
     }
     async update(request: Request, response: Response) {
-        const id = request.params.id;
+        const id:number = Number(request.params.id);
         const data = request.body;
         try {
             const result = await this.service.update(id, data);
@@ -66,7 +67,7 @@ export abstract class BaseCrudController extends BaseController {
         }
     }
     async delete(request: Request, response: Response) {
-        const id = request.params.id;
+        const id: number = Number(request.params.id);
         try {
             const result = await this.service.remove(id);
             response.status(204).json({

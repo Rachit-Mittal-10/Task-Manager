@@ -9,5 +9,3 @@ export type ExecuteOutput =[
     QueryOutput,
     FieldPacket | FieldPacket[]
 ];
-
-
