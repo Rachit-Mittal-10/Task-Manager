@@ -32,27 +32,21 @@
 - [X] app/routes/AppRoutes.ts
 - [X] app/routes/protected/ProtectedRoutes.ts
 - [X] app/App.ts
-- [ ] core/routes/IBaseRouter.d.ts
-- [ ] core/routes/IBaseCrudRouter.d.ts
-- [ ] core/routes/BaseRouter.ts
-- [ ] core/routes/BaseCrudRouter.ts
+- [X] core/routes/BaseRouter.ts
+- [X] core/routes/BaseCrudRouter.ts
 - [X] core/routes/StaticRouter.ts
-- [ ] core/services/IBaseCrudService.d.ts
-- [ ] core/services/IStaticService.d.ts
-- [ ] core/services/IBaseService.d.ts
-- [ ] core/services/BaseService.ts
-- [ ] core/services/BaseCrudService.ts
-- [ ] core/services/StaticService.ts
+- [X] core/services/IBaseCrudService.ts
+- [X] core/services/BaseService.ts
+- [X] core/services/BaseCrudService.ts
+- [X] core/services/StaticService.ts
 - [X] core/repository/BaseRepository.ts
 - [X] core/repository/IBaseCrudRepository.ts
 - [X] core/repository/BaseCrudRepository.ts
-- [ ] core/repository/IQueryOutput.ts
-- [ ] core/controllers/BaseCrudController.ts
-- [ ] core/controllers/IBaseCrudController.d.ts
-- [ ] core/controllers/IBaseController.d.ts
-- [ ] core/controllers/BaseController.ts
+- [X] core/repository/IQueryOutput.ts
+- [X] core/controllers/BaseCrudController.ts
+- [X] core/controllers/BaseController.ts
+- [X] core/controllers/IBaseCrudController.ts
 - [ ] core/errors/BaseError.ts
-- [ ] core/errors/IBaseError.d.ts
 - [ ] core/models/BaseModel.ts
 - [ ] core/models/IBaseModel.d.ts
 - [ ] common/types/IData.ts
