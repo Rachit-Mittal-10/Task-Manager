@@ -1,8 +1,5 @@
-import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
-import { promisify } from "util";
 
-const findRatio = (data, total) => {
+const findRatio = (data: any, total: number) => {
     for (let obj of data) {
         obj.ratio = Math.round((obj.COUNT * 10000) / total) / 100;
     }
@@ -34,7 +31,7 @@ const { customSort } = (() => {
     return { customSort };
 })();
 
-const stripTimeFromDate = (datetime) => {
+const stripTimeFromDate = (datetime: any) => {
     if (!datetime) {
         return datetime;
     }

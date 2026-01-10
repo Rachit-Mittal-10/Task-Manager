@@ -46,14 +46,13 @@
 - [X] core/controllers/BaseCrudController.ts
 - [X] core/controllers/BaseController.ts
 - [X] core/controllers/IBaseCrudController.ts
-- [ ] core/errors/BaseError.ts
-- [ ] core/models/BaseModel.ts
-- [ ] core/models/IBaseModel.d.ts
-- [ ] common/types/IData.ts
-- [ ] common/error/UserError.ts
-- [ ] common/error/DataError.ts
-- [ ] common/error/CustomError.ts
-- [ ] common/error/TaskError.ts
+- [X] core/errors/BaseError.ts
+- [X] core/models/BaseModel.ts
+- [X] common/types/IData.ts
+- [-] common/error/UserError.ts
+- [-] common/error/DataError.ts
+- [-] common/error/CustomError.ts
+- [-] common/error/TaskError.ts
 - [ ] common/utils/dbUtils.ts
 - [ ] common/utils/utils.ts
 - [X] server.ts
