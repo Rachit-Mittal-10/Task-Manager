@@ -1,20 +1,28 @@
+interface BaseErrorOptions {
+    code?: string;
+    statusCode?: number;
+    details?: unknown | null;
+    isOperational?: boolean;
+}
+
 abstract class BaseError extends Error {
-    constructor(
-        message,
-        name = "BaseError",
-        {
-            code = "ERR_INTERNAL",
-            statusCode = 500,
-            details = null,
-            isOperational = true,
-        } = {},
+    declare name: string;
+    code: string;
+    statusCode: number;
+    details: unknown | null;
+    isOperational: boolean;
+
+    public constructor(
+        message: string,
+        name: string = "BaseError",
+        options: BaseErrorOptions = {},
     ) {
         super(message);
         this.name = name;
-        this.code = code;
-        this.statusCode = statusCode;
-        this.details = details;
-        this.isOperational = isOperational;
+        this.code = options.code ?? "ERR_INTERNAL";
+        this.statusCode = options.statusCode ?? 500;
+        this.details = options.details ?? null;
+        this.isOperational = options.isOperational ?? true;
     }
 }
 
