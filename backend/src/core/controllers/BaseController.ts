@@ -4,15 +4,12 @@
  */
 
 export abstract class BaseController<S> {
-    #service: S;
+    protected readonly service: S;
     public constructor(service: S) {
         if (!service) {
             throw new Error("service cannot be empty");
         }
-        this.#service = service;
-    }
-    public get service(): S {
-        return this.#service;
+        this.service = service;
     }
 }
 

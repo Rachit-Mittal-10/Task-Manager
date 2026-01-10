@@ -1,8 +1,9 @@
+import { IBaseCrudController } from "#core/controllers/IBaseCrudController.js";
 import { BaseRouter } from "./BaseRouter.js";
 
-export abstract class BaseCrudRouter extends BaseRouter {
+export abstract class BaseCrudRouter<C extends IBaseCrudController> extends BaseRouter<C> {
     #disabledBaseRoutes: string[];
-    constructor(controller, disabledBaseRoutes: string[] = []) {
+    constructor(controller: C, disabledBaseRoutes: string[] = []) {
         if (!controller) {
             throw new Error("Empty or Invalid Controller");
         }

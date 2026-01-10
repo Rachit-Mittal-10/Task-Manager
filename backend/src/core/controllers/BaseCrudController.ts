@@ -3,10 +3,10 @@ import { BaseController } from "./BaseController.js";
 import { IBaseCrudService } from "#core/services/IBaseCrudService.js";
 
 export abstract class BaseCrudController<S extends IBaseCrudService> extends BaseController<S> {
-    constructor(service:S) {
+    public constructor(service:S) {
         super(service);
     }
-    async create(request: Request, response: Response) {
+    public async create(request: Request, response: Response) {
         const data = request.body;
         try {
             const result = await this.service.create(data);
@@ -21,7 +21,7 @@ export abstract class BaseCrudController<S extends IBaseCrudService> extends Bas
             });
         }
     }
-    async get(request: Request, response: Response) {
+    public async get(request: Request, response: Response) {
         const id: number = Number(request.params.id);
         try {
             const result = await this.service.get(id);
@@ -36,7 +36,7 @@ export abstract class BaseCrudController<S extends IBaseCrudService> extends Bas
             });
         }
     }
-    async getAll(request: Request, response: Response) {
+    public async getAll(request: Request, response: Response) {
         try {
             const result = await this.service.getAll();
             response.status(200).json({
@@ -50,7 +50,7 @@ export abstract class BaseCrudController<S extends IBaseCrudService> extends Bas
             });
         }
     }
-    async update(request: Request, response: Response) {
+    public async update(request: Request, response: Response) {
         const id:number = Number(request.params.id);
         const data = request.body;
         try {
@@ -66,7 +66,7 @@ export abstract class BaseCrudController<S extends IBaseCrudService> extends Bas
             });
         }
     }
-    async delete(request: Request, response: Response) {
+    public async delete(request: Request, response: Response) {
         const id: number = Number(request.params.id);
         try {
             const result = await this.service.remove(id);

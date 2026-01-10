@@ -1,4 +1,3 @@
-import { BaseModel } from "#core/models/BaseModel.js";
 import { type Pool } from "mysql2/promise";
 import { ExecuteOutput, QueryOutput, ReadOutput, WriteOutput } from "./IQueryOutput.js";
 

@@ -11,7 +11,7 @@ export abstract class BaseCrudService<R extends IBaseCrudRepository> extends Bas
      * @constructor
      * @params: Object and Object
      */
-    constructor(repository: R, dep: IData = {}) {
+    public constructor(repository: R, dep: IData = {}) {
         super(repository, dep);
     }
     /*
@@ -21,7 +21,7 @@ export abstract class BaseCrudService<R extends IBaseCrudRepository> extends Bas
      * @return: array of Object
      * @description: adds the row in the database using model
      */
-    async create(data: IData) {
+    public async create(data: IData) {
         if (!data || Object.keys(data).length === 0) {
             throw new Error("Data is empty");
         }
@@ -39,7 +39,7 @@ export abstract class BaseCrudService<R extends IBaseCrudRepository> extends Bas
      * @return: Object
      * @description: return the row with particular id
      */
-    async get(id: number) {
+    public async get(id: number) {
         try {
             const result = await this.repository.get(id);
             return result[0];
@@ -54,7 +54,7 @@ export abstract class BaseCrudService<R extends IBaseCrudRepository> extends Bas
      * @return: Array of Objects
      * @description: returns all the data in table
      */
-    async getAll() {
+    public async getAll() {
         try {
             const result = await this.repository.getAll();
             return result;
@@ -70,7 +70,7 @@ export abstract class BaseCrudService<R extends IBaseCrudRepository> extends Bas
      * @return: Array of Objects
      * @description: update data of particular row in table
      */
-    async update(id: number, data: IData) {
+    public async update(id: number, data: IData) {
         if (!data || Object.keys(data).length === 0) {
             throw new Error("Data is Empty");
         }
@@ -88,7 +88,7 @@ export abstract class BaseCrudService<R extends IBaseCrudRepository> extends Bas
      * @return: Array of Objects
      * @description: deletes the particular row of table
      */
-    async remove(id: number) {
+    public async remove(id: number) {
         try {
             const result = await this.repository.remove(id);
             return result;

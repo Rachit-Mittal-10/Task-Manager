@@ -16,7 +16,7 @@ export abstract class StaticService {
      * @constructor
      * @params: Object
      */
-    constructor(dep: IData = {}) {
+    public constructor(dep: IData = {}) {
         this.dep = dep;
     }
     /*

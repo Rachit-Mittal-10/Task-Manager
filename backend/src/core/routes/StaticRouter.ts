@@ -2,12 +2,9 @@ import { Router } from "express";
 import type { Router as RouterType, RequestHandler } from "express";
 
 export abstract class StaticRouter {
-    #router: RouterType;
-    constructor() {
-        this.#router = Router();
-    }
-    get router(): RouterType {
-        return this.#router;
+    protected readonly router: RouterType;
+    public constructor() {
+        this.router = Router();
     }
     // this needs to be worked on.
     // overrloading signatures

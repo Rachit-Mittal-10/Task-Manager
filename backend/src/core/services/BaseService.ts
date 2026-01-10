@@ -15,7 +15,7 @@ export abstract class BaseService<R = any> extends StaticService {
      * @constructor
      * @params: Object and Object
      */
-    constructor(repository: R, dep: IData = {}) {
+    public constructor(repository: R, dep: IData = {}) {
         if (!repository) {
             throw new Error("Repository is mandatory");
         }
