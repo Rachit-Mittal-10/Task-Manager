@@ -1,5 +1,5 @@
 import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
+import jwt, { SignOptions } from "jsonwebtoken";
 import { promisify } from "util";
 
 const jwtVerify = promisify(jwt.verify) as (token: string, secret: string) => Promise<any>;
@@ -31,7 +31,7 @@ const generateToken = (user, jwtSecretKey = process.env.JWT_SECRET_KEY) => {
         auth_id: user.id,
         user_id: user.user_id,
     };
-    const options = {
+    const options: SignOptions = {
         expiresIn: "1h",
     };
     const token = jwt.sign(payload, jwtSecretKey, options);
