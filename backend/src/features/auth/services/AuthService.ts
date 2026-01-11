@@ -7,6 +7,7 @@ import {
 } from "../utils/AuthUtils.js";
 import dotenv from "dotenv";
 import type { IData } from "#common/types/IData.js";
+import { WriteOutput } from "#core/repository/IQueryOutput.js";
 
 const env = dotenv.config({
     path: "../.env",
@@ -26,9 +27,9 @@ class AuthService extends BaseService<AuthRepository> {
         try {
             let user = null;
             if (username) {
-                user = await this.repository.getUserByUsername(username, password);
+                user = await this.repository.getUserByUsername(username);
             } else if (email) {
-                user = await this.repository.getUserByEmail(email, password);
+                user = await this.repository.getUserByEmail(email);
             }
             if (!user) {
                 return null;
@@ -52,7 +53,7 @@ class AuthService extends BaseService<AuthRepository> {
     /*
     insertId is result.insertId
     */
-    async register(username: string, email: string, password: string, firstname: string): Promise<IData> {
+    async register(username: string, email: string, password: string, firstname: string): Promise<WriteOutput> {
         if (!(username && email && password && firstname)) {
             throw new Error("All parameters are required for registration");
         }
@@ -68,7 +69,7 @@ class AuthService extends BaseService<AuthRepository> {
                 password: hashedPassword,
                 user_id: userResult.insertId,
             });
-            return result;
+            return result as WriteOutput;
         } catch (err) {
             switch (err.code) {
                 case "ER_DUP_ENTRY":
