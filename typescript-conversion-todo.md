@@ -6,14 +6,14 @@
 - [-] features/users/utils/UserUtils.ts
 - [x] features/users/controllers/UserController.ts
 - [-] features/users/middleware/UserMiddleware.ts
-- [ ] features/users/models/UserModel.ts
+- [X] features/users/models/UserModel.ts
 - [X] features/auth/routes/AuthRouter.ts
 - [X] features/auth/services/AuthService.ts
 - [X] features/auth/repository/AuthRepository.ts
 - [ ] features/auth/utils/AuthUtils.ts
 - [X] features/auth/controllers/AuthController.ts
 - [ ] features/auth/middleware/AuthMiddleware.ts
-- [ ] features/auth/models/AuthModel.ts
+- [X] features/auth/models/AuthModel.ts
 - [X] features/auth/Auth.ts
 - [X] features/tasks/routes/TaskRouter.ts
 - [X] features/tasks/services/TaskService.ts
@@ -21,7 +21,7 @@
 - [-] features/tasks/utils/TaskUtils.ts
 - [X] features/tasks/controllers/TaskController.ts
 - [-] features/tasks/middleware/TaskMiddleware.ts
-- [ ] features/tasks/models/TaskModel.ts
+- [X] features/tasks/models/TaskModel.ts
 - [X] features/tasks/Tasks.ts
 - [X] features/dashboard/routes/DashboardRouter.ts
 - [X] features/dashboard/services/DashboardService.ts
