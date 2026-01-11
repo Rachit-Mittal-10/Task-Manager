@@ -1,8 +1,9 @@
 import type { Request, Response } from "express";
 import { BaseController } from "./BaseController.js";
+import type { IBaseCrudController } from "./IBaseCrudController.js";
 import { IBaseCrudService } from "#core/services/IBaseCrudService.js";
 
-export abstract class BaseCrudController<S extends IBaseCrudService> extends BaseController<S> {
+export abstract class BaseCrudController<S extends IBaseCrudService> extends BaseController<S> implements IBaseCrudController {
     public constructor(service:S) {
         super(service);
     }
@@ -66,7 +67,7 @@ export abstract class BaseCrudController<S extends IBaseCrudService> extends Bas
             });
         }
     }
-    public async remove(request: Request, response: Response) {
+    public async delete(request: Request, response: Response) {
         const id: number = Number(request.params.id);
         try {
             const result = await this.service.remove(id);

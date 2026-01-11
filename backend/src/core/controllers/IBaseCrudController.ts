@@ -5,5 +5,5 @@ export interface IBaseCrudController{
     get(request: Request, response: Response): Promise<void>;
     getAll(request: Request, response: Response): Promise<void>;
     update(request: Request, response: Response): Promise<void>;
-    remove(request: Request, response: Response): Promise<void>;
+    delete(request: Request, response: Response): Promise<void>;
 };

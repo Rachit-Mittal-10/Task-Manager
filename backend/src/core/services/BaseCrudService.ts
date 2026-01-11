@@ -2,12 +2,13 @@ import { IData } from "#common/types/IData.js";
 import { IBaseCrudRepository } from "#core/repository/IBaseCrudRepository.js";
 import { WriteOutput, ReadOutput } from "#core/repository/IQueryOutput.js";
 import { BaseService } from "./BaseService.js";
+import type { IBaseCrudService } from "./IBaseCrudService.js";
 
 /*
  * @file: BaseCrudService.js
  * @description: This provides the basic crud functionality for all the application service layers by calling methods on model
  */
-export abstract class BaseCrudService<R extends IBaseCrudRepository> extends BaseService<R> {
+export abstract class BaseCrudService<R extends IBaseCrudRepository> extends BaseService<R> implements IBaseCrudService {
     /*
      * @constructor
      * @params: Object and Object

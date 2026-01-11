@@ -10,13 +10,14 @@ import { BaseRepository } from "./BaseRepository.js";
 import { type Pool } from "mysql2/promise";
 import { ReadOutput, WriteOutput } from "./IQueryOutput.js";
 import type { IData } from "#common/types/IData.js";
+import type { IBaseCrudRepository } from "./IBaseCrudRepository.js";
 
 export type IOptions = {
     limit?: number;
     offset?: number;
 };
 
-export abstract class BaseCrudRepository extends BaseRepository {
+export abstract class BaseCrudRepository extends BaseRepository implements IBaseCrudRepository {
     /*
      * @constructor
      * @params: string and Object
