@@ -23,10 +23,10 @@
 - [-] features/tasks/middleware/TaskMiddleware.ts
 - [ ] features/tasks/models/TaskModel.ts
 - [X] features/tasks/Tasks.ts
-- [ ] features/dashboard/routes/DashboardRouter.ts
-- [ ] features/dashboard/services/DashboardService.ts
-- [ ] features/dashboard/Dashboard.ts
-- [ ] features/dashboard/controllers/DashboardController.ts
+- [X] features/dashboard/routes/DashboardRouter.ts
+- [X] features/dashboard/services/DashboardService.ts
+- [X] features/dashboard/Dashboard.ts
+- [X] features/dashboard/controllers/DashboardController.ts
 - [X] config/mysql.ts
 - [X] app/routes/public/PublicRoutes.ts
 - [X] app/routes/AppRoutes.ts
