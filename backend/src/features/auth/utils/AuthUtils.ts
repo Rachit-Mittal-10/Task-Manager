@@ -2,7 +2,7 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { promisify } from "util";
 
-const jwtVerify = promisify(jwt.verify);
+const jwtVerify = promisify(jwt.verify) as (token: string, secret: string) => Promise<any>;
 
 const hashPassword = async (password: string, salt: number = 10) : Promise<string> => {
     try {

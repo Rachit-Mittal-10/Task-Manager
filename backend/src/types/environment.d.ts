@@ -1,3 +1,5 @@
+import type { DecodedToken } from "#features/auth/types/DecodedToken.ts";
+
 declare global{
     namespace NodeJS{
         interface ProcessEnv{
@@ -11,6 +13,11 @@ declare global{
             DATABASE_NAME: string;
         }
     }
-};
+    namespace Express {
+        interface Request {
+            user?: DecodedToken;
+        }
+    }
+}
 
 export {};
