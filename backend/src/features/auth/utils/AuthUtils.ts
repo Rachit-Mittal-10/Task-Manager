@@ -4,7 +4,7 @@ import { promisify } from "util";
 
 const jwtVerify = promisify(jwt.verify);
 
-const hashPassword = async (password: string, salt = 10) : Promise<string> => {
+const hashPassword = async (password: string, salt: number = 10) : Promise<string> => {
     try {
         const hashedPassword = await bcrypt.hash(password, salt);
         return hashedPassword;

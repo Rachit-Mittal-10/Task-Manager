@@ -1,28 +1,28 @@
 - [X] types/environment.d.ts
-- [ ] features/users/routes/UserRouter.ts
-- [ ] features/users/services/UserService.ts
-- [ ] features/users/repository/UserRepository.ts
-- [ ] features/users/Users.ts
-- [ ] features/users/utils/UserUtils.ts
-- [ ] features/users/controllers/UserController.ts
-- [ ] features/users/middleware/UserMiddleware.ts
+- [x] features/users/routes/UserRouter.ts
+- [x] features/users/services/UserService.ts
+- [x] features/users/repository/UserRepository.ts
+- [x] features/users/Users.ts
+- [-] features/users/utils/UserUtils.ts
+- [x] features/users/controllers/UserController.ts
+- [-] features/users/middleware/UserMiddleware.ts
 - [ ] features/users/models/UserModel.ts
-- [ ] features/auth/routes/AuthRouter.ts
-- [ ] features/auth/services/AuthService.ts
-- [ ] features/auth/repository/AuthRepository.ts
+- [X] features/auth/routes/AuthRouter.ts
+- [X] features/auth/services/AuthService.ts
+- [X] features/auth/repository/AuthRepository.ts
 - [ ] features/auth/utils/AuthUtils.ts
-- [ ] features/auth/controllers/AuthController.ts
+- [X] features/auth/controllers/AuthController.ts
 - [ ] features/auth/middleware/AuthMiddleware.ts
 - [ ] features/auth/models/AuthModel.ts
-- [ ] features/auth/Auth.ts
-- [ ] features/tasks/routes/TaskRouter.ts
-- [ ] features/tasks/services/TaskService.ts
-- [ ] features/tasks/repository/TaskRepository.ts
-- [ ] features/tasks/utils/TaskUtils.ts
-- [ ] features/tasks/controllers/TaskController.ts
-- [ ] features/tasks/middleware/TaskMiddleware.ts
+- [X] features/auth/Auth.ts
+- [X] features/tasks/routes/TaskRouter.ts
+- [X] features/tasks/services/TaskService.ts
+- [X] features/tasks/repository/TaskRepository.ts
+- [-] features/tasks/utils/TaskUtils.ts
+- [X] features/tasks/controllers/TaskController.ts
+- [-] features/tasks/middleware/TaskMiddleware.ts
 - [ ] features/tasks/models/TaskModel.ts
-- [ ] features/tasks/Tasks.ts
+- [X] features/tasks/Tasks.ts
 - [ ] features/dashboard/routes/DashboardRouter.ts
 - [ ] features/dashboard/services/DashboardService.ts
 - [ ] features/dashboard/Dashboard.ts
@@ -53,6 +53,5 @@
 - [-] common/error/DataError.ts
 - [-] common/error/CustomError.ts
 - [-] common/error/TaskError.ts
-- [ ] common/utils/dbUtils.ts
 - [ ] common/utils/utils.ts
 - [X] server.ts

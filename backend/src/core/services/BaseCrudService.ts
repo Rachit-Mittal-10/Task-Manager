@@ -1,5 +1,6 @@
 import { IData } from "#common/types/IData.js";
 import { IBaseCrudRepository } from "#core/repository/IBaseCrudRepository.js";
+import { WriteOutput, ReadOutput } from "#core/repository/IQueryOutput.js";
 import { BaseService } from "./BaseService.js";
 
 /*
@@ -21,7 +22,7 @@ export abstract class BaseCrudService<R extends IBaseCrudRepository> extends Bas
      * @return: array of Object
      * @description: adds the row in the database using model
      */
-    public async create(data: IData) {
+    public async create(data: IData): Promise<WriteOutput> {
         if (!data || Object.keys(data).length === 0) {
             throw new Error("Data is empty");
         }
@@ -39,10 +40,10 @@ export abstract class BaseCrudService<R extends IBaseCrudRepository> extends Bas
      * @return: Object
      * @description: return the row with particular id
      */
-    public async get(id: number) {
+    public async get(id: number): Promise<ReadOutput> {
         try {
             const result = await this.repository.get(id);
-            return result[0];
+            return result[0] as ReadOutput;
         } catch (err) {
             throw err;
         }
@@ -54,7 +55,7 @@ export abstract class BaseCrudService<R extends IBaseCrudRepository> extends Bas
      * @return: Array of Objects
      * @description: returns all the data in table
      */
-    public async getAll() {
+    public async getAll(): Promise<ReadOutput> {
         try {
             const result = await this.repository.getAll();
             return result;
@@ -70,7 +71,7 @@ export abstract class BaseCrudService<R extends IBaseCrudRepository> extends Bas
      * @return: Array of Objects
      * @description: update data of particular row in table
      */
-    public async update(id: number, data: IData) {
+    public async update(id: number, data: IData): Promise<WriteOutput> {
         if (!data || Object.keys(data).length === 0) {
             throw new Error("Data is Empty");
         }
@@ -88,7 +89,7 @@ export abstract class BaseCrudService<R extends IBaseCrudRepository> extends Bas
      * @return: Array of Objects
      * @description: deletes the particular row of table
      */
-    public async remove(id: number) {
+    public async remove(id: number): Promise<WriteOutput> {
         try {
             const result = await this.repository.remove(id);
             return result;

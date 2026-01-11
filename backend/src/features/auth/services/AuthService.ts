@@ -1,17 +1,23 @@
 import { BaseService } from "#core/services/BaseService.js";
+import type AuthRepository from "../repository/AuthRepository.js";
 import {
     generateToken,
     hashPassword,
     verifyPassword,
 } from "../utils/AuthUtils.js";
 import dotenv from "dotenv";
+import type { IData } from "#common/types/IData.js";
 
 const env = dotenv.config({
     path: "../.env",
 });
 
-class AuthService extends BaseService {
-    async login(username: string, email: string, password: string) {
+interface LoginResponse {
+    token: string;
+}
+
+class AuthService extends BaseService<AuthRepository> {
+    async login(username: string, email: string, password: string): Promise<LoginResponse | null> {
         if (!password || (!username && !email)) {
             throw new Error(
                 "Username or email and password are required for login",
@@ -46,7 +52,7 @@ class AuthService extends BaseService {
     /*
     insertId is result.insertId
     */
-    async register(username: string, email: string, password: string, firstname: string) {
+    async register(username: string, email: string, password: string, firstname: string): Promise<IData> {
         if (!(username && email && password && firstname)) {
             throw new Error("All parameters are required for registration");
         }
@@ -77,7 +83,7 @@ class AuthService extends BaseService {
             throw err;
         }
     }
-    async me() {
+    async me(): Promise<string> {
         return await this.repository.me();
     }
 }

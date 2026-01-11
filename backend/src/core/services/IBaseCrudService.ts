@@ -6,5 +6,5 @@ export interface IBaseCrudService {
     get(id: number): Promise<ReadOutput>;
     getAll(): Promise<ReadOutput>;
     update(id: number, data:IData): Promise<WriteOutput>;
-    remove(id: number): Promise<ReadOutput>;
+    remove(id: number): Promise<WriteOutput>;
 }

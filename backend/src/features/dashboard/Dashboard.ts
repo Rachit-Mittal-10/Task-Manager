@@ -1,12 +1,12 @@
-import DashboardService from "./services/DashboardService";
-import DashboardController from "./controllers/DashboardController";
-import DashboardRouter from "./routes/DashboardRouter";
+import DashboardService from "./services/DashboardService.js";
+import DashboardController from "./controllers/DashboardController.js";
+import DashboardRouter from "./routes/DashboardRouter.js";
 import { taskService } from "#features/tasks/Tasks.js";
+import type { IData } from "#common/types/IData.js";
 
-const dashboardService = new DashboardService(
-    (dep = { "task-service": taskService }),
-);
-const dashboardController = new DashboardController(dashboardService);
-const dashboardRouter = new DashboardRouter(dashboardController);
+const dep: IData = { "task-service": taskService };
+const dashboardService: DashboardService = new DashboardService(dep);
+const dashboardController: DashboardController = new DashboardController(dashboardService);
+const dashboardRouter: DashboardRouter = new DashboardRouter(dashboardController);
 
 export { dashboardService, dashboardRouter };

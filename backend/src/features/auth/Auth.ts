@@ -6,15 +6,15 @@ import AuthRouter from "./routes/AuthRouter.js";
 import { userService } from "#features/users/Users.js";
 
 // Initialise repository with db connection instance.
-const authRepository = new AuthRepository(conn);
+const authRepository: AuthRepository = new AuthRepository(conn);
 // Initialise service with model instance.
-const authService = new AuthService(authRepository, {
+const authService: AuthService = new AuthService(authRepository, {
     "user-service": userService,
 });
 // Initialise controller with service instance.
-const authController = new AuthController(authService);
+const authController: AuthController = new AuthController(authService);
 // Initialise router with controller instance.
-const authRouter = new AuthRouter(authController);
+const authRouter: AuthRouter = new AuthRouter(authController);
 
 // Export the router and service instances.
 export { authService, authRouter };

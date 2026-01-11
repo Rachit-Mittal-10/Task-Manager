@@ -1,7 +1,9 @@
 import { BaseController } from "#core/controllers/BaseController.js";
+import type { Request, Response } from "express";
+import type AuthService from "../services/AuthService.js";
 
-class AuthController extends BaseController {
-    async login(request, response) {
+class AuthController extends BaseController<AuthService> {
+    async login(request: Request, response: Response): Promise<Response> {
         const { username, email, password } = request.body;
         try {
             const result = await this.service.login(username, email, password);
@@ -20,7 +22,7 @@ class AuthController extends BaseController {
             });
         }
     }
-    async register(request, response) {
+    async register(request: Request, response: Response): Promise<Response> {
         const { username, email, password, firstname } = request.body;
         try {
             const result = await this.service.register(
@@ -38,7 +40,7 @@ class AuthController extends BaseController {
             });
         }
     }
-    async me(request, response) {
+    async me(request: Request, response: Response): Promise<void> {
         const message = await this.service.me();
 
         response.status(200).json({

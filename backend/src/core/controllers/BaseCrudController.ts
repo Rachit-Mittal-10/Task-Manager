@@ -66,7 +66,7 @@ export abstract class BaseCrudController<S extends IBaseCrudService> extends Bas
             });
         }
     }
-    public async delete(request: Request, response: Response) {
+    public async remove(request: Request, response: Response) {
         const id: number = Number(request.params.id);
         try {
             const result = await this.service.remove(id);
