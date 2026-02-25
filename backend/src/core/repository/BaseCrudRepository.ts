@@ -22,7 +22,7 @@ export abstract class BaseCrudRepository extends BaseRepository implements IBase
      * @constructor
      * @params: string and Object
      */
-    public constructor(tableName: string, dbConnection: Pool) {
+    public constructor(tableName: string, dbConnection: Pool): void {
         super(tableName, dbConnection);
     }
     /*
