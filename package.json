@@ -28,7 +28,10 @@
         "dev:backend": "npm run dev --workspace backend",
         "dev-ts:backend": "npm run dev:ts --workspace backend",
         "clear:cache": "rm -rf node_modules backend/node_modules frontend/node_modules",
-        "build:frontend": "npm run build --workspace frontend"
+        "build:frontend": "npm run build --workspace frontend",
+        "migrate":"npm run migrate --workspace backend",
+        "migrate:status":"npm run migrate:status --workspace backend",
+        "migrate:rollback":"npm run migrate:rollback --workspace backend"
     },
     "keywords": [],
     "author": "",
