@@ -7,7 +7,6 @@
 
 
 import { BaseRepository } from "./BaseRepository.js";
-import type { Pool } from "mysql2/promise";
 import type { Knex } from "knex";
 import { ReadOutput, WriteOutput } from "./IQueryOutput.js";
 import type { IData } from "#common/types/IData.js";

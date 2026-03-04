@@ -1,6 +1,4 @@
-// import { type Pool } from "mysql2/promise";
 import type { Knex } from "knex";
-// import { ExecuteOutput, QueryOutput, ReadOutput, WriteOutput } from "./IQueryOutput.js";
 
 /*
  * @file: BaseRepository.js
@@ -16,7 +14,7 @@ export abstract class BaseRepository {
     protected readonly table: string;
     /*
      * @private
-     * @type: Pool
+     * @type: Knex
      * @description: this variable contains the model details. this is used to run the queries on the database
      */
     #db: Knex;
@@ -30,7 +28,7 @@ export abstract class BaseRepository {
     }
     /*
      * @method: getter db
-     * @return: Pool object
+     * @return: Knex object
      * @description: this will returrn the db connection pool
      */
     protected get db() : Knex {
