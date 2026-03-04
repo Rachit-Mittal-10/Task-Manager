@@ -9,9 +9,11 @@
         "dev:ts": "tsx --watch src/server.ts",
         "build": "tsc -p tsconfig.json",
         "typecheck": "tsc -p tsconfig.json --noEmit",
-        "migrate": "knex --knexfile knexfile.ts migrate:latest",
-        "migrate:status": "knex --knexfile knexfile.ts migrate:status",
-        "migrate:rollback": "knex --knexfile knexfile.ts migrate:rollback"
+        "migrations": "node -r ts-node/register/transpile-only ./node_modules/.bin/knex",
+        "migrate": "npm run migrations -- migrate:latest --knexfile ./knexfile.ts",
+        "migrate:status": "npm run migrations -- migrate:status --knexfile ./knexfile.ts",
+        "migrate:rollback": "npm run migrations -- migrate:rollback --knexfile ./knexfile.ts --step 1",
+        "migrate:rollback-all": "npm run migrations -- migrate:rollback --all --knexfile ./knexfile.ts"
     },
     "keywords": [],
     "author": "",
