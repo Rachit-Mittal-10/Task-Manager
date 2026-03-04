@@ -31,7 +31,8 @@
         "build:frontend": "npm run build --workspace frontend",
         "migrate":"npm run migrate --workspace backend",
         "migrate:status":"npm run migrate:status --workspace backend",
-        "migrate:rollback":"npm run migrate:rollback --workspace backend"
+        "migrate:rollback":"npm run migrate:rollback --workspace backend",
+        "migrate:rollback-all":"npm run migrate:rollback-all --workspace backend"
     },
     "keywords": [],
     "author": "",
