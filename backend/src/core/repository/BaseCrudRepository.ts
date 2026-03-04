@@ -7,7 +7,8 @@
 
 
 import { BaseRepository } from "./BaseRepository.js";
-import { type Pool } from "mysql2/promise";
+import type { Pool } from "mysql2/promise";
+import type { Knex } from "knex";
 import { ReadOutput, WriteOutput } from "./IQueryOutput.js";
 import type { IData } from "#common/types/IData.js";
 import type { IBaseCrudRepository } from "./IBaseCrudRepository.js";
@@ -22,7 +23,7 @@ export abstract class BaseCrudRepository extends BaseRepository implements IBase
      * @constructor
      * @params: string and Object
      */
-    public constructor(tableName: string, dbConnection: Pool) {
+    public constructor(tableName: string, dbConnection: Knex) {
         super(tableName, dbConnection);
     }
     /*
@@ -33,16 +34,17 @@ export abstract class BaseCrudRepository extends BaseRepository implements IBase
      * @description: This will create the entry in table
      */
     public async create(data: IData): Promise<WriteOutput> {
-        const dataValueArr = Object.values(data);
-        let cols = Object.keys(data).join(", ");
-        let placeholders = Object.keys(data)
-            .map(() => {
-                return "?";
-            })
-            .join(", ");
-        const query = `INSERT INTO ${this.table}(${cols}) VALUES(${placeholders});`;
-        const result:WriteOutput = await this.write(query, dataValueArr);
-        return result;
+        // const dataValueArr = Object.values(data);
+        // let cols = Object.keys(data).join(", ");
+        // let placeholders = Object.keys(data)
+        //     .map(() => {
+        //         return "?";
+        //     })
+        //     .join(", ");
+        // const query = `INSERT INTO ${this.table}(${cols}) VALUES(${placeholders});`;
+        // const result:WriteOutput = await this.write(query, dataValueArr);
+        // return result;
+        return await this.db(this.table).insert(data);
     }
     /*
      * @public
@@ -52,9 +54,10 @@ export abstract class BaseCrudRepository extends BaseRepository implements IBase
      * @description: This will return the row with provided id
      */
     public async get(id: number): Promise<ReadOutput> {
-        const query = `SELECT * FROM ${this.table} WHERE id = ?;`;
-        const result: ReadOutput = await this.read(query, [id]);
-        return result;
+        // const query = `SELECT * FROM ${this.table} WHERE id = ?;`;
+        // const result: ReadOutput = await this.read(query, [id]);
+        // return result;
+        return await this.db(this.table).where({ id }).select("*");
     }
     /*
      * @public
@@ -64,9 +67,10 @@ export abstract class BaseCrudRepository extends BaseRepository implements IBase
      * @description: This will return the entire data in the table
      */
     public async getAll(): Promise<ReadOutput> {
-        const query = `SELECT * FROM ${this.table};`;
-        const result: ReadOutput = await this.read(query);
-        return result;
+        // const query = `SELECT * FROM ${this.table};`;
+        // const result: ReadOutput = await this.read(query);
+        // return result;
+        return await this.db(this.table).select("*");
     }
     /*
      * @public
@@ -76,15 +80,16 @@ export abstract class BaseCrudRepository extends BaseRepository implements IBase
      * @description: This will update the value of provided id
      */
     public async update(id: number, data: IData): Promise<WriteOutput> {
-        const dataValuesArr = Object.values(data);
-        let setString = Object.keys(data)
-            .map((key) => {
-                return `${key} = ?`;
-            })
-            .join(", ");
-        const query = `UPDATE ${this.table} SET ${setString} WHERE id = ?;`;
-        const result: WriteOutput = await this.write(query, [...dataValuesArr, id]);
-        return result;
+        // const dataValuesArr = Object.values(data);
+        // let setString = Object.keys(data)
+        //     .map((key) => {
+        //         return `${key} = ?`;
+        //     })
+        //     .join(", ");
+        // const query = `UPDATE ${this.table} SET ${setString} WHERE id = ?;`;
+        // const result: WriteOutput = await this.write(query, [...dataValuesArr, id]);
+        // return result;
+        return await this.db(this.table).where({ id }).update(data);
     }
     /*
      * @public
@@ -94,29 +99,31 @@ export abstract class BaseCrudRepository extends BaseRepository implements IBase
      * @description: This will delete the row with provided id
      */
     public async remove(id: number): Promise<WriteOutput> {
-        const query = `DELETE FROM ${this.table} WHERE id = ?;`;
-        const result: WriteOutput = await this.write(query, [id]);
-        return result;
+        // const query = `DELETE FROM ${this.table} WHERE id = ?;`;
+        // const result: WriteOutput = await this.write(query, [id]);
+        // return result;
+        return await this.db(this.table).where({ id }).delete();
     }
     // Here data is key value pair.
     public async findBy(data: IData, options: IOptions = {}): Promise<ReadOutput> {
         const limit = options.limit;
         const offset = options.offset;
-        const WHERE = Object.keys(data)
-            .map((key) => {
-                return `${key} = ?`;
-            })
-            .join(" AND ");
-        const placeholders = Object.values(data);
-        let query: string = `SELECT * FROM ${this.table} WHERE ${WHERE}`;
-        if (limit) {
-            query += ` LIMIT ${limit}`;
-        }
-        if (offset) {
-            query += ` OFFSET ${offset}`;
-        }
-        query += `;`;
-        const result: ReadOutput = await this.read(query, placeholders);
-        return result;
+        // const WHERE = Object.keys(data)
+        //     .map((key) => {
+        //         return `${key} = ?`;
+        //     })
+        //     .join(" AND ");
+        // const placeholders = Object.values(data);
+        // let query: string = `SELECT * FROM ${this.table} WHERE ${WHERE}`;
+        // if (limit) {
+        //     query += ` LIMIT ${limit}`;
+        // }
+        // if (offset) {
+        //     query += ` OFFSET ${offset}`;
+        // }
+        // query += `;`;
+        // const result: ReadOutput = await this.read(query, placeholders);
+        // return result;
+        return await this.db(this.table).where(data).limit(limit).offset(offset).select("*");
     }
 }

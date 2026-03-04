@@ -1,14 +1,13 @@
 import { BaseCrudRepository } from "#core/repository/BaseCrudRepository.js";
-import type { Pool } from "mysql2/promise";
 import type { ReadOutput } from "#core/repository/IQueryOutput.js";
+import type { Knex } from "knex";
 
 class TaskRepository extends BaseCrudRepository {
-    constructor(conn: Pool) {
+    constructor(conn: Knex) {
         super("tasks", conn);
     }
     async getByUserId(user_id: number): Promise<ReadOutput> {
-        const query = `SELECT * FROM ${this.table} WHERE user_id = ?;`;
-        return this.read(query, [user_id]);
+        return await this.db(this.table).where({ user_id }).select("*");
     }
 }
 
