@@ -36,23 +36,4 @@ export abstract class BaseRepository {
     protected get db() : Knex {
         return this.#db;
     }
-    /*
-     * @protected
-     * @method: query
-     * @params: String, Array
-     * @return: Array of Objects
-     * @description: this will execute the provided query with provided params on the db.
-     */
-    // private async query(customQuery: string, params: readonly unknown[] = []) : Promise<QueryOutput> {
-    //     const result:ExecuteOutput = await this.db.execute(customQuery, params);
-    //     return result[0] as QueryOutput;
-    // }
-    // protected async read(customQuery: string, params: readonly unknown[] = []): Promise<ReadOutput>{
-    //     const result = await this.query(customQuery,params);
-    //     return result as ReadOutput;
-    // }
-    // protected async write(customQuery: string, params: readonly unknown[] = []): Promise<WriteOutput>{
-    //     const result = await this.query(customQuery,params);
-    //     return result as WriteOutput;
-    // }
 }
