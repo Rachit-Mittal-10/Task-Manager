@@ -1,7 +1,14 @@
 import type { Knex } from 'knex';
 import dotenv from 'dotenv';
+import path from 'node:path';
+import { fileURLToPath } from 'url';
 
-dotenv.config();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// load .env from project root (one level above backend/)
+dotenv.config({ path: path.resolve(__dirname, '..', '.env') });
+
 
 const config: Knex.Config = {
   client: 'mysql2',
