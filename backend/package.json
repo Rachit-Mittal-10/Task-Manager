@@ -10,10 +10,10 @@
         "build": "tsc -p tsconfig.json",
         "typecheck": "tsc -p tsconfig.json --noEmit",
         "migrations": "node -r ts-node/register/transpile-only ./node_modules/.bin/knex",
-        "migrate": "npm run migrations -- migrate:latest --knexfile ./knexfile.ts",
-        "migrate:status": "npm run migrations -- migrate:status --knexfile ./knexfile.ts",
-        "migrate:rollback": "npm run migrations -- migrate:rollback --knexfile ./knexfile.ts --step 1",
-        "migrate:rollback-all": "npm run migrations -- migrate:rollback --all --knexfile ./knexfile.ts"
+        "migrate": "npm run migrations -- migrate:latest --knexfile src/knexfile.ts",
+        "migrate:status": "npm run migrations -- migrate:status --knexfile src/knexfile.ts",
+        "migrate:rollback": "npm run migrations -- migrate:rollback --knexfile src/knexfile.ts",
+        "migrate:rollback-all": "npm run migrations -- migrate:rollback --all --knexfile src/knexfile.ts"
     },
     "keywords": [],
     "author": "",

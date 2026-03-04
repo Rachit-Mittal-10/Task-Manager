@@ -22,14 +22,14 @@ export abstract class BaseCrudRepository extends BaseRepository implements IBase
      * @constructor
      * @params: string and Object
      */
-    public constructor(tableName: string, dbConnection: Pool): void {
+    public constructor(tableName: string, dbConnection: Pool) {
         super(tableName, dbConnection);
     }
     /*
      * @public
      * @method: create
      * @params: Object key value pair
-     * @return: Array
+     * @return: Array 
      * @description: This will create the entry in table
      */
     public async create(data: IData): Promise<WriteOutput> {

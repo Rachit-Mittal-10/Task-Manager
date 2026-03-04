@@ -35,7 +35,7 @@
     "skipLibCheck": true,
     "strict": false
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "src/database", "src/knexfile.ts"  ],
   "exclude": ["node_modules", "dist"]
 }
 
