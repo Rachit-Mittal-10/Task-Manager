@@ -35,7 +35,7 @@
         "@types/express": "^4.17.21",
         "@types/jsonwebtoken": "^9.0.7",
         "@types/knex": "^0.15.2",
-        "@types/node": "^22.9.4",
+        "@types/node": "^22.19.13",
         "tsx": "^4.19.2",
         "typescript": "^5.6.3"
     },
