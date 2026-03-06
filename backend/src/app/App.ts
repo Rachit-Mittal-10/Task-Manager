@@ -8,7 +8,7 @@ App.use(cors());
 App.use(express.json());
 
 //* App routes
-App.use("/", publicRouter);
-App.use("/", protectedRouter);
+App.use("/", publicRouter.getRouter());
+App.use("/", protectedRouter.getRouter());
 
 export default App;

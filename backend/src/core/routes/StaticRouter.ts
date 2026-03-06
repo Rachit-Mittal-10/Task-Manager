@@ -6,6 +6,9 @@ export abstract class StaticRouter {
     public constructor() {
         this.router = Router();
     }
+    public getRouter(): RouterType {
+        return this.router;
+    }
     // this needs to be worked on.
     // overrloading signatures
     protected registerMiddleware(pathOrHandler: string, ...handlers: RequestHandler[]): this;

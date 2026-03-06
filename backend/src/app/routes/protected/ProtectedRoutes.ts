@@ -8,12 +8,11 @@ class ProtectedRouter extends StaticRouter {
     constructor() {
         super();
         this.registerMiddleware(authenticateToken)
-            .registerRouter("/tasks", taskRouter.router)
-            .registerRouter("/users", userRouter.router);
+            .registerRouter("/tasks", taskRouter.getRouter())
+            .registerRouter("/users", userRouter.getRouter());
     }
 }
 
-const protectedRouterInstance: ProtectedRouter = new ProtectedRouter();
-const protectedRouter: Router = protectedRouterInstance.router;
+const protectedRouter: ProtectedRouter = new ProtectedRouter();
 
 export { protectedRouter };
