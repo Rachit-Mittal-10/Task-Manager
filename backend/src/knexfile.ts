@@ -20,12 +20,12 @@ const config: Knex.Config = {
     port: parseInt(process.env.DATABASE_PORT || '3306'),
   },
   migrations: {
-    directory: './database/migrations',
+    directory: path.resolve(__dirname, 'database',"migrations"),
     extension: 'ts',
     loadExtensions: ['.ts'],
   },
   seeds: {
-    directory: './database/seeds',
+    directory: path.resolve(__dirname, 'database',"seeds"),
     extension: 'ts',
     loadExtensions: ['.ts'],
   },
