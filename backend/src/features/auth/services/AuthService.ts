@@ -59,6 +59,7 @@ class AuthService extends BaseService<AuthRepository> {
         }
         try {
             const provider = this.getDep("user-service");
+            // here we get the id of inserted user and use it to create auth record
             const userResult = await provider.create({
                 firstname,
             });
@@ -67,7 +68,7 @@ class AuthService extends BaseService<AuthRepository> {
                 username,
                 email,
                 password: hashedPassword,
-                user_id: userResult.insertId,
+                user_id: userResult,
             });
             return result as WriteOutput;
         } catch (err) {
