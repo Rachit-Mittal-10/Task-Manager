@@ -27,12 +27,8 @@ export abstract class BaseCrudService<R extends IBaseCrudRepository> extends Bas
         if (!data || Object.keys(data).length === 0) {
             throw new Error("Data is empty");
         }
-        try {
-            const result = await this.repository.create(data);
-            return result;
-        } catch (err) {
-            throw err;
-        }
+        const result = await this.repository.create(data);
+        return result;
     }
     /*
      * @public
@@ -42,12 +38,8 @@ export abstract class BaseCrudService<R extends IBaseCrudRepository> extends Bas
      * @description: return the row with particular id
      */
     public async get(id: number): Promise<ReadOutput> {
-        try {
-            const result = await this.repository.get(id);
-            return result[0] as ReadOutput;
-        } catch (err) {
-            throw err;
-        }
+        const result = await this.repository.get(id);
+        return result[0] as ReadOutput;
     }
     /*
      * @public
@@ -57,13 +49,8 @@ export abstract class BaseCrudService<R extends IBaseCrudRepository> extends Bas
      * @description: returns all the data in table
      */
     public async getAll(): Promise<ReadOutput> {
-        try {
-            const result = await this.repository.getAll();
-            return result;
-        } catch (err) {
-            console.log(`Err during service: ${err}`);
-            throw err;
-        }
+        const result = await this.repository.getAll();
+        return result;
     }
     /*
      * @public
@@ -76,12 +63,10 @@ export abstract class BaseCrudService<R extends IBaseCrudRepository> extends Bas
         if (!data || Object.keys(data).length === 0) {
             throw new Error("Data is Empty");
         }
-        try {
-            const result = await this.repository.update(id, data);
-            return result;
-        } catch (err) {
-            throw err;
-        }
+        
+        const result = await this.repository.update(id, data);
+        return result;
+        
     }
     /*
      * @public
@@ -91,11 +76,7 @@ export abstract class BaseCrudService<R extends IBaseCrudRepository> extends Bas
      * @description: deletes the particular row of table
      */
     public async remove(id: number): Promise<WriteOutput> {
-        try {
-            const result = await this.repository.remove(id);
-            return result;
-        } catch (err) {
-            throw err;
-        }
+        const result = await this.repository.remove(id);
+        return result;
     }
 }

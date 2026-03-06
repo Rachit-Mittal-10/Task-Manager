@@ -11,11 +11,13 @@ export abstract class BaseCrudController<S extends IBaseCrudService> extends Bas
         const data = request.body;
         try {
             const result = await this.service.create(data);
+            console.log(result);
             response.status(201).json({
                 ok: true,
                 data: result,
             });
         } catch (error) {
+            console.log(error);
             response.status(500).json({
                 ok: false,
                 error: error.message,
@@ -26,11 +28,13 @@ export abstract class BaseCrudController<S extends IBaseCrudService> extends Bas
         const id: number = Number(request.params.id);
         try {
             const result = await this.service.get(id);
+            console.log(result);
             response.status(200).json({
                 ok: true,
                 data: result,
             });
         } catch (error) {
+            console.log(error);
             response.status(500).json({
                 ok: false,
                 error: error.message,
@@ -40,11 +44,13 @@ export abstract class BaseCrudController<S extends IBaseCrudService> extends Bas
     public async getAll(request: Request, response: Response) {
         try {
             const result = await this.service.getAll();
+            console.log(result);
             response.status(200).json({
                 ok: true,
                 data: result,
             });
         } catch (error) {
+            console.log(error);
             response.status(500).json({
                 ok: false,
                 error: error.message,
@@ -56,11 +62,13 @@ export abstract class BaseCrudController<S extends IBaseCrudService> extends Bas
         const data = request.body;
         try {
             const result = await this.service.update(id, data);
+            console.log(result);
             response.status(200).json({
                 ok: true,
                 data: result,
             });
         } catch (error) {
+            console.log(error);
             response.status(500).json({
                 ok: false,
                 error: error.message,
@@ -71,10 +79,12 @@ export abstract class BaseCrudController<S extends IBaseCrudService> extends Bas
         const id: number = Number(request.params.id);
         try {
             const result = await this.service.remove(id);
+            console.log(result);
             response.status(204).json({
                 ok: true,
             });
         } catch (error) {
+            console.log(error);
             response.status(500).json({
                 ok: true,
                 error: error.message,

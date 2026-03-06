@@ -10,14 +10,13 @@ import { BaseRepository } from "./BaseRepository.js";
 import type { Knex } from "knex";
 import { ReadOutput, WriteOutput } from "./IQueryOutput.js";
 import type { IData } from "#common/types/IData.js";
-import type { IBaseCrudRepository } from "./IBaseCrudRepository.js";
 
 export type IOptions = {
     limit?: number;
     offset?: number;
 };
 
-export abstract class BaseCrudRepository extends BaseRepository implements IBaseCrudRepository {
+export abstract class BaseCrudRepository extends BaseRepository {
     /*
      * @constructor
      * @params: string and Object

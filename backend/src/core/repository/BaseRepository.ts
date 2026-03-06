@@ -29,7 +29,7 @@ export abstract class BaseRepository {
     /*
      * @method: getter db
      * @return: Knex object
-     * @description: this will returrn the db connection pool
+     * @description: this will returrn the Knex object which is used to run the queries on the database
      */
     protected get db() : Knex {
         return this.#db;
