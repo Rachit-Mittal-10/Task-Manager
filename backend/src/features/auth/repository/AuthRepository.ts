@@ -5,14 +5,11 @@ class AuthRepository extends BaseCrudRepository {
     constructor(conn: Knex) {
         super("auth", conn);
     }
-    async getUserByUsername(username: string): Promise<any[]> {
-        return await this.db(this.table).where({ username }).select("*");
+    async getUserByUsername(username: string): Promise<any | undefined> {
+        return await this.db(this.table).where({ username }).select("*").first();
     }
-    async getUserByEmail(email: string): Promise<any[]> {
-        return await this.db(this.table).where({ email }).select("*");
-    }
-    async me(): Promise<string> {
-        return "This is reching the model";
+    async getUserByEmail(email: string): Promise<any | undefined> {
+        return await this.db(this.table).where({ email }).select("*").first();
     }
 }
 

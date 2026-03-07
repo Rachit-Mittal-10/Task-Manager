@@ -12,7 +12,7 @@ const env = dotenv.config({
     path: "../.env",
 });
 
-interface LoginResponse {
+export interface LoginResponse {
     token: string;
 }
 
@@ -33,13 +33,13 @@ class AuthService extends BaseService<AuthRepository> {
             if (!user) {
                 return null;
             }
-            const userPassword = user[0]["password"];
+            const userPassword = user["password"];
             const passwordStatus = await verifyPassword(password, userPassword);
             if (!passwordStatus) {
                 return null;
             }
             // this means user exist and password is verified
-            const token = generateToken(user[0], process.env.JWT_SECRET_KEY);
+            const token = generateToken(user, process.env.JWT_SECRET_KEY);
             return {
                 token,
             };
@@ -83,9 +83,6 @@ class AuthService extends BaseService<AuthRepository> {
             }
             throw err;
         }
-    }
-    async me(): Promise<string> {
-        return await this.repository.me();
     }
 }
 

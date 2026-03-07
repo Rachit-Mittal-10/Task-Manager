@@ -40,13 +40,6 @@ class AuthController extends BaseController<AuthService> {
             });
         }
     }
-    async me(request: Request, response: Response): Promise<void> {
-        const message = await this.service.me();
-
-        response.status(200).json({
-            message,
-        });
-    }
 }
 
 export default AuthController;
