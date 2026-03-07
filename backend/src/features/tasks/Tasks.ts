@@ -1,4 +1,3 @@
-import conn from "#config/mysql.js";
 import TaskRepository from "./repository/TaskRepository.js";
 import TaskService from "./services/TaskService.js";
 import TaskController from "./controllers/TaskController.js";

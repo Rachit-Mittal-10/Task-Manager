@@ -1,4 +1,3 @@
-import conn from "#config/mysql.js";
 import AuthRepository from "./repository/AuthRepository.js";
 import AuthController from "./controllers/AuthController.js";
 import AuthService from "./services/AuthService.js";
