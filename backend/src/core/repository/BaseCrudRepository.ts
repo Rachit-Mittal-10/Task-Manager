@@ -30,8 +30,9 @@ export abstract class BaseCrudRepository extends BaseRepository {
      * @return: Array of number which is first id of created rows for MySQL
      * @description: This will create the entry in table
      */
-    public async create(data: IData): Promise<number[]> {
-        return await this.db(this.table).insert(data);
+    public async create(data: IData): Promise<number> {
+        const [id] = await this.db(this.table).insert(data);
+        return id;
     }
     /*
      * @public

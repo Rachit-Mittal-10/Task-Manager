@@ -3,7 +3,7 @@ import { IOptions } from "./BaseCrudRepository.js";
 import { ReadOutput, WriteOutput } from "./IQueryOutput.js";
 
 export interface IBaseCrudRepository {
-    create(data: IData): Promise<number[]>;
+    create(data: IData): Promise<number>;
     get(id: number): Promise<any | undefined>;
     getAll(): Promise<any[]>;
     update(id: number, data:IData): Promise<number>;

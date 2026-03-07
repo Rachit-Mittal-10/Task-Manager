@@ -1,4 +1,5 @@
 import { IData } from "#common/types/IData.js";
+import { IOptions } from "#core/repository/BaseCrudRepository.js";
 import { IBaseCrudRepository } from "#core/repository/IBaseCrudRepository.js";
 import { BaseService } from "./BaseService.js";
 
@@ -21,7 +22,7 @@ export abstract class BaseCrudService<R extends IBaseCrudRepository> extends Bas
      * @return: array of Object
      * @description: adds the row in the database using model
      */
-    public async create(data: IData): Promise<number[]> {
+    public async create(data: IData): Promise<number> {
         if (!data || Object.keys(data).length === 0) {
             throw new Error("Data is empty");
         }
@@ -35,7 +36,7 @@ export abstract class BaseCrudService<R extends IBaseCrudRepository> extends Bas
      * @return: Object
      * @description: return the row with particular id
      */
-    public async get(id: number): Promise<any[]> {
+    public async get(id: number): Promise<any | undefined> {
         const result = await this.repository.get(id);
         return result;
     }
@@ -75,6 +76,17 @@ export abstract class BaseCrudService<R extends IBaseCrudRepository> extends Bas
      */
     public async remove(id: number): Promise<number> {
         const result = await this.repository.remove(id);
+        return result;
+    }
+    /*
+     * @public
+     * method: findBy
+     * @params: Object and options for pagination
+     * @return: Array of Objects
+     * @description: This will return the data based on key value pair provided in data and options for pagination
+    */    
+    public async findBy(data: IData, options: IOptions = {}): Promise<any[]> {
+        const result = await this.repository.findBy(data, options);
         return result;
     }
 }
