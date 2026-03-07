@@ -11,6 +11,7 @@ export abstract class BaseCrudController<S extends IBaseCrudService> extends Bas
         const data = request.body;
         try {
             const result = await this.service.create(data);
+            console.log(result);
             response.status(201).json({
                 ok: true,
                 data: result,
@@ -28,6 +29,13 @@ export abstract class BaseCrudController<S extends IBaseCrudService> extends Bas
         try {
             const result = await this.service.get(id);
             console.log(result);
+            if(result === undefined) {
+                response.status(404).json({
+                    ok: false,
+                    error: `Data not found for id: ${id}`,
+                });
+                return;
+            }
             response.status(200).json({
                 ok: true,
                 data: result,
@@ -64,7 +72,7 @@ export abstract class BaseCrudController<S extends IBaseCrudService> extends Bas
             console.log(result);
             response.status(200).json({
                 ok: true,
-                data: result,
+                data: `${result} row(s) updated successfully`,
             });
         } catch (error) {
             console.log(error);
@@ -81,6 +89,7 @@ export abstract class BaseCrudController<S extends IBaseCrudService> extends Bas
             console.log(result);
             response.status(204).json({
                 ok: true,
+                data: `${result} row(s) deleted successfully`,
             });
         } catch (error) {
             console.log(error);
