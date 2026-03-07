@@ -53,7 +53,7 @@ class AuthService extends BaseService<AuthRepository> {
     /*
     insertId is result.insertId
     */
-    async register(username: string, email: string, password: string, firstname: string): Promise<WriteOutput> {
+    async register(username: string, email: string, password: string, firstname: string): Promise<number> {
         if (!(username && email && password && firstname)) {
             throw new Error("All parameters are required for registration");
         }
@@ -70,7 +70,7 @@ class AuthService extends BaseService<AuthRepository> {
                 password: hashedPassword,
                 user_id: userResult,
             });
-            return result as WriteOutput;
+            return result;
         } catch (err) {
             switch (err.code) {
                 case "ER_DUP_ENTRY":
