@@ -100,7 +100,8 @@ export abstract class BaseCrudRepository extends BaseRepository {
     * @description: This will return the data based on id or key value pair provided in filters and options for pagination
     */
     //* testing read. making a function that handles GET /, GET /:id, GET /?key=value
-    public async read(id: number | undefined, filters: IData | undefined, options: IOptions = {limit:100,offset:0}): Promise<any | any[]> {
+    public async read(id?: number | undefined, filters?: IData | undefined, options?: IOptions): Promise<any | any[]> {
+        const { limit = 10, offset = 0 } = options || {};
         let query = this.db(this.table);
         //: handles the GET /:id. single resource will be returned based on id
         if(id !== undefined) {
