@@ -91,4 +91,26 @@ export abstract class BaseCrudRepository extends BaseRepository {
         }
         return await query.select("*");
     }
+
+    /* 
+    * @public
+    * @method: read
+    * @params: id, filters and options for pagination
+    * @return: Object or Array of objects
+    * @description: This will return the data based on id or key value pair provided in filters and options for pagination
+    */
+    //* testing read. making a function that handles GET /, GET /:id, GET /?key=value
+    public async read(id: number | undefined, filters: IData | undefined, options: IOptions = {limit:100,offset:0}): Promise<any | any[]> {
+        let query = this.db(this.table);
+        //: handles the GET /:id. single resource will be returned based on id
+        if(id !== undefined) {
+            return query.where({id}).select("*").first();
+        }
+        //: handles the GET /?key=value. this will return the data based on key value pair provided in filters and options for pagination.
+        if(filters) {
+            query =  query.where(filters);
+        }
+        //: if filters are undefined then it will return all the data in table with pagination
+        return await query.limit(options.limit).offset(options.offset).select("*");
+    }
 }
