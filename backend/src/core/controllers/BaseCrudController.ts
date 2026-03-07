@@ -69,6 +69,13 @@ export abstract class BaseCrudController<S extends IBaseCrudService> extends Bas
         const data = request.body;
         try {
             const result = await this.service.update(id, data);
+            if (result === 0) {
+                response.status(404).json({
+                    ok: false,
+                    error: `Data not found for id: ${id}`,
+                });
+                return;
+            }
             console.log(result);
             response.status(200).json({
                 ok: true,
@@ -86,8 +93,15 @@ export abstract class BaseCrudController<S extends IBaseCrudService> extends Bas
         const id: number = Number(request.params.id);
         try {
             const result = await this.service.remove(id);
-            console.log(result);
-            response.status(204).json({
+            if(result === 0) {
+                response.status(404).json({
+                    ok: false,
+                    error: `Data not found for id: ${id}`,
+                });
+                return;
+            }
+            console.log(`delete function in controller: ${result}`);
+            response.status(200).json({
                 ok: true,
                 data: `${result} row(s) deleted successfully`,
             });

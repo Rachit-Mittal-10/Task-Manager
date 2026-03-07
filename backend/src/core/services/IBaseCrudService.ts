@@ -1,10 +1,11 @@
 import { IData } from "#common/types/IData.js";
-import { WriteOutput, ReadOutput } from "#core/repository/IQueryOutput.js";
+import type { IOptions } from "../repository/BaseCrudRepository.js";
 
 export interface IBaseCrudService {
-    create(data: IData): Promise<WriteOutput>;
-    get(id: number): Promise<ReadOutput>;
-    getAll(): Promise<ReadOutput>;
-    update(id: number, data:IData): Promise<WriteOutput>;
-    remove(id: number): Promise<WriteOutput>;
+    create(data: IData): Promise<number>;
+    get(id: number): Promise<any | undefined>;
+    getAll(): Promise<any[]>;
+    update(id: number, data:IData): Promise<number>;
+    remove(id: number): Promise<number>;
+    findBy(data: IData, options: IOptions): Promise<any[]>;
 }
