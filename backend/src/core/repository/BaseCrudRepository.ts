@@ -8,7 +8,6 @@
 
 import { BaseRepository } from "./BaseRepository.js";
 import type { Knex } from "knex";
-import { ReadOutput, WriteOutput } from "./IQueryOutput.js";
 import type { IData } from "#common/types/IData.js";
 
 export type IOptions = {
@@ -28,21 +27,21 @@ export abstract class BaseCrudRepository extends BaseRepository {
      * @public
      * @method: create
      * @params: Object key value pair
-     * @return: Array 
+     * @return: Array of number which is first id of created rows for MySQL
      * @description: This will create the entry in table
      */
-    public async create(data: IData): Promise<WriteOutput> {
+    public async create(data: IData): Promise<number[]> {
         return await this.db(this.table).insert(data);
     }
     /*
      * @public
      * @method: get
      * @params: Int
-     * @return: array of objects
+     * @return: object or undefined
      * @description: This will return the row with provided id
      */
-    public async get(id: number): Promise<ReadOutput> {
-        return await this.db(this.table).where({ id }).select("*");
+    public async get(id: number): Promise<any | undefined> {
+        return await this.db(this.table).where({ id }).select("*").first();
     }
     /*
      * @public
@@ -51,33 +50,44 @@ export abstract class BaseCrudRepository extends BaseRepository {
      * @return: Array of Objects
      * @description: This will return the entire data in the table
      */
-    public async getAll(): Promise<ReadOutput> {
+    public async getAll(): Promise<any[]> {
         return await this.db(this.table).select("*");
     }
     /*
      * @public
      * @method: update
      * @params: Int, Object
-     * @return: Array of Objects
+     * @return: number of rows updated
      * @description: This will update the value of provided id
      */
-    public async update(id: number, data: IData): Promise<WriteOutput> {
+    public async update(id: number, data: IData): Promise<number> {
         return await this.db(this.table).where({ id }).update(data);
     }
     /*
      * @public
      * @method: remove
      * @params: Int
-     * @return: Array of Objects
+     * @return: number of rows deleted
      * @description: This will delete the row with provided id
      */
-    public async remove(id: number): Promise<WriteOutput> {
+    public async remove(id: number): Promise<number> {
         return await this.db(this.table).where({ id }).delete();
     }
-    // Here data is key value pair.
-    public async findBy(data: IData, options: IOptions = {}): Promise<ReadOutput> {
-        const limit = options.limit;
-        const offset = options.offset;
-        return await this.db(this.table).where(data).limit(limit).offset(offset).select("*");
+    /*
+     * @public
+     * @method: findBy
+     * @params: data  and options
+     * @return: Array of objects
+     * @description: This will return the data based on key value pair provided in data and options for pagination
+     */
+    public async findBy(data: IData, options: IOptions = {}): Promise<any[]> {
+        let query = this.db(this.table).where(data);
+        if (options.limit) {
+            query = query.limit(options.limit);
+        }
+        if (options.offset) {
+            query = query.offset(options.offset);
+        }
+        return await query.select("*");
     }
 }

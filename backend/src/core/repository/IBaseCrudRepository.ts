@@ -3,10 +3,10 @@ import { IOptions } from "./BaseCrudRepository.js";
 import { ReadOutput, WriteOutput } from "./IQueryOutput.js";
 
 export interface IBaseCrudRepository {
-    create(data: IData): Promise<WriteOutput>;
-    get(id: number): Promise<ReadOutput>;
-    getAll(): Promise<ReadOutput>;
-    update(id: number, data:IData): Promise<WriteOutput>;
-    remove(id: number): Promise<WriteOutput>;
-    findBy(data: IData, options: IOptions): Promise<ReadOutput>;
+    create(data: IData): Promise<number[]>;
+    get(id: number): Promise<any | undefined>;
+    getAll(): Promise<any[]>;
+    update(id: number, data:IData): Promise<number>;
+    remove(id: number): Promise<number>;
+    findBy(data: IData, options: IOptions): Promise<any[]>;
 };

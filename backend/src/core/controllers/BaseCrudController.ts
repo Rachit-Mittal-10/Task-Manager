@@ -11,7 +11,6 @@ export abstract class BaseCrudController<S extends IBaseCrudService> extends Bas
         const data = request.body;
         try {
             const result = await this.service.create(data);
-            console.log(result);
             response.status(201).json({
                 ok: true,
                 data: result,
