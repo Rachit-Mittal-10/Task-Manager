@@ -7,7 +7,6 @@ import {
 } from "../utils/AuthUtils.js";
 import dotenv from "dotenv";
 import type { IData } from "#common/types/IData.js";
-import { WriteOutput } from "#core/repository/IQueryOutput.js";
 
 const env = dotenv.config({
     path: "../.env",
