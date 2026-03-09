@@ -34,25 +34,26 @@ export abstract class BaseCrudRepository extends BaseRepository {
         const [id] = await this.db(this.table).insert(data);
         return id;
     }
-    /*
-     * @public
-     * @method: get
-     * @params: Int
-     * @return: object or undefined
-     * @description: This will return the row with provided id
-     */
-    public async get(id: number): Promise<any | undefined> {
-        return await this.db(this.table).where({ id }).select("*").first();
-    }
-    /*
-     * @public
-     * @method: getAll
-     * @params: None
-     * @return: Array of Objects
-     * @description: This will return the entire data in the table
-     */
-    public async getAll(): Promise<any[]> {
-        return await this.db(this.table).select("*");
+    /* 
+    * @public
+    * @method: read
+    * @params: id, filters and options for pagination
+    * @return: Object or Array of objects
+    * @description: This will return the data based on id or key value pair provided in filters and options for pagination
+    */
+    public async read(id?: number | undefined, filters?: IData | undefined, options?: IOptions): Promise<any> {
+        const { limit = 10, offset = 0 } = options || {};
+        let query = this.db(this.table);
+        //: handles the GET /:id. single resource will be returned based on id
+        if(id !== undefined) {
+            return query.where({id}).select("*").first();
+        }
+        //: handles the GET /?key=value. this will return the data based on key value pair provided in filters and options for pagination.
+        if(filters) {
+            query =  query.where(filters);
+        }
+        //: if filters are undefined then it will return all the data in table with pagination
+        return await query.limit(limit).offset(offset).select("*");
     }
     /*
      * @public
@@ -73,45 +74,5 @@ export abstract class BaseCrudRepository extends BaseRepository {
      */
     public async remove(id: number): Promise<number> {
         return await this.db(this.table).where({ id }).delete();
-    }
-    /*
-     * @public
-     * @method: findBy
-     * @params: data  and options
-     * @return: Array of objects
-     * @description: This will return the data based on key value pair provided in data and options for pagination
-     */
-    public async findBy(data: IData, options: IOptions = {}): Promise<any[]> {
-        let query = this.db(this.table).where(data);
-        if (options.limit) {
-            query = query.limit(options.limit);
-        }
-        if (options.offset) {
-            query = query.offset(options.offset);
-        }
-        return await query.select("*");
-    }
-
-    /* 
-    * @public
-    * @method: read
-    * @params: id, filters and options for pagination
-    * @return: Object or Array of objects
-    * @description: This will return the data based on id or key value pair provided in filters and options for pagination
-    */
-    //* testing read. making a function that handles GET /, GET /:id, GET /?key=value
-    public async read(id?: number | undefined, filters?: IData | undefined, options?: IOptions): Promise<any | any[]> {
-        const { limit = 10, offset = 0 } = options || {};
-        let query = this.db(this.table);
-        //: handles the GET /:id. single resource will be returned based on id
-        if(id !== undefined) {
-            return query.where({id}).select("*").first();
-        }
-        //: handles the GET /?key=value. this will return the data based on key value pair provided in filters and options for pagination.
-        if(filters) {
-            query =  query.where(filters);
-        }
-        //: if filters are undefined then it will return all the data in table with pagination
-        return await query.limit(options.limit).offset(options.offset).select("*");
     }
 }

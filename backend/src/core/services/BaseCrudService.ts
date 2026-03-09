@@ -29,26 +29,15 @@ export abstract class BaseCrudService<R extends IBaseCrudRepository> extends Bas
         const result = await this.repository.create(data);
         return result;
     }
-    /*
+    /* 
      * @public
-     * @method: get
-     * @params: int
-     * @return: Object
-     * @description: return the row with particular id
-     */
-    public async get(id: number): Promise<any | undefined> {
-        const result = await this.repository.get(id);
-        return result;
-    }
-    /*
-     * @public
-     * @method: getAll
-     * @params: None
-     * @return: Array of Objects
-     * @description: returns all the data in table
-     */
-    public async getAll(): Promise<any[]> {
-        const result = await this.repository.getAll();
+     * @method: read
+     * @params: id, filters and options for pagination
+     * @return: Object or Array of objects
+     * @description: This will return the data based on id or key value pair provided in filters and options for pagination
+    */
+    public async read(id?: number | undefined, filters?: IData | undefined, options?: IOptions) : Promise<any> {
+        const result = await this.repository.read(id,filters,options);
         return result;
     }
     /*
@@ -78,15 +67,5 @@ export abstract class BaseCrudService<R extends IBaseCrudRepository> extends Bas
         const result = await this.repository.remove(id);
         return result;
     }
-    /*
-     * @public
-     * method: findBy
-     * @params: Object and options for pagination
-     * @return: Array of Objects
-     * @description: This will return the data based on key value pair provided in data and options for pagination
-    */    
-    public async findBy(data: IData, options: IOptions = {}): Promise<any[]> {
-        const result = await this.repository.findBy(data, options);
-        return result;
-    }
+
 }
