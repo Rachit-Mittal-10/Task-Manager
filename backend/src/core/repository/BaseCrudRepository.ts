@@ -9,19 +9,20 @@
 import { BaseRepository } from "./BaseRepository.js";
 import type { Knex } from "knex";
 import type { IData } from "#common/types/IData.js";
+import { IBaseModel } from "#core/models/IBaseModel.js";
 
 export type IOptions = {
     limit?: number;
     offset?: number;
 };
 
-export abstract class BaseCrudRepository extends BaseRepository {
+export abstract class BaseCrudRepository<T extends IBaseModel> extends BaseRepository<T> {
     /*
      * @constructor
      * @params: string and Object
      */
-    public constructor(tableName: string, dbConnection: Knex) {
-        super(tableName, dbConnection);
+    public constructor(tableName: string, dbConnection: Knex, modelConstructor: new (data: any) => T) {
+        super(tableName, dbConnection,modelConstructor);
     }
     /*
      * @public
@@ -41,19 +42,24 @@ export abstract class BaseCrudRepository extends BaseRepository {
     * @return: Object or Array of objects
     * @description: This will return the data based on id or key value pair provided in filters and options for pagination
     */
-    public async read(id?: number | undefined, filters?: IData | undefined, options?: IOptions): Promise<any> {
+    public async read(id?: number | undefined, filters?: IData | undefined, options?: IOptions): Promise<T | T[]> {
         const { limit = 10, offset = 0 } = options || {};
         let query = this.db(this.table);
         //: handles the GET /:id. single resource will be returned based on id
         if(id !== undefined) {
-            return query.where({id}).select("*").first();
+            const rawData = await query.where({id}).select("*").first();
+            const modelObject = this.mapToModel(rawData);
+            return modelObject
+            // return query.where({id}).select("*").first();
         }
         //: handles the GET /?key=value. this will return the data based on key value pair provided in filters and options for pagination.
         if(filters) {
             query =  query.where(filters);
         }
         //: if filters are undefined then it will return all the data in table with pagination
-        return await query.limit(limit).offset(offset).select("*");
+        const rawData = await query.limit(limit).offset(offset).select("*");
+        return rawData.map(data => this.mapToModel(data));
+        // return await query.limit(limit).offset(offset).select("*");
     }
     /*
      * @public
