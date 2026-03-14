@@ -7,7 +7,7 @@ import { BaseService } from "./BaseService.js";
  * @file: BaseCrudService.js
  * @description: This provides the basic crud functionality for all the application service layers by calling methods on model
  */
-export abstract class BaseCrudService<R extends IBaseCrudRepository> extends BaseService<R> {
+export abstract class BaseCrudService<T,R extends IBaseCrudRepository<T>> extends BaseService<R> {
     /*
      * @constructor
      * @params: Object and Object

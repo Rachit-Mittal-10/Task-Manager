@@ -4,7 +4,7 @@ import { IBaseModel } from "./IBaseModel.js";
  * @file: BaseModel.js
  * @descripiton: this is the abstract class. not to be instantiated.
  */
-export abstract class BaseModel {
+export abstract class BaseModel implements IBaseModel{
     id: number | null;
     created_at: Date | null;
     updated_at: Date | null;
