@@ -5,9 +5,9 @@ import { IBaseModel } from "./IBaseModel.js";
  * @descripiton: this is the abstract class. not to be instantiated.
  */
 export abstract class BaseModel implements IBaseModel{
-    id: number | null;
-    created_at: Date | null;
-    updated_at: Date | null;
+    public readonly id: number | null;
+    public readonly created_at: Date | null;
+    public readonly updated_at: Date | null;
 
     public constructor(data: IBaseModel = {}) {
         this.id = data.id ?? null;
