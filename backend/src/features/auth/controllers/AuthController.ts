@@ -1,8 +1,8 @@
 import { BaseController } from "#core/controllers/BaseController.js";
 import type { Request, Response } from "express";
-import type AuthService from "../services/AuthService.js";
+import type { AuthService } from "../services/AuthService.js";
 
-class AuthController extends BaseController<AuthService> {
+export class AuthController extends BaseController<AuthService> {
     async login(request: Request, response: Response): Promise<Response> {
         const { username, email, password } = request.body;
         try {
@@ -41,5 +41,3 @@ class AuthController extends BaseController<AuthService> {
         }
     }
 }
-
-export default AuthController;

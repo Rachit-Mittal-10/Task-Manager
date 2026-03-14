@@ -1,10 +1,9 @@
 import { BaseCrudRepository } from "#core/repository/BaseCrudRepository.js";
 import type { Knex } from "knex";
+import { TaskModel } from "../models/TaskModel.js";
 
-class TaskRepository extends BaseCrudRepository {
+export class TaskRepository extends BaseCrudRepository<TaskModel> {
     constructor(conn: Knex) {
-        super("tasks", conn);
+        super("tasks", conn, TaskModel);
     }
 }
-
-export default TaskRepository;

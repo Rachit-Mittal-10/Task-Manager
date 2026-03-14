@@ -1,4 +1,5 @@
 import { BaseModel } from "#core/models/BaseModel.js";
+import { IBaseModel } from "#core/models/IBaseModel.js";
 
 interface AuthData {
     id?: number | null;
@@ -9,7 +10,13 @@ interface AuthData {
     email: string;
 }
 
-class AuthModel extends BaseModel {
+export interface IAuthModel extends IBaseModel {
+    user_id: number;
+    username: string;
+    email: string;
+};
+
+export class AuthModel extends BaseModel implements IAuthModel {
     user_id: number;
     username: string;
     email: string;
@@ -25,5 +32,3 @@ class AuthModel extends BaseModel {
         this.email = data.email;
     }
 }
-
-export default AuthModel;

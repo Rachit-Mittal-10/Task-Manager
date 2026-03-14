@@ -12,7 +12,7 @@ const env:DotenvConfigOutput = config({
 
 // Dynamic Import
 // const { default: App } = await import("#app/App.js");
-const { default: App } = await import("./app/App.js");
+const { App } = await import("./app/App.js");
 //* Listening on host:port
 const PORT:number = Number(process.env.PORT);
 const HOST:string = process.env.HOST;

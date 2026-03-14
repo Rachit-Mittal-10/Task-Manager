@@ -11,4 +11,4 @@ App.use(express.json());
 App.use("/", publicRouter.getRouter());
 App.use("/", protectedRouter.getRouter());
 
-export default App;
+export { App };

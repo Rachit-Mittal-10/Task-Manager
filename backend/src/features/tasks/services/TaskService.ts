@@ -1,6 +1,5 @@
 import { BaseCrudService } from "#core/services/BaseCrudService.js";
-import type TaskRepository from "../repository/TaskRepository.js";
+import { TaskModel } from "../models/TaskModel.js";
+import type { TaskRepository } from "../repository/TaskRepository.js";
 
-class TaskService extends BaseCrudService<TaskRepository> {};
-
-export default TaskService;
+export class TaskService extends BaseCrudService<TaskModel, TaskRepository> {};

@@ -5,7 +5,7 @@ interface BaseErrorOptions {
     isOperational?: boolean;
 }
 
-abstract class BaseError extends Error {
+export abstract class BaseError extends Error {
     declare name: string;
     code: string;
     statusCode: number;
@@ -25,5 +25,3 @@ abstract class BaseError extends Error {
         this.isOperational = options.isOperational ?? true;
     }
 }
-
-export default BaseError;

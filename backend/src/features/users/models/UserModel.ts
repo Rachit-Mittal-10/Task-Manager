@@ -10,7 +10,7 @@ interface UserData {
     age?: number | null;
 }
 
-class UserModel extends BaseModel {
+export class UserModel extends BaseModel {
     firstname: string;
     middlename: string | null;
     lastname: string;
@@ -28,5 +28,3 @@ class UserModel extends BaseModel {
         this.age = data.age ?? null;
     }
 }
-
-export default UserModel;

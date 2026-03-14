@@ -1,12 +1,11 @@
 import { BaseService } from "#core/services/BaseService.js";
-import type AuthRepository from "../repository/AuthRepository.js";
+import type { AuthRepository } from "../repository/AuthRepository.js";
 import {
     generateToken,
     hashPassword,
     verifyPassword,
 } from "../utils/AuthUtils.js";
 import dotenv from "dotenv";
-import type { IData } from "#common/types/IData.js";
 
 const env = dotenv.config({
     path: "../.env",
@@ -16,7 +15,7 @@ export interface LoginResponse {
     token: string;
 }
 
-class AuthService extends BaseService<AuthRepository> {
+export class AuthService extends BaseService<AuthRepository> {
     async login(username: string, email: string, password: string): Promise<LoginResponse | null> {
         if (!password || (!username && !email)) {
             throw new Error(
@@ -35,18 +34,15 @@ class AuthService extends BaseService<AuthRepository> {
             }
             const userPassword = user["password"];
             const passwordStatus = await verifyPassword(password, userPassword);
-            if (!passwordStatus) {
+            if  (!passwordStatus) {
                 return null;
             }
-            // this means user exist and password is verified
-            console.log(user);
+            //* this means user exist and password is verified so we will generate token and return
             const token = generateToken(user, process.env.JWT_SECRET_KEY);
             return {
                 token,
             };
         } catch (err) {
-            console.log(err);
-            console.log(err.stack);
             throw err;
         }
     }
@@ -86,5 +82,3 @@ class AuthService extends BaseService<AuthRepository> {
         }
     }
 }
-
-export default AuthService;

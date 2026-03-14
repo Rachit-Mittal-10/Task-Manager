@@ -1,6 +1,6 @@
-import DashboardService from "./services/DashboardService.js";
-import DashboardController from "./controllers/DashboardController.js";
-import DashboardRouter from "./routes/DashboardRouter.js";
+import { DashboardService } from "./services/DashboardService.js";
+import { DashboardController } from "./controllers/DashboardController.js";
+import { DashboardRouter } from "./routes/DashboardRouter.js";
 import { taskService } from "#features/tasks/Tasks.js";
 import type { IData } from "#common/types/IData.js";
 

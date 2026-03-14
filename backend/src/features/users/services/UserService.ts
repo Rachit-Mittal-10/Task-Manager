@@ -1,6 +1,5 @@
 import { BaseCrudService } from "#core/services/BaseCrudService.js";
-import UserRepository from "../repository/UserRepository.js";
+import { UserModel } from "../models/UserModel.js";
+import { UserRepository } from "../repository/UserRepository.js";
 
-class UserService extends BaseCrudService<UserRepository> {}
-
-export default UserService;
+export class UserService extends BaseCrudService<UserModel, UserRepository> {}

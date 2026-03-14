@@ -11,7 +11,7 @@ interface TaskData {
     status: "planned" | "pending" | "finished";
 }
 
-class TaskModel extends BaseModel {
+export class TaskModel extends BaseModel {
     user_id: number;
     title: string;
     start_time: Date | null;
@@ -31,5 +31,3 @@ class TaskModel extends BaseModel {
         this.status = data.status;
     }
 }
-
-export default TaskModel;

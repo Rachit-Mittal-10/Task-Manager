@@ -1,6 +1,5 @@
 import { BaseCrudController } from "#core/controllers/BaseCrudController.js";
-import UserService from "../services/UserService.js";
+import type { UserModel } from "../models/UserModel.js";
+import { UserService } from "../services/UserService.js";
 
-class UserController extends BaseCrudController<UserService> {}
-
-export default UserController;
+export class UserController extends BaseCrudController<UserModel, UserService> {}

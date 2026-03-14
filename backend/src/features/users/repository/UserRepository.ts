@@ -1,10 +1,9 @@
 import { BaseCrudRepository } from "#core/repository/BaseCrudRepository.js";
 import type { Knex } from "knex";
+import { UserModel } from "../models/UserModel.js";
 
-class UserRepository extends BaseCrudRepository {
+export class UserRepository extends BaseCrudRepository<UserModel> {
     constructor(conn: Knex) {
-        super("users", conn);
+        super("users", conn, UserModel);
     }
 }
-
-export default UserRepository;
