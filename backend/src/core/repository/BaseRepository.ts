@@ -1,3 +1,4 @@
+import { IBaseModel } from "#core/models/IBaseModel.js";
 import type { Knex } from "knex";
 
 /*
@@ -5,7 +6,7 @@ import type { Knex } from "knex";
  * @descripiton: This class serves as abstract data layer for all the application repository
  * It is mandatory to pass the tableName and db connection object.
  */
-export abstract class BaseRepository {
+export abstract class BaseRepository<T extends IBaseModel = any> {
     /*
      * @private
      * @type: string
@@ -18,13 +19,20 @@ export abstract class BaseRepository {
      * @description: this variable contains the model details. this is used to run the queries on the database
      */
     #db: Knex;
+    /* 
+     * @protected: readonly
+     * @type: T
+     * @description: This is used to store the function to create the model
+    */
+    protected readonly modelConstructor : new (data: any) => T;
     /*
      * @constructor
      * @params: string tablename and Object dbConnectioon
      */
-    public constructor(tableName: string, dbConnection: Knex) {
+    public constructor(tableName: string, dbConnection: Knex, modelConstructor: new (data: any) => T) {
         this.table = tableName;
         this.#db = dbConnection;
+        this.modelConstructor = modelConstructor;
     }
     /*
      * @method: getter db
@@ -33,5 +41,11 @@ export abstract class BaseRepository {
      */
     protected get db() : Knex {
         return this.#db;
+    }
+    /*
+     * 
+    */
+    protected mapToModel(data: any) : T {
+        return new this.modelConstructor(data);
     }
 }

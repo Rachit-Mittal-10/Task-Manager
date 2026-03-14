@@ -1,8 +1,4 @@
-interface BaseModelData {
-    id?: number | null;
-    created_at?: Date | string | null;
-    updated_at?: Date | string | null;
-}
+import { IBaseModel } from "./IBaseModel.js";
 
 /*
  * @file: BaseModel.js
@@ -13,7 +9,7 @@ export abstract class BaseModel {
     created_at: Date | null;
     updated_at: Date | null;
 
-    public constructor(data: BaseModelData = {}) {
+    public constructor(data: IBaseModel = {}) {
         this.id = data.id ?? null;
         this.created_at = data.created_at ? new Date(data.created_at) : null;
         this.updated_at = data.updated_at ? new Date(data.updated_at) : null;
