@@ -39,6 +39,7 @@ class AuthService extends BaseService<AuthRepository> {
                 return null;
             }
             // this means user exist and password is verified
+            console.log(user);
             const token = generateToken(user, process.env.JWT_SECRET_KEY);
             return {
                 token,

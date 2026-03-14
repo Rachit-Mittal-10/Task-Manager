@@ -40,6 +40,8 @@ export abstract class BaseCrudRepository extends BaseRepository {
     * @params: id, filters and options for pagination
     * @return: Object or Array of objects
     * @description: This will return the data based on id or key value pair provided in filters and options for pagination
+    
+    : what if i had read function return the model instead of raw data. like it returns instance of model which extends BaseModel. it would also have stricter type checking
     */
     public async read(id?: number | undefined, filters?: IData | undefined, options?: IOptions): Promise<any> {
         const { limit = 10, offset = 0 } = options || {};
