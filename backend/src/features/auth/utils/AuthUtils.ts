@@ -1,6 +1,7 @@
 import bcrypt from "bcryptjs";
 import jwt, { SignOptions } from "jsonwebtoken";
 import { promisify } from "util";
+import { AuthModel } from "../models/AuthModel.js";
 
 const jwtVerify = promisify(jwt.verify) as (token: string, secret: string) => Promise<any>;
 
@@ -13,20 +14,7 @@ const hashPassword = async (password: string, salt: number = 10) : Promise<strin
     }
 };
 
-const verifyPassword = async (inputPassword: string, storedHashedPassword: string): Promise<Boolean> => {
-    try {
-        const isMatch = await bcrypt.compare(
-            inputPassword,
-            storedHashedPassword,
-        );
-        return isMatch;
-    } catch (err) {
-        console.log(`Error while verifying the password: ${err}`);
-        throw err;
-    }
-};
-
-const generateToken = (user, jwtSecretKey = process.env.JWT_SECRET_KEY) => {
+const generateToken = (user: AuthModel, jwtSecretKey = process.env.JWT_SECRET_KEY) => {
     const payload = {
         auth_id: user.id,
         user_id: user.user_id,
@@ -41,6 +29,5 @@ const generateToken = (user, jwtSecretKey = process.env.JWT_SECRET_KEY) => {
 export {
     jwtVerify,
     hashPassword,
-    generateToken,
-    verifyPassword
+    generateToken
 };
