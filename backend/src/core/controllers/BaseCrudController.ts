@@ -10,7 +10,7 @@ interface ReadRequestQuery {
     [key: string]: string | string [] | undefined;
 };
 
-export abstract class BaseCrudController<S extends IBaseCrudService> extends BaseController<S> implements IBaseCrudController {
+export abstract class BaseCrudController<T, S extends IBaseCrudService<T>> extends BaseController<S> implements IBaseCrudController {
     public constructor(service:S) {
         super(service);
     }
@@ -108,7 +108,7 @@ export abstract class BaseCrudController<S extends IBaseCrudService> extends Bas
         } catch (error) {
             console.log(error);
             response.status(500).json({
-                ok: true,
+                ok: false,
                 error: error.message,
             });
         }

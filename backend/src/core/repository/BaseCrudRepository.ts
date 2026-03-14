@@ -10,13 +10,14 @@ import { BaseRepository } from "./BaseRepository.js";
 import type { Knex } from "knex";
 import type { IData } from "#common/types/IData.js";
 import { IBaseModel } from "#core/models/IBaseModel.js";
+import { IBaseCrudRepository } from "./IBaseCrudRepository.js";
 
 export type IOptions = {
     limit?: number;
     offset?: number;
 };
 
-export abstract class BaseCrudRepository<T extends IBaseModel> extends BaseRepository<T> {
+export abstract class BaseCrudRepository<T extends IBaseModel> extends BaseRepository<T> implements IBaseCrudRepository<T> {
     /*
      * @constructor
      * @params: string and Object
@@ -42,12 +43,15 @@ export abstract class BaseCrudRepository<T extends IBaseModel> extends BaseRepos
     * @return: Object or Array of objects
     * @description: This will return the data based on id or key value pair provided in filters and options for pagination
     */
-    public async read(id?: number | undefined, filters?: IData | undefined, options?: IOptions): Promise<T | T[]> {
+    public async read(id?: number | undefined, filters?: IData | undefined, options?: IOptions): Promise<T | T[] | undefined> {
         const { limit = 10, offset = 0 } = options || {};
         let query = this.db(this.table);
         //: handles the GET /:id. single resource will be returned based on id
         if(id !== undefined) {
             const rawData = await query.where({id}).select("*").first();
+            if(!rawData) {
+                return undefined;
+            }
             const modelObject = this.mapToModel(rawData);
             return modelObject;
             // return query.where({id}).select("*").first();

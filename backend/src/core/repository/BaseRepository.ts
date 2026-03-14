@@ -6,7 +6,7 @@ import type { Knex } from "knex";
  * @descripiton: This class serves as abstract data layer for all the application repository
  * It is mandatory to pass the tableName and db connection object.
  */
-export abstract class BaseRepository<T extends IBaseModel = any> {
+export abstract class BaseRepository<T extends IBaseModel> {
     /*
      * @private
      * @type: string
