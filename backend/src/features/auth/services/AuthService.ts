@@ -15,6 +15,16 @@ export interface LoginResponse {
     token: string;
 }
 
+export interface RegisterPayload {
+    username: string;
+    email: string;
+    password: string;
+    firstname: string;
+    middlename?: string;
+    lastname?: string;
+    age?: number;
+}
+
 export class AuthService extends BaseService<AuthRepository> {
     async login(username: string | undefined, email: string | undefined, password: string): Promise<LoginResponse | undefined> {
         if (!password || (!username && !email)) {
@@ -52,16 +62,31 @@ export class AuthService extends BaseService<AuthRepository> {
     /*
     insertId is result.insertId
     */
-    async register(username: string, email: string, password: string, firstname: string): Promise<number> {
+    async register(payload: RegisterPayload): Promise<number> {
+        const { username, email, password, firstname, middlename, lastname, age } = payload;
         if (!(username && email && password && firstname)) {
-            throw new Error("All parameters are required for registration");
+            throw new Error("Username, email, password, and firstname are required for registration");
         }
         try {
             const provider = this.getDep("user-service");
-            // here we get the id of inserted user and use it to create auth record
-            const userResult = await provider.create({
+            const userData: Record<string, string | number> = {
                 firstname,
-            });
+            };
+
+            if (middlename !== undefined) {
+                userData.middlename = middlename;
+            }
+
+            if (lastname !== undefined) {
+                userData.lastname = lastname;
+            }
+
+            if (age !== undefined) {
+                userData.age = age;
+            }
+
+            // here we get the id of inserted user and use it to create auth record
+            const userResult = await provider.create(userData);
             const hashedPassword = await hashPassword(password);
             const result = await this.repository.create({
                 username,

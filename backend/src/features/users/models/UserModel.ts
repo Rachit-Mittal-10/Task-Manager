@@ -7,21 +7,21 @@ interface UserData {
     updated_at?: Date | string | null;
     firstname: string;
     middlename?: string | null;
-    lastname: string;
+    lastname?: string | null;
     age?: number | null;
 }
 
 export interface IUserModel extends IBaseModel {
     firstname: string;
     middlename: string | null;
-    lastname: string;
+    lastname: string | null;
     age: number | null;
 }
 
 export class UserModel extends BaseModel implements IUserModel {
     firstname: string;
     middlename: string | null;
-    lastname: string;
+    lastname: string | null;
     age: number | null;
 
     constructor(data: UserData) {
@@ -32,7 +32,7 @@ export class UserModel extends BaseModel implements IUserModel {
         });
         this.firstname = data.firstname;
         this.middlename = data.middlename ?? null;
-        this.lastname = data.lastname;
+        this.lastname = data.lastname ?? null;
         this.age = data.age ?? null;
     }
 }

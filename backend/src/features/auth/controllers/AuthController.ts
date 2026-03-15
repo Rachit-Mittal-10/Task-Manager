@@ -23,14 +23,17 @@ export class AuthController extends BaseController<AuthService> {
         }
     }
     async register(request: Request, response: Response): Promise<Response> {
-        const { username, email, password, firstname } = request.body;
+        const { username, email, password, firstname, middlename, lastname, age } = request.body;
         try {
-            const result = await this.service.register(
+            const result = await this.service.register({
                 username,
                 email,
                 password,
                 firstname,
-            );
+                middlename,
+                lastname,
+                age
+            });
             return response.status(201).json({
                 result,
             });
