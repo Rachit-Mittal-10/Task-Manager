@@ -1,4 +1,5 @@
 import { BaseModel } from "#core/models/BaseModel.js";
+import { IBaseModel } from "#core/models/IBaseModel.js";
 
 interface UserData {
     id?: number | null;
@@ -10,7 +11,14 @@ interface UserData {
     age?: number | null;
 }
 
-export class UserModel extends BaseModel {
+export interface IUserModel extends IBaseModel {
+    firstname: string;
+    middlename: string | null;
+    lastname: string;
+    age: number | null;
+}
+
+export class UserModel extends BaseModel implements IUserModel {
     firstname: string;
     middlename: string | null;
     lastname: string;

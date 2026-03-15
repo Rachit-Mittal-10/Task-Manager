@@ -1,4 +1,5 @@
 import { BaseModel } from "#core/models/BaseModel.js";
+import { IBaseModel } from "#core/models/IBaseModel.js";
 
 interface TaskData {
     id?: number | null;
@@ -11,7 +12,15 @@ interface TaskData {
     status: "planned" | "pending" | "finished";
 }
 
-export class TaskModel extends BaseModel {
+export interface ITaskModel extends IBaseModel{
+    user_id: number;
+    title: string;
+    start_time: Date | null;
+    end_time: Date | null;
+    status: "planned" | "pending" | "finished";
+}
+
+export class TaskModel extends BaseModel implements ITaskModel {
     user_id: number;
     title: string;
     start_time: Date | null;
