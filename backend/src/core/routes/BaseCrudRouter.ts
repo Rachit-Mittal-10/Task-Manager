@@ -18,11 +18,8 @@ export abstract class BaseCrudRouter<C extends IBaseCrudController> extends Base
         if (!this.disabledBaseRoutes.includes("create")) {
             this.registerRoute("post", "/", "create");
         }
-        if (!this.disabledBaseRoutes.includes("get")) {
-            this.registerRoute("get", "/:id", "read");
-        }
-        if (!this.disabledBaseRoutes.includes("getAll")) {
-            this.registerRoute("get", "/", "read");
+        if (!this.disabledBaseRoutes.includes("read")) {
+            this.registerRoute("get", "/:id", "read").registerRoute("get", "/", "read");
         }
         if (!this.disabledBaseRoutes.includes("update")) {
             this.registerRoute("put", "/:id", "update");
