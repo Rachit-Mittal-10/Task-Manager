@@ -40,11 +40,6 @@ export class AuthService extends BaseService<AuthRepository> {
             if  (!passwordStatus) {
                 return undefined;
             }
-            // const userPassword = user["password"];
-            // const passwordStatus = await verifyPassword(password, userPassword);
-            // if  (!passwordStatus) {
-            //     return undefined;
-            // }
             //* this means user exist and password is verified so we will generate token and return
             const token = generateToken(user, process.env.JWT_SECRET_KEY);
             return {
