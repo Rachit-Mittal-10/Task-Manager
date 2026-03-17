@@ -1,8 +1,15 @@
 import { StaticRouter } from "./StaticRouter.js";
+import type { NextFunction, Request, Response } from "express";
+
+type HttpMethod = "post" | "get" | "put" | "patch" | "delete" | "head" | "options";
+type ControllerHandler = (request: Request, response: Response, next?: NextFunction) => unknown | Promise<unknown>;
+type HandlerKeys<C> = Extract<{
+    [K in keyof C]-?: C[K] extends ControllerHandler ? K : never;
+}[keyof C], string>;
 /*
  * BaseRouter
  */
-export abstract class BaseRouter<C = any> extends StaticRouter {
+export abstract class BaseRouter<C extends object = any> extends StaticRouter {
     protected readonly controller: C;
     constructor(controller: C) {
         if (!controller) {
@@ -11,7 +18,7 @@ export abstract class BaseRouter<C = any> extends StaticRouter {
         super();
         this.controller = controller;
     }
-    private bindController(handler: string) {
+    private bindController(handler: HandlerKeys<C>) {
         if (!handler) {
             throw new Error("Handler is required!!!");
         }
@@ -24,23 +31,14 @@ export abstract class BaseRouter<C = any> extends StaticRouter {
         }
         return fn.bind(this.controller);
     }
-    protected registerRoute(method: string, path: string, handler: string): this {
-        const validMethods: string[] = [
-            "post",
-            "get",
-            "put",
-            "patch",
-            "delete",
-            "head",
-            "options",
-        ];
-        if ( !method || !validMethods.includes(method.toLowerCase()) ) {
+    protected registerRoute(method: HttpMethod, path: string, handler: HandlerKeys<C>): this {
+        if (!method) {
             throw new Error("Empty Method");
         }
         if (!path || !path.trim()) {
             throw new Error("Empty Path");
         }
-        if (!handler || typeof handler !== "string") {
+        if (!handler) {
             throw new Error("Empty Handler");
         }
         this.router[method.toLowerCase()](path, this.bindController(handler));
