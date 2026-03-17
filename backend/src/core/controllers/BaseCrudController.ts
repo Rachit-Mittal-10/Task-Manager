@@ -18,13 +18,11 @@ export abstract class BaseCrudController<T, S extends IBaseCrudService<T>> exten
         const data = request.body;
         try {
             const result = await this.service.create(data);
-            console.log(result);
             response.status(201).json({
                 ok: true,
                 data: result,
             });
         } catch (error) {
-            console.log(error);
             response.status(500).json({
                 ok: false,
                 error: error.message,
@@ -40,7 +38,6 @@ export abstract class BaseCrudController<T, S extends IBaseCrudService<T>> exten
         };
         try {
             const result = await this.service.read(id, filters, options);
-            console.log(result);
             //* handling for GET /:id
             //* if id is provided and result is undefined then it means data for provided id is not found. so we will return 404 in that case
             if(id !== undefined && result === undefined) {
@@ -57,7 +54,6 @@ export abstract class BaseCrudController<T, S extends IBaseCrudService<T>> exten
             });
         }
         catch (error) {
-            console.log(error);
             response.status(500).json({
                 ok: false,
                 error: error.message,
@@ -76,13 +72,11 @@ export abstract class BaseCrudController<T, S extends IBaseCrudService<T>> exten
                 });
                 return;
             }
-            console.log(result);
             response.status(200).json({
                 ok: true,
                 data: `${result} row(s) updated successfully`,
             });
         } catch (error) {
-            console.log(error);
             response.status(500).json({
                 ok: false,
                 error: error.message,
@@ -100,13 +94,11 @@ export abstract class BaseCrudController<T, S extends IBaseCrudService<T>> exten
                 });
                 return;
             }
-            console.log(`delete function in controller: ${result}`);
             response.status(200).json({
                 ok: true,
                 data: `${result} row(s) deleted successfully`,
             });
         } catch (error) {
-            console.log(error);
             response.status(500).json({
                 ok: false,
                 error: error.message,

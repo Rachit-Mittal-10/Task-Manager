@@ -3,7 +3,7 @@ import { IOptions } from "./BaseCrudRepository.js";
 
 export interface IBaseCrudRepository<T> {
     create(data: IData): Promise<number>;
-    read(id?: number | undefined,filters?:IData | undefined, options?: IOptions): Promise<T | T[]>;
+    read(id?: number | undefined,filters?:IData | undefined, options?: IOptions): Promise<T | T[] | undefined>;
     update(id: number, data:IData): Promise<number>;
     remove(id: number): Promise<number>;
 };
