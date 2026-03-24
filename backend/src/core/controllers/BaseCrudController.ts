@@ -62,7 +62,7 @@ export abstract class BaseCrudController<T, S extends IBaseCrudService<T>> exten
     }
     public async update(request: Request, response: Response) {
         const id:number = Number(request.params.id);
-        const data = request.body;
+        const data = await this.beforeUpdate(request);
         try {
             const result = await this.service.update(id, data);
             if (result === 0) {
@@ -85,6 +85,7 @@ export abstract class BaseCrudController<T, S extends IBaseCrudService<T>> exten
     }
     public async delete(request: Request, response: Response) {
         const id: number = Number(request.params.id);
+        await this.beforeRemove(request);
         try {
             const result = await this.service.remove(id);
             if(result === 0) {
