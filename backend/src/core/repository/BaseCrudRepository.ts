@@ -33,7 +33,8 @@ export abstract class BaseCrudRepository<T extends IBaseModel> extends BaseRepos
      * @description: This will create the entry in table
      */
     public async create(data: IData): Promise<number> {
-        const [id] = await this.db(this.table).insert(data);
+        const processedData = await this.beforeCreate(data);
+        const [id] = await this.db(this.table).insert(processedData);
         return id;
     }
     /* 
@@ -72,8 +73,13 @@ export abstract class BaseCrudRepository<T extends IBaseModel> extends BaseRepos
      * @return: number of rows updated
      * @description: This will update the value of provided id
      */
-    public async update(id: number, data: IData): Promise<number> {
-        return await this.db(this.table).where({ id }).update(data);
+    public async update(id: number, data: IData, extraFilter?: IData): Promise<number> {
+        const processedData = await this.beforeUpdate(id, data);
+        let query = this.db(this.table).where({ id });
+        if(extraFilter) {
+            query = query.where(extraFilter);
+        }
+        return await query.update(processedData);
     }
     /*
      * @public
@@ -82,7 +88,22 @@ export abstract class BaseCrudRepository<T extends IBaseModel> extends BaseRepos
      * @return: number of rows deleted
      * @description: This will delete the row with provided id
      */
-    public async remove(id: number): Promise<number> {
-        return await this.db(this.table).where({ id }).delete();
+    public async remove(id: number, extraFilter?: IData): Promise<number> {
+        await this.beforeRemove(id);
+        let query = this.db(this.table).where({ id });
+        if(extraFilter) {
+            query = query.where(extraFilter);
+        }
+        return await query.delete();
+    }
+    //: Hooks for performing any operation before or after create, update and delete operations.
+    protected async beforeCreate(data: IData): Promise<IData> {
+        return data;
+    }
+    protected async beforeUpdate(id: number, data: IData): Promise<IData> {
+        return data;
+    }
+    protected async beforeRemove(id: number): Promise<void> {
+        return;
     }
 }

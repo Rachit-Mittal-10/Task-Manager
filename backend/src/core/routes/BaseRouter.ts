@@ -2,10 +2,13 @@ import { StaticRouter } from "./StaticRouter.js";
 import type { NextFunction, Request, Response } from "express";
 
 type HttpMethod = "post" | "get" | "put" | "patch" | "delete" | "head" | "options";
+
 type ControllerHandler = (request: Request, response: Response, next?: NextFunction) => unknown | Promise<unknown>;
+
 type HandlerKeys<C> = Extract<{
     [K in keyof C]-?: C[K] extends ControllerHandler ? K : never;
 }[keyof C], string>;
+
 /*
  * BaseRouter
  */

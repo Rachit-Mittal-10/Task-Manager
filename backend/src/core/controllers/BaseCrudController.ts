@@ -15,7 +15,7 @@ export abstract class BaseCrudController<T, S extends IBaseCrudService<T>> exten
         super(service);
     }
     public async create(request: Request, response: Response) {
-        const data = request.body;
+        const data = await this.beforeCreate(request);
         try {
             const result = await this.service.create(data);
             response.status(201).json({
@@ -104,5 +104,16 @@ export abstract class BaseCrudController<T, S extends IBaseCrudService<T>> exten
                 error: error.message,
             });
         }
+    }
+
+    //: Hooks for performing any operation before or after create, update and delete operations.
+    protected async beforeCreate(request: Request): Promise<any> {
+        return request.body;
+    }
+    protected async beforeUpdate(request: Request): Promise<any> {
+        return request.body;
+    }
+    protected async beforeRemove(request: Request): Promise<void> {
+        return;
     }
 }

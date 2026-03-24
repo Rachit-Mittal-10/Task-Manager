@@ -27,7 +27,9 @@ export abstract class BaseCrudService<T,R extends IBaseCrudRepository<T>> extend
         if (!data || Object.keys(data).length === 0) {
             throw new Error("Data is empty");
         }
-        const result = await this.repository.create(data);
+        const processedData = await this.beforeCreate(data);
+        const result = await this.repository.create(processedData);
+        await this.afterCreate(result, processedData);
         return result;
     }
     /* 
@@ -52,10 +54,10 @@ export abstract class BaseCrudService<T,R extends IBaseCrudRepository<T>> extend
         if (!data || Object.keys(data).length === 0) {
             throw new Error("Data is Empty");
         }
-        
-        const result = await this.repository.update(id, data);
+        const processedData = await this.beforeUpdate(id, data);
+        const result = await this.repository.update(id, processedData);
+        await this.afterUpdate(id, result, processedData);
         return result;
-        
     }
     /*
      * @public
@@ -65,8 +67,32 @@ export abstract class BaseCrudService<T,R extends IBaseCrudRepository<T>> extend
      * @description: deletes the particular row of table
      */
     public async remove(id: number): Promise<number> {
+        await this.beforeRemove(id);
         const result = await this.repository.remove(id);
+        await this.afterRemove(id, result);
         return result;
     }
-
+    //: Hooks for performing any operation before or after create, update and delete operations.
+    //! this.constructor.name will give the name of the class which is extending the BaseCrudService.
+    protected async beforeCreate(data: IData): Promise<IData> {
+        return data;
+    }
+    protected async afterCreate(result: number, data: IData): Promise<void> {
+        console.log(`[${this.constructor.name}] Created entry with id: ${result}`);
+        return;
+    }
+    protected async beforeUpdate(id: number, data: IData): Promise<IData> {
+        return data;
+    }
+    protected async afterUpdate(id: number, result: number, data: IData): Promise<void> {
+        console.log(`[${this.constructor.name}] Updated entry with id: ${id}, rows affected: ${result}`);
+        return;
+    }
+    protected async beforeRemove(id: number): Promise<void> {
+        return;
+    }
+    protected async afterRemove(id: number, result: number): Promise<void> {
+        console.log(`[${this.constructor.name}] Removed entry with id: ${id}, rows affected: ${result}`);
+        return;
+    }
 }
