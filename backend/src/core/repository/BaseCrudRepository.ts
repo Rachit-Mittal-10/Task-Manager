@@ -76,8 +76,18 @@ export abstract class BaseCrudRepository<T extends IBaseModel> extends BaseRepos
     public async update(id: number, data: IData, extraFilter?: IData): Promise<number> {
         const processedData = await this.beforeUpdate(id, data);
         let query = this.db(this.table).where({ id });
-        if(extraFilter) {
-            query = query.where(extraFilter);
+        const ownerColumn = this.getOwnerColumn();
+        if(ownerColumn) {
+            const ownerValue = extraFilter ? extraFilter[ownerColumn] : null;
+            if(ownerValue === undefined) {
+                throw new Error(`Owner column ${ownerColumn} value is required in extraFilter`);
+                return 0;
+            }
+            query = query.andWhere(ownerColumn, ownerValue);
+            extraFilter = extraFilter ? Object.fromEntries(Object.entries(extraFilter).filter(([key]) => key !== ownerColumn)) : undefined;
+        }
+        if(extraFilter && Object.keys(extraFilter).length > 0) {
+            query = query.andWhere(extraFilter);
         }
         return await query.update(processedData);
     }
@@ -91,8 +101,18 @@ export abstract class BaseCrudRepository<T extends IBaseModel> extends BaseRepos
     public async remove(id: number, extraFilter?: IData): Promise<number> {
         await this.beforeRemove(id);
         let query = this.db(this.table).where({ id });
-        if(extraFilter) {
-            query = query.where(extraFilter);
+        const ownerColumn = this.getOwnerColumn();
+        if(ownerColumn) {
+            const ownerValue = extraFilter ? extraFilter[ownerColumn] : null;
+            if(ownerValue === undefined) {
+                throw new Error(`Owner column ${ownerColumn} value is required in extraFilter`);
+                return 0;
+            }
+            query = query.andWhere(ownerColumn, ownerValue);
+            extraFilter = extraFilter ? Object.fromEntries(Object.entries(extraFilter).filter(([key]) => key !== ownerColumn)) : undefined;
+        }
+        if(extraFilter && Object.keys(extraFilter).length > 0) {
+            query = query.andWhere(extraFilter);
         }
         return await query.delete();
     }
@@ -105,5 +125,8 @@ export abstract class BaseCrudRepository<T extends IBaseModel> extends BaseRepos
     }
     protected async beforeRemove(id: number): Promise<void> {
         return;
+    }
+    protected getOwnerColumn(): string | null {
+        return null;
     }
 }

@@ -3,6 +3,7 @@ import { IOptions } from "#core/repository/BaseCrudRepository.js";
 import { IBaseCrudRepository } from "#core/repository/IBaseCrudRepository.js";
 import { BaseService } from "./BaseService.js";
 import { IBaseCrudService } from "./IBaseCrudService.js";
+import { RequestContext } from "#common/types/RequestContext.js";
 
 /*
  * @file: BaseCrudService.js
@@ -50,12 +51,12 @@ export abstract class BaseCrudService<T,R extends IBaseCrudRepository<T>> extend
      * @return: Array of Objects
      * @description: update data of particular row in table
      */
-    public async update(id: number, data: IData): Promise<number> {
+    public async update(id: number, data: IData, context?: RequestContext): Promise<number> {
         if (!data || Object.keys(data).length === 0) {
             throw new Error("Data is Empty");
         }
         const processedData = await this.beforeUpdate(id, data);
-        const result = await this.repository.update(id, processedData);
+        const result = await this.repository.update(id, processedData, context);
         await this.afterUpdate(id, result, processedData);
         return result;
     }
@@ -66,9 +67,9 @@ export abstract class BaseCrudService<T,R extends IBaseCrudRepository<T>> extend
      * @return: Array of Objects
      * @description: deletes the particular row of table
      */
-    public async remove(id: number): Promise<number> {
+    public async remove(id: number, context?: RequestContext): Promise<number> {
         await this.beforeRemove(id);
-        const result = await this.repository.remove(id);
+        const result = await this.repository.remove(id, context);
         await this.afterRemove(id, result);
         return result;
     }

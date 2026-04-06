@@ -63,8 +63,9 @@ export abstract class BaseCrudController<T, S extends IBaseCrudService<T>> exten
     public async update(request: Request, response: Response) {
         const id:number = Number(request.params.id);
         const data = await this.beforeUpdate(request);
+        const context = await this.getRequestContext(request);
         try {
-            const result = await this.service.update(id, data);
+            const result = await this.service.update(id, data, context);
             if (result === 0) {
                 response.status(404).json({
                     ok: false,
@@ -86,8 +87,9 @@ export abstract class BaseCrudController<T, S extends IBaseCrudService<T>> exten
     public async delete(request: Request, response: Response) {
         const id: number = Number(request.params.id);
         await this.beforeRemove(request);
+        const context = await this.getRequestContext(request);
         try {
-            const result = await this.service.remove(id);
+            const result = await this.service.remove(id, context);
             if(result === 0) {
                 response.status(404).json({
                     ok: false,
@@ -116,5 +118,10 @@ export abstract class BaseCrudController<T, S extends IBaseCrudService<T>> exten
     }
     protected async beforeRemove(request: Request): Promise<void> {
         return;
+    }
+    protected async getRequestContext(request: Request): Promise<any> {
+        return {
+            user_id: request.user ? request.user.user_id : null,
+        };
     }
 }
