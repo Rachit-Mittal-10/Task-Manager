@@ -6,4 +6,7 @@ export class TaskRepository extends BaseCrudRepository<TaskModel> {
     constructor(conn: Knex) {
         super("tasks", conn, TaskModel);
     }
+    protected getOwnerColumn(): string | null {
+        return "user_id";
+    }
 }

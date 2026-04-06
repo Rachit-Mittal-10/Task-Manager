@@ -6,4 +6,7 @@ export class UserRepository extends BaseCrudRepository<UserModel> {
     constructor(conn: Knex) {
         super("users", conn, UserModel);
     }
+    protected getOwnerColumn(): string | null {
+        return "id";
+    }
 }
