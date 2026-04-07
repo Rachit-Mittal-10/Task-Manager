@@ -147,7 +147,7 @@ export abstract class BaseCrudRepository<T extends IBaseModel> extends BaseRepos
     protected async beforeRemove(id: number): Promise<void> {
         return;
     }
-    protected getOwnerColumn(): string | null {
-        return null;
+    protected getOwnerColumn(): string | undefined {
+        return undefined;
     }
 }
