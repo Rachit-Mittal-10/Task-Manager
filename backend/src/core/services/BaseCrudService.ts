@@ -40,8 +40,8 @@ export abstract class BaseCrudService<T,R extends IBaseCrudRepository<T>> extend
      * @return: Object or Array of objects
      * @description: This will return the data based on id or key value pair provided in filters and options for pagination
     */
-    public async read(id?: number | undefined, filters?: IData | undefined, options?: IOptions) : Promise<T | T[] | undefined> {
-        const result = await this.repository.read(id,filters,options);
+    public async read(id?: number | undefined, filters?: IData | undefined, options?: IOptions, context?: RequestContext) : Promise<T | T[] | undefined> {
+        const result = await this.repository.read(id,filters,options,context);
         return result;
     }
     /*

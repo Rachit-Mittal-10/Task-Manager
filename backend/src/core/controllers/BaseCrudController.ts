@@ -36,8 +36,9 @@ export abstract class BaseCrudController<T, S extends IBaseCrudService<T>> exten
             limit: limit ? Number(limit) : undefined,
             offset: offset ? Number(offset) : undefined,
         };
+        const context = await this.getRequestContext(request);
         try {
-            const result = await this.service.read(id, filters, options);
+            const result = await this.service.read(id, filters, options, context);
             //* handling for GET /:id
             //* if id is provided and result is undefined then it means data for provided id is not found. so we will return 404 in that case
             if(id !== undefined && result === undefined) {

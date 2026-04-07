@@ -44,9 +44,22 @@ export abstract class BaseCrudRepository<T extends IBaseModel> extends BaseRepos
     * @return: Object or Array of objects
     * @description: This will return the data based on id or key value pair provided in filters and options for pagination
     */
-    public async read(id?: number | undefined, filters?: IData | undefined, options?: IOptions): Promise<T | T[] | undefined> {
+    public async read(id?: number | undefined, filters?: IData | undefined, options?: IOptions, context?: IData): Promise<T | T[] | undefined> {
         const { limit = 10, offset = 0 } = options || {};
         let query = this.db(this.table);
+
+        //: sets the owner column value in query if owner column is defined in repository and context is provided. this will ensure that user can access only their resources.
+        const ownerColumn = this.getOwnerColumn();
+        if(ownerColumn) {
+            const ownerValue = context ? context[ownerColumn] : null;
+            if(ownerValue === undefined) {
+                throw new Error(`Owner column ${ownerColumn} value is required in context`);
+                return undefined;
+            }
+            console.log(`Owner column ${ownerColumn} value is ${ownerValue}`);
+            query = query.where(ownerColumn, ownerValue);
+        }
+
         //: handles the GET /:id. single resource will be returned based on id
         if(id !== undefined) {
             const rawData = await query.where({id}).select("*").first();
@@ -55,16 +68,16 @@ export abstract class BaseCrudRepository<T extends IBaseModel> extends BaseRepos
             }
             const modelObject = this.mapToModel(rawData);
             return modelObject;
-            // return query.where({id}).select("*").first();
         }
+        
         //: handles the GET /?key=value. this will return the data based on key value pair provided in filters and options for pagination.
         if(filters) {
             query =  query.where(filters);
         }
+
         //: if filters are undefined then it will return all the data in table with pagination
         const rawData = await query.limit(limit).offset(offset).select("*");
         return rawData.map(data => this.mapToModel(data));
-        // return await query.limit(limit).offset(offset).select("*");
     }
     /*
      * @public
@@ -73,22 +86,26 @@ export abstract class BaseCrudRepository<T extends IBaseModel> extends BaseRepos
      * @return: number of rows updated
      * @description: This will update the value of provided id
      */
-    public async update(id: number, data: IData, extraFilter?: IData): Promise<number> {
+    public async update(id: number, data: IData, context?: IData): Promise<number> {
         const processedData = await this.beforeUpdate(id, data);
         let query = this.db(this.table).where({ id });
+
+        //: sets the owner column value in query if owner column is defined in repository and context is provided. this will ensure that user can update only their resources.
         const ownerColumn = this.getOwnerColumn();
         if(ownerColumn) {
-            const ownerValue = extraFilter ? extraFilter[ownerColumn] : null;
+            const ownerValue = context ? context[ownerColumn] : null;
             if(ownerValue === undefined) {
-                throw new Error(`Owner column ${ownerColumn} value is required in extraFilter`);
+                throw new Error(`Owner column ${ownerColumn} value is required in context`);
                 return 0;
             }
             query = query.andWhere(ownerColumn, ownerValue);
-            extraFilter = extraFilter ? Object.fromEntries(Object.entries(extraFilter).filter(([key]) => key !== ownerColumn)) : undefined;
+            context = context ? Object.fromEntries(Object.entries(context).filter(([key]) => key !== ownerColumn)) : undefined;
         }
-        if(extraFilter && Object.keys(extraFilter).length > 0) {
-            query = query.andWhere(extraFilter);
+        
+        if(context && Object.keys(context).length > 0) {
+            query = query.andWhere(context);
         }
+        
         return await query.update(processedData);
     }
     /*
@@ -98,22 +115,26 @@ export abstract class BaseCrudRepository<T extends IBaseModel> extends BaseRepos
      * @return: number of rows deleted
      * @description: This will delete the row with provided id
      */
-    public async remove(id: number, extraFilter?: IData): Promise<number> {
+    public async remove(id: number, context?: IData): Promise<number> {
         await this.beforeRemove(id);
         let query = this.db(this.table).where({ id });
+
+        //: sets the owner column value in query if owner column is defined in repository and context is provided. this will ensure that user can delete only their resources.
         const ownerColumn = this.getOwnerColumn();
         if(ownerColumn) {
-            const ownerValue = extraFilter ? extraFilter[ownerColumn] : null;
+            const ownerValue = context ? context[ownerColumn] : null;
             if(ownerValue === undefined) {
-                throw new Error(`Owner column ${ownerColumn} value is required in extraFilter`);
+                throw new Error(`Owner column ${ownerColumn} value is required in context`);
                 return 0;
             }
             query = query.andWhere(ownerColumn, ownerValue);
-            extraFilter = extraFilter ? Object.fromEntries(Object.entries(extraFilter).filter(([key]) => key !== ownerColumn)) : undefined;
+            context = context ? Object.fromEntries(Object.entries(context).filter(([key]) => key !== ownerColumn)) : undefined;
         }
-        if(extraFilter && Object.keys(extraFilter).length > 0) {
-            query = query.andWhere(extraFilter);
+        
+        if(context && Object.keys(context).length > 0) {
+            query = query.andWhere(context);
         }
+        
         return await query.delete();
     }
     //: Hooks for performing any operation before or after create, update and delete operations.
