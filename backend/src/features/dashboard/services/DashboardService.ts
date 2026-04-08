@@ -8,6 +8,7 @@ export class DashboardService extends StaticService {
     }
     public async getDashboardData(context: RequestContext) {
         const taskService = this.getDep("task-service");
+        //: fetch tasks and compute dashboard data for the logged-in user
         const tasks = await taskService.read(undefined, undefined, undefined, context);
         const totalTasks = tasks.length;
         const statusCounts = tasks.reduce((acc, task) => {
