@@ -7,25 +7,31 @@ interface TaskData {
     updated_at?: Date | string | null;
     user_id: number;
     title: string;
-    start_time?: string | Date | null;
-    end_time?: string | Date | null;
-    status: "planned" | "pending" | "finished";
+    start?: string | Date | null;
+    end?: string | Date | null;
+    status: "planned" | "in_progress" | "completed";
+    description?: string | null;
+    priority?: "low" | "medium" | "high" | "not_set";
 }
 
 export interface ITaskModel extends IBaseModel{
     user_id: number;
     title: string;
-    start_time: Date | null;
-    end_time: Date | null;
-    status: "planned" | "pending" | "finished";
+    start: Date | null;
+    end: Date | null;
+    status: "planned" | "in_progress" | "completed";
+    description?: string | null;
+    priority?: "low" | "medium" | "high" | "not_set";
 }
 
 export class TaskModel extends BaseModel implements ITaskModel {
     user_id: number;
     title: string;
-    start_time: Date | null;
-    end_time: Date | null;
-    status: "planned" | "pending" | "finished";
+    start: Date | null;
+    end: Date | null;
+    status: "planned" | "in_progress" | "completed";
+    description?: string | null;
+    priority?: "low" | "medium" | "high" | "not_set";
 
     constructor(data: TaskData) {
         super({
@@ -35,8 +41,10 @@ export class TaskModel extends BaseModel implements ITaskModel {
         });
         this.user_id = data.user_id;
         this.title = data.title;
-        this.start_time = data.start_time ? new Date(data.start_time) : null;
-        this.end_time = data.end_time ? new Date(data.end_time) : null;
+        this.start = data.start ? new Date(data.start) : null;
+        this.end = data.end ? new Date(data.end) : null;
         this.status = data.status;
+        this.description = data.description ?? null;
+        this.priority = data.priority ?? "not_set";
     }
 }
