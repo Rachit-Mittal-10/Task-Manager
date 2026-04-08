@@ -63,12 +63,12 @@ const AddDialog = (props) => {
                             <select
                                 id="status"
                                 name="status"
-                                value={dialogData?.status ?? "not_set"}
+                                value={dialogData?.status ?? "planned"}
                                 onChange={onInputChange}
                             >
                                 <option value="planned">Planned</option>
-                                <option value="pending">Pending</option>
-                                <option value="finished">Finished</option>
+                                <option value="in_progress">In Progress</option>
+                                <option value="completed">Completed</option>
                             </select>
                         </div>
                         <div>
@@ -86,22 +86,22 @@ const AddDialog = (props) => {
                             </select>
                         </div>
                         <div>
-                            <label htmlFor="start_time">Start Time:</label>
+                            <label htmlFor="start">Start Time:</label>
                             <input
                                 type="date"
-                                id="start_time"
-                                name="start_time"
-                                value={dialogData?.start_time ?? ""}
+                                id="start"
+                                name="start"
+                                value={dialogData?.start ?? ""}
                                 onChange={onInputChange}
                             />
                         </div>
                         <div>
-                            <label htmlFor="end_time">End Time:</label>
+                            <label htmlFor="end">End Time:</label>
                             <input
                                 type="date"
-                                id="end_time"
-                                name="end_time"
-                                value={dialogData?.end_time ?? ""}
+                                id="end"
+                                name="end"
+                                value={dialogData?.end ?? ""}
                                 onChange={onInputChange}
                             />
                         </div>
