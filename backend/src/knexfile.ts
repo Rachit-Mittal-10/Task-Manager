@@ -35,4 +35,5 @@ const config: Knex.Config = {
   },
 };
 
+export default config;
 export { config };
