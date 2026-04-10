@@ -1,0 +1,5 @@
+import { BaseCrudService } from "#core/services/BaseCrudService.js";
+import type { {{properCase entity}}Model } from "../models/{{properCase entity}}Model.js";
+import type { {{properCase entity}}Repository } from "../repository/{{properCase entity}}Repository.js";
+
+export class {{properCase entity}}Service extends BaseCrudService<{{properCase entity}}Model, {{properCase entity}}Repository> {}

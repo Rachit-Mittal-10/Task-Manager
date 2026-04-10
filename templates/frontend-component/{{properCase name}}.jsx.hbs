@@ -1,0 +1,11 @@
+import styles from "./{{properCase name}}.module.scss";
+
+const {{properCase name}} = ({ children, ...props }) => {
+    return (
+        <div className={styles.{{camelCase name}}} {...props}>
+            {children}
+        </div>
+    );
+};
+
+export default {{properCase name}};

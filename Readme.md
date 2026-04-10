@@ -17,6 +17,10 @@ For MySQL You would need to initialise the db.
 - Then run `node backend/src/index.js` in root folder. This would start the backend server.
 - Then using Postman or accessing the Frontend, API can be accessed.
 
+### Scaffolding new code
+- This project includes Plop generators for backend features, frontend features, and reusable frontend components.
+- See [docs/plop-scaffolding.md](docs/plop-scaffolding.md) for commands, prompts, generated files, and examples.
+
 ----
 ----
 

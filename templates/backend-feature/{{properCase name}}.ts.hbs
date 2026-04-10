@@ -1,0 +1,12 @@
+import { {{properCase entity}}Repository } from "./repository/{{properCase entity}}Repository.js";
+import { {{properCase entity}}Service } from "./services/{{properCase entity}}Service.js";
+import { {{properCase entity}}Controller } from "./controllers/{{properCase entity}}Controller.js";
+import { {{properCase entity}}Router } from "./routes/{{properCase entity}}Router.js";
+import { db } from "#config/knex.js";
+
+const {{camelCase entity}}Repository: {{properCase entity}}Repository = new {{properCase entity}}Repository(db);
+const {{camelCase entity}}Service: {{properCase entity}}Service = new {{properCase entity}}Service({{camelCase entity}}Repository);
+const {{camelCase entity}}Controller: {{properCase entity}}Controller = new {{properCase entity}}Controller({{camelCase entity}}Service);
+const {{camelCase entity}}Router: {{properCase entity}}Router = new {{properCase entity}}Router({{camelCase entity}}Controller);
+
+export { {{camelCase entity}}Service, {{camelCase entity}}Router };

@@ -1,0 +1,73 @@
+import API from "./axiosInstance";
+
+const {{properCase name}}API = (() => {
+    const create{{properCase name}} = async (payload) => {
+        try {
+            const response = await API.post("/{{routePath}}", payload);
+            return response.data;
+        } catch (err) {
+            if (err.response) {
+                return err.response.data;
+            }
+            console.log(err);
+        }
+    };
+
+    const get{{properCase name}}List = async () => {
+        try {
+            const response = await API.get("/{{routePath}}");
+            return response.data;
+        } catch (err) {
+            if (err.response) {
+                return err.response.data;
+            }
+            console.log(err);
+        }
+    };
+
+    const get{{properCase name}}ById = async (id) => {
+        try {
+            const response = await API.get(`/{{routePath}}/${id}`);
+            return response.data;
+        } catch (err) {
+            if (err.response) {
+                return err.response.data;
+            }
+            console.log(err);
+        }
+    };
+
+    const update{{properCase name}} = async (id, payload) => {
+        try {
+            const response = await API.put(`/{{routePath}}/${id}`, payload);
+            return response.data;
+        } catch (err) {
+            if (err.response) {
+                return err.response.data;
+            }
+            console.log(err);
+        }
+    };
+
+    const remove{{properCase name}} = async (id) => {
+        try {
+            const response = await API.delete(`/{{routePath}}/${id}`);
+            return response.data;
+        } catch (err) {
+            if (err.response) {
+                return err.response.data;
+            }
+            console.log(err);
+        }
+    };
+
+    return {
+        create{{properCase name}},
+        get{{properCase name}}List,
+        get{{properCase name}}ById,
+        update{{properCase name}},
+        remove{{properCase name}},
+    };
+})();
+
+export default {{properCase name}}API;

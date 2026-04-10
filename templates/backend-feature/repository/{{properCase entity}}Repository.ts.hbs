@@ -1,0 +1,14 @@
+import { BaseCrudRepository } from "#core/repository/BaseCrudRepository.js";
+import type { Knex } from "knex";
+import { {{properCase entity}}Model } from "../models/{{properCase entity}}Model.js";
+
+export class {{properCase entity}}Repository extends BaseCrudRepository<{{properCase entity}}Model> {
+    constructor(conn: Knex) {
+        super("{{tableName}}", conn, {{properCase entity}}Model);
+    }
+{{#if ownerColumn}}
+    protected getOwnerColumn(): string {
+        return "{{ownerColumn}}";
+    }
+{{/if}}
+}

@@ -1,0 +1,8 @@
+import { BaseCrudRouter } from "#core/routes/BaseCrudRouter.js";
+import type { {{properCase entity}}Controller } from "../controllers/{{properCase entity}}Controller.js";
+
+export class {{properCase entity}}Router extends BaseCrudRouter<{{properCase entity}}Controller> {
+    constructor(controller: {{properCase entity}}Controller) {
+        super(controller);
+    }
+}

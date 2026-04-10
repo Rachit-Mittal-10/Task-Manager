@@ -1,0 +1,15 @@
+import { BaseModel } from "#core/models/BaseModel.js";
+import type { IBaseModel } from "#core/models/IBaseModel.js";
+
+export interface I{{properCase entity}}Model extends IBaseModel {
+    [key: string]: unknown;
+}
+
+export class {{properCase entity}}Model extends BaseModel implements I{{properCase entity}}Model {
+    [key: string]: unknown;
+
+    constructor(data: I{{properCase entity}}Model = {}) {
+        super(data);
+        Object.assign(this, data);
+    }
+}

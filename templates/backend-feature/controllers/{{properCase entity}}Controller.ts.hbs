@@ -1,0 +1,5 @@
+import { BaseCrudController } from "#core/controllers/BaseCrudController.js";
+import type { {{properCase entity}}Model } from "../models/{{properCase entity}}Model.js";
+import type { {{properCase entity}}Service } from "../services/{{properCase entity}}Service.js";
+
+export class {{properCase entity}}Controller extends BaseCrudController<{{properCase entity}}Model, {{properCase entity}}Service> {}
