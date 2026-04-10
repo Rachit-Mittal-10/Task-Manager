@@ -2,7 +2,7 @@
 
 ### Prerequisites:
 - Docker or MySQL locally installed
-- NodeJS Version 22.12.x
+- NodeJS Version 24.5.0
 
 ```
 Note: Docker Version is preferable.
@@ -20,60 +20,3 @@ For MySQL You would need to initialise the db.
 ### Scaffolding new code
 - This project includes Plop generators for backend features, frontend features, and reusable frontend components.
 - See [docs/plop-scaffolding.md](docs/plop-scaffolding.md) for commands, prompts, generated files, and examples.
-
-----
-----
-
-## Backend APIs
-
-### API End Points
-
-1. `POST /auth/register`: This is the api end point for registering the user. Unprotected path.
-
-- **Parameters**:
-    - **username**: required
-    - **email**: required
-    - **password**: required
-
-2. `POST /auth/login`: This is the api end point to login the user. Unprotected path.
-
-- **Parameters**: Username or Email and Password
-    - **password**: required
-    - **username** or **email**: any one is required\
-- **Returns**:
-    - **token**: JSON Web Token would be provided in token key of body
-
-3. `POST /tasks`: This is the api end point to create the new task. Protected.
-
-- **Parameters**:
-    - **id**: required. JSON Web Token that would be provided  when user login
-    - **title**: required.
-    - **status**: optional. default = "planned"
-    - **priority**: optional. default = "not set"
-    - **start_time**: optional.
-    - **end_time**: optional
-    - **description**: optional.
-
-4. `GET /tasks`: API End point to get all the task associated with the user. Protected.
-
-- **Parameters**:
-    - id: required. JSON Web Token that would be provided when user login
-
-5. `GET /tasks/:taskId`: API End point to get the particular task. Protected
-
-- Parameters:
-
-
-6. `PUT /tasks/:taskId`: API End Point to update the task. Protected.
-
-- Parameters:
-
-
-7. `DELETE /tasks/:taskId`: API End Point to delete the task. Protected
-
-- Parameters:
-
-8. `GET /`: API End Point to get the dashboard. Protected
-- Parameters:
-
-Testing
