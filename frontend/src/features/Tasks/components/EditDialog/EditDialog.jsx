@@ -77,12 +77,18 @@ const EditDialog = (props) => {
         <dialog ref={dialogRef} className={styles.editDialog}>
             <div className={styles.wrapper}>
                 <div className={styles.header}>
+                    <h3>Edit Task</h3>
                     <CloseButton onClick={handleCloseButtonClick} />
                 </div>
                 <div className={styles.dataWrapper}>
-                    <form>
-                        <div>
-                            <label htmlFor="id">ID:</label>
+                    {error && (
+                        <p className={styles.error}>
+                            {error?.message || error?.error || "Update failed"}
+                        </p>
+                    )}
+                    <form onSubmit={onSubmitClick}>
+                        <div className={styles.field}>
+                            <label htmlFor="id">ID</label>
                             <input
                                 type="number"
                                 id="id"
@@ -92,8 +98,8 @@ const EditDialog = (props) => {
                                 readOnly
                             />
                         </div>
-                        <div>
-                            <label htmlFor="title">Title:</label>
+                        <div className={styles.field}>
+                            <label htmlFor="title">Title</label>
                             <input
                                 type="text"
                                 id="title"
@@ -102,8 +108,8 @@ const EditDialog = (props) => {
                                 onChange={onInputChange}
                             />
                         </div>
-                        <div>
-                            <label htmlFor="status">Status:</label>
+                        <div className={styles.field}>
+                            <label htmlFor="status">Status</label>
                             <select
                                 id="status"
                                 name="status"
@@ -115,8 +121,8 @@ const EditDialog = (props) => {
                                 <option value="completed">Completed</option>
                             </select>
                         </div>
-                        <div>
-                            <label htmlFor="priority">Priority:</label>
+                        <div className={styles.field}>
+                            <label htmlFor="priority">Priority</label>
                             <select
                                 id="priority"
                                 name="priority"
@@ -129,8 +135,8 @@ const EditDialog = (props) => {
                                 <option value="high">High</option>
                             </select>
                         </div>
-                        <div>
-                            <label htmlFor="start">Start Time:</label>
+                        <div className={styles.field}>
+                            <label htmlFor="start">Start Time</label>
                             <input
                                 type="date"
                                 id="start"
@@ -139,8 +145,8 @@ const EditDialog = (props) => {
                                 onChange={onInputChange}
                             />
                         </div>
-                        <div>
-                            <label htmlFor="end">End Time:</label>
+                        <div className={styles.field}>
+                            <label htmlFor="end">End Time</label>
                             <input
                                 type="date"
                                 id="end"
@@ -149,22 +155,19 @@ const EditDialog = (props) => {
                                 onChange={onInputChange}
                             />
                         </div>
-                        <div>
-                            <label htmlFor="description">Description:</label>
-                            <input
-                                type="text"
+                        <div className={styles.field}>
+                            <label htmlFor="description">Description</label>
+                            <textarea
                                 id="description"
                                 name="description"
                                 value={dialogData?.description ?? ""}
                                 onChange={onInputChange}
+                                rows={3}
                             />
                         </div>
                         <div className={styles.submitWrapper}>
-                            <Button
-                                onClick={onSubmitClick}
-                                type="submit"
-                            >
-                                Submit
+                            <Button type="submit" className={styles.submitButton}>
+                                Update Task
                             </Button>
                         </div>
                     </form>

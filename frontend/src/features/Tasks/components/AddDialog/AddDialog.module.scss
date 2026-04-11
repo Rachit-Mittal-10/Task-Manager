@@ -1,18 +1,92 @@
-.addDialog{
-    padding: 25px 10px 25px 25px;
+.addDialog {
+    border: none;
+    border-radius: 12px;
+    padding: 0;
+    width: min(92vw, 560px);
+    max-height: 90vh;
+    overflow: auto;
+    background: #fff;
+    box-shadow: 0 20px 45px rgba(22, 30, 60, 0.2);
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0;
+
+    &::backdrop {
+        background: rgba(10, 17, 40, 0.5);
+    }
+
     .wrapper {
+        padding: 1rem;
+    }
+
+    .header {
         display: flex;
-        flex-direction: row-reverse;
-        .dataWrapper {
-            flex-direction: column;
-            div + div {
-                margin-top: 20px;
-            }
-            .submitWrapper {
-                display: flex;
-                justify-content: center;
-                align-items: center;
+        justify-content: space-between;
+        align-items: center;
+
+        h3 {
+            margin: 0;
+        }
+    }
+
+    .error {
+        margin-top: 0.8rem;
+        background: #fff1f1;
+        border: 1px solid #ffcaca;
+        color: #b42318;
+        padding: 0.6rem 0.7rem;
+        border-radius: 8px;
+    }
+
+    .dataWrapper {
+        margin-top: 0.8rem;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 0.8rem;
+    }
+
+    .field {
+        display: flex;
+        flex-direction: column;
+        gap: 0.35rem;
+
+        label {
+            font-weight: 600;
+            color: #2f3a4d;
+        }
+
+        input,
+        select,
+        textarea {
+            border: 1px solid #ccd4e2;
+            border-radius: 8px;
+            padding: 0.65rem 0.75rem;
+            outline: none;
+            font-size: 0.95rem;
+
+            &:focus {
+                border-color: #3759d8;
+                box-shadow: 0 0 0 3px rgba(55, 89, 216, 0.14);
             }
         }
+
+        textarea {
+            resize: vertical;
+        }
+    }
+
+    .submitWrapper {
+        margin-top: 0.4rem;
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .submitButton {
+        border-radius: 8px;
     }
 }

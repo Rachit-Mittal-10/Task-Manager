@@ -12,7 +12,6 @@ import {
 } from "chart.js";
 import DashboardAPI from "../../api/DashboardAPI";
 import Table from "../../components/Table/Table.jsx";
-import { checkArrayEmpty } from "../../utils/utils.js";
 import styles from "./Dashboard.module.scss";
 import { useAuth } from "../../context/AuthContext.jsx";
 
@@ -53,7 +52,7 @@ const BarChart = (props) => {
 };
 
 const DashboardPage = () => {
-    const [dashboard, setDashboard] = useState("");
+    const [dashboard, setDashboard] = useState(null);
     const [error, setError] = useState("");
     const { isAuthenticated } = useAuth();
 
@@ -64,53 +63,105 @@ const DashboardPage = () => {
         const fetchData = async () => {
             try {
                 const response = await DashboardAPI.getDashboard();
-                setDashboard(response.data);
+                setDashboard(response);
             } catch (err) {
-                setError(err);
+                setError(err?.message || "Failed to load dashboard");
             }
         };
         fetchData();
     }, [isAuthenticated]);
 
+    if (error) {
+        return <div>{error}</div>;
+    }
+
     if (!dashboard) {
         return <div>Loading!!!</div>;
     }
 
-    const labels = dashboard.countStatusresult.map((item) => item.status);
-    const dataset = dashboard.countStatusresult.map((item) => item.COUNT);
+    const statusRows = Object.entries(dashboard.statusCounts || {}).map(
+        ([status, count]) => {
+            return {
+                status,
+                count,
+            };
+        },
+    );
 
-    const columns = [
+    const priorityRows = Object.entries(dashboard.priorityCounts || {}).map(
+        ([priority, count]) => {
+            return {
+                priority,
+                count,
+            };
+        },
+    );
+
+    const statusLabels = statusRows.map((item) => item.status);
+    const statusDataset = statusRows.map((item) => item.count);
+
+    const priorityLabels = priorityRows.map((item) => item.priority);
+    const priorityDataset = priorityRows.map((item) => item.count);
+
+    const statusColumns = [
         { label: "Status", key: "status" },
+        { label: "Count", key: "count" },
+    ];
+
+    const priorityColumns = [
         { label: "Priority", key: "priority" },
-        { label: "Balanced Time", key: "Balanced_Time" },
-        { label: "Time Lapsed", key: "Time_Lapsed" },
+        { label: "Count", key: "count" },
     ];
 
     return (
         <div className={styles.dashboard}>
-            <div>
-                <h2>Dashboard Page</h2>
+            <div className={styles.header}>
+                <h2>Dashboard</h2>
             </div>
-            <div>
-                <p>Total Count: {dashboard && dashboard.totalCount}</p>
+
+            <div className={styles.summaryCard}>
+                <h3>Total Tasks</h3>
+                <p>{dashboard.totalTasks || 0}</p>
             </div>
-            {!checkArrayEmpty(dashboard.timeLapsedResult) && (
-                <>
-                    <div>
-                        <Table
-                            data={dashboard.timeLapsedResult}
-                            columns={columns}
-                        />
-                    </div>
-                </>
-            )}
-            {!checkArrayEmpty(dashboard.countStatusresult) && (
-                <>
-                    <div className="count-chart">
-                        <BarChart labels={labels} dataset={dataset} />
-                    </div>
-                </>
-            )}
+
+            <div className={styles.grid}>
+                <div className={styles.panel}>
+                    <h3>Status Overview</h3>
+                    {statusRows.length > 0 ? (
+                        <>
+                            <Table data={statusRows} columns={statusColumns} />
+                            <div className={styles.chart}>
+                                <BarChart
+                                    labels={statusLabels}
+                                    dataset={statusDataset}
+                                />
+                            </div>
+                        </>
+                    ) : (
+                        <p>No status data available.</p>
+                    )}
+                </div>
+
+                <div className={styles.panel}>
+                    <h3>Priority Overview</h3>
+                    {priorityRows.length > 0 ? (
+                        <>
+                            <Table
+                                data={priorityRows}
+                                columns={priorityColumns}
+                            />
+                            <div className={styles.chart}>
+                                <BarChart
+                                    labels={priorityLabels}
+                                    dataset={priorityDataset}
+                                />
+                            </div>
+                        </>
+                    ) : (
+                        <p>No priority data available.</p>
+                    )}
+                </div>
+            </div>
         </div>
     );
 };

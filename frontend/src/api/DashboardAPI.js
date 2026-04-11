@@ -3,8 +3,8 @@ import API from "./axiosInstance";
 const DashboardAPI = (() => {
     const getDashboard = async () => {
         try {
-            const data = await API.get("/dashboard");
-            return data;
+            const response = await API.get("/dashboard");
+            return response.data;
         } catch (err) {
             if (err.response) {
                 return err.response.data;

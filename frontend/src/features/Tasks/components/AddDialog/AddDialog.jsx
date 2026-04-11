@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import styles from "./AddDialog.module.scss";
 import CloseButton from "../../../../components/CloseButton/CloseButton";
 import Button from "../../../../components/Button/Button";
@@ -7,9 +6,12 @@ import TaskAPI from "../../../../api/TaskAPI";
 
 const AddDialog = (props) => {
     const dialogRef = props.dialogRef;
-    const [ dialogData, setDialogData ] = useState({});
-    const [ error, setError ] = useState("");
-    const navigate = useNavigate();
+    const setTasks = props.setTasks;
+    const [dialogData, setDialogData] = useState({
+        status: "planned",
+        priority: "not_set",
+    });
+    const [error, setError] = useState("");
 
     const closeDialog = () => {
         if (dialogRef.current) {
@@ -19,24 +21,30 @@ const AddDialog = (props) => {
 
     const handleCloseButtonClick = () => {
         closeDialog();
-        setDialogData({});
+        setDialogData({ status: "planned", priority: "not_set" });
+        setError("");
     };
 
     const onInputChange = (e) => {
-        const {name, value} = e.target;
-        setDialogData({...dialogData, [name]: value});
+        const { name, value } = e.target;
+        setDialogData({ ...dialogData, [name]: value });
     };
 
-    const onSubmitClick = (e) => {
+    const onSubmitClick = async (e) => {
         e.preventDefault();
+        setError("");
         const formData = dialogData;
-        console.log(formData);
-        try{
-            const response = TaskAPI.createTask(formData);
-            closeDialog();
-        }
-        catch(err){
-            console.log(err);
+        try {
+            const response = await TaskAPI.createTask(formData);
+            if (response?.message || response?.id) {
+                const responseNew = await TaskAPI.getTasks();
+                setTasks(responseNew);
+                handleCloseButtonClick();
+            } else {
+                setError(response?.error || "Failed to create task");
+            }
+        } catch (err) {
+            setError(err?.message || "Failed to create task");
         }
     };
 
@@ -44,22 +52,26 @@ const AddDialog = (props) => {
         <dialog ref={dialogRef} className={styles.addDialog}>
             <div className={styles.wrapper}>
                 <div className={styles.header}>
+                    <h3>Add Task</h3>
                     <CloseButton onClick={handleCloseButtonClick} />
                 </div>
                 <div className={styles.dataWrapper}>
-                    <form>
-                        <div>
-                            <label htmlFor="title">Title:</label>
+                    {error && <p className={styles.error}>{error}</p>}
+                    <form onSubmit={onSubmitClick}>
+                        <div className={styles.field}>
+                            <label htmlFor="title">Title</label>
                             <input
                                 type="text"
                                 id="title"
                                 name="title"
                                 value={dialogData?.title ?? ""}
                                 onChange={onInputChange}
+                                placeholder="Task title"
+                                required
                             />
                         </div>
-                        <div>
-                            <label htmlFor="title">Status:</label>
+                        <div className={styles.field}>
+                            <label htmlFor="title">Status</label>
                             <select
                                 id="status"
                                 name="status"
@@ -71,8 +83,8 @@ const AddDialog = (props) => {
                                 <option value="completed">Completed</option>
                             </select>
                         </div>
-                        <div>
-                            <label htmlFor="priority">Priority:</label>
+                        <div className={styles.field}>
+                            <label htmlFor="priority">Priority</label>
                             <select
                                 id="priority"
                                 name="priority"
@@ -85,8 +97,8 @@ const AddDialog = (props) => {
                                 <option value="high">High</option>
                             </select>
                         </div>
-                        <div>
-                            <label htmlFor="start">Start Time:</label>
+                        <div className={styles.field}>
+                            <label htmlFor="start">Start Time</label>
                             <input
                                 type="date"
                                 id="start"
@@ -95,8 +107,8 @@ const AddDialog = (props) => {
                                 onChange={onInputChange}
                             />
                         </div>
-                        <div>
-                            <label htmlFor="end">End Time:</label>
+                        <div className={styles.field}>
+                            <label htmlFor="end">End Time</label>
                             <input
                                 type="date"
                                 id="end"
@@ -105,22 +117,20 @@ const AddDialog = (props) => {
                                 onChange={onInputChange}
                             />
                         </div>
-                        <div>
-                            <label htmlFor="description">Description:</label>
-                            <input
-                                type="text"
+                        <div className={styles.field}>
+                            <label htmlFor="description">Description</label>
+                            <textarea
                                 id="description"
                                 name="description"
                                 value={dialogData?.description ?? ""}
                                 onChange={onInputChange}
+                                rows={3}
+                                placeholder="Optional notes"
                             />
                         </div>
-                        <div>
-                            <Button
-                                type="submit"
-                                onClick={onSubmitClick}
-                            >
-                                Submit
+                        <div className={styles.submitWrapper}>
+                            <Button type="submit" className={styles.submitButton}>
+                                Create Task
                             </Button>
                         </div>
                     </form>

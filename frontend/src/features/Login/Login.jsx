@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@context/AuthContext";
 import { classifyInput } from "@utils/sanitizeInput.js";
@@ -36,46 +37,50 @@ const LoginPage = () => {
     };
 
     return (
-        <div className={styles.Login}>
-            <div>
-                <h2>Login</h2>
-            </div>
-            <div>
-                <div>{error && <p>{error}</p>}</div>
-                <form onSubmit={handleSubmit}>
-                    <div>
-                        <label htmlFor="identifier">Username or Email:</label>
+        <div className={styles.page}>
+            <div className={styles.card}>
+                <div className={styles.heading}>
+                    <h2>Welcome back</h2>
+                    <p>Log in to continue managing your tasks.</p>
+                </div>
+
+                {error && <p className={styles.error}>{error}</p>}
+
+                <form className={styles.form} onSubmit={handleSubmit}>
+                    <div className={styles.field}>
+                        <label htmlFor="identifier">Username or Email</label>
                         <input
                             id="identifier"
-                            placeholder="Username or Email"
+                            placeholder="Enter username or email"
                             type="text"
                             value={identifier}
                             onChange={(e) => setIdentifier(e.target.value)}
-                            autoComplete="on"
+                            autoComplete="username"
                             required
                         />
                     </div>
-                    <div>
-                        <label htmlFor="password">Password: </label>
+
+                    <div className={styles.field}>
+                        <label htmlFor="password">Password</label>
                         <input
                             type="password"
                             name="password"
                             id="password"
                             onChange={(e) => setPassword(e.target.value)}
                             autoComplete="current-password"
-                            placeholder="Password"
+                            placeholder="Enter password"
                             required
                         />
                     </div>
-                    <div>
-                        <Button
-                            type="submit"
-                            onClick={handleSubmit}
-                        >
-                            Login
-                        </Button>
-                    </div>
+
+                    <Button type="submit" className={styles.submitButton}>
+                        Login
+                    </Button>
                 </form>
+
+                <p className={styles.footerText}>
+                    Don&apos;t have an account? <Link to="/register">Create one</Link>
+                </p>
             </div>
         </div>
     );

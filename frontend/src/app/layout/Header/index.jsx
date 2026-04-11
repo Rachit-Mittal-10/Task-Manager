@@ -1,9 +1,16 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "@context/AuthContext";
 import styles from "./index.module.scss";
 
 const Header = () => {
     const { isAuthenticated } = useAuth();
+    const { pathname } = useLocation();
+    const hideHeaderPaths = ["/login", "/register"];
+
+    if (hideHeaderPaths.includes(pathname)) {
+        return null;
+    }
+
     return (
         <header className={styles.header}>
             <nav>

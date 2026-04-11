@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import Button from "../../components/Button/Button";
 import styles from "./Register.module.scss";
@@ -29,49 +30,53 @@ const RegisterPage = () => {
                 navigate("/login");
             }
         } catch (err) {
-            setError(err);
+            setError(err?.message || "Failed to register user");
         }
     };
+
     return (
-        <div className={styles.Register}>
-            <div>
-                <h2>Register</h2>
-            </div>
-            <div>
-                <div>{error && <p>{error}</p>}</div>
-                <form>
-                    <div>
-                        <label htmlFor="username">Username:</label>
+        <div className={styles.page}>
+            <div className={styles.card}>
+                <div className={styles.heading}>
+                    <h2>Create your account</h2>
+                    <p>Register to start planning and tracking your tasks.</p>
+                </div>
+
+                {error && <p className={styles.error}>{error}</p>}
+
+                <form className={styles.form} onSubmit={handleSubmit}>
+                    <div className={styles.field}>
+                        <label htmlFor="username">Username</label>
                         <input
                             id="username"
                             name="username"
-                            placeholder="Username"
+                            placeholder="Choose a username"
                             type="text"
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
-                            autoComplete="on"
+                            autoComplete="username"
                             required
                         />
                     </div>
-                    <div>
-                        <label htmlFor="email">Email:</label>
+                    <div className={styles.field}>
+                        <label htmlFor="email">Email</label>
                         <input
                             id="email"
                             name="email"
-                            placeholder="Email"
-                            type="text"
+                            placeholder="Enter your email"
+                            type="email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
-                            autoComplete="on"
+                            autoComplete="email"
                             required
                         />
                     </div>
-                    <div>
-                        <label htmlFor="password">Password:</label>
+                    <div className={styles.field}>
+                        <label htmlFor="password">Password</label>
                         <input
                             id="password"
                             name="password"
-                            placeholder="Password"
+                            placeholder="Create a password"
                             type="password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
@@ -79,15 +84,15 @@ const RegisterPage = () => {
                             required
                         />
                     </div>
-                    <div>
-                        <Button 
-                            type="submit"
-                            onClick={handleSubmit}
-                        >
-                            Resgister
-                        </Button>
-                    </div>
+
+                    <Button type="submit" className={styles.submitButton}>
+                        Register
+                    </Button>
                 </form>
+
+                <p className={styles.footerText}>
+                    Already have an account? <Link to="/login">Log in</Link>
+                </p>
             </div>
         </div>
     );

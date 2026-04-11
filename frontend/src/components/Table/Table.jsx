@@ -5,6 +5,7 @@ const Table = (props) => {
     const columns = props.columns;
     const onRowClick = props.onRowClick;
     const uniqueKey = props.uniqueKey;
+    const isClickable = Boolean(onRowClick && uniqueKey);
 
     const handleRowClick = (row) => {
         if (onRowClick) {
@@ -25,6 +26,7 @@ const Table = (props) => {
                 {data.map((row, index) => (
                     <tr
                         key={index}
+                        className={isClickable ? styles.clickableRow : ""}
                         onClick={() => {
                             handleRowClick(row);
                         }}

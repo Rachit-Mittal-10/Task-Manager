@@ -1,5 +1,88 @@
-.Register {
-    div + div {
-        margin-top: 20px;
+.page {
+    min-height: calc(100vh - 80px);
+    display: grid;
+    place-items: center;
+    padding: 2rem 1rem;
+    background: linear-gradient(135deg, #f5f7ff 0%, #eef9ff 100%);
+}
+
+.card {
+    width: 100%;
+    max-width: 460px;
+    background-color: #fff;
+    border: 1px solid #e7e9f0;
+    border-radius: 14px;
+    box-shadow: 0 10px 30px rgba(34, 42, 75, 0.08);
+    padding: 1.5rem;
+}
+
+.heading {
+    h2 {
+        margin: 0;
+        font-size: 1.6rem;
+    }
+
+    p {
+        margin-top: 0.4rem;
+        color: #596273;
+    }
+}
+
+.error {
+    margin-top: 0.9rem;
+    background: #fff1f1;
+    border: 1px solid #ffcaca;
+    color: #b42318;
+    padding: 0.65rem 0.8rem;
+    border-radius: 8px;
+}
+
+.form {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+
+    label {
+        font-weight: 600;
+        color: #2c3442;
+    }
+
+    input {
+        border: 1px solid #cfd6e4;
+        border-radius: 8px;
+        padding: 0.7rem 0.8rem;
+        outline: none;
+        font-size: 0.98rem;
+        transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+        &:focus {
+            border-color: #3659d9;
+            box-shadow: 0 0 0 3px rgba(54, 89, 217, 0.15);
+        }
+    }
+}
+
+.submitButton {
+    width: 100%;
+    border-radius: 8px;
+    margin-top: 0.2rem;
+}
+
+.footerText {
+    margin-top: 1rem;
+    color: #4f5a6a;
+    text-align: center;
+
+    a {
+        color: #284bc6;
+        font-weight: 600;
+        text-decoration: none;
     }
 }
