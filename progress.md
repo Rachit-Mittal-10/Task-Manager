@@ -1,0 +1,1 @@
+Date: 12 April 2026, Tag: v1.0.0, basic prototype with users and task functionality done

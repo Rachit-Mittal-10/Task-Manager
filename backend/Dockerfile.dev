@@ -5,8 +5,7 @@ WORKDIR /app
 COPY ./package.json ./
 COPY ./package-lock.json ./
 COPY ./backend/package.json ./backend/
-RUN npm install -workspace backend
+RUN npm ci --workspace backend
 
-COPY ./.env ./
 COPY ./backend ./backend
-CMD ["npm","run","dev","--workspace","backend"]
+CMD ["npm","run","dev:ts","--workspace","backend"]

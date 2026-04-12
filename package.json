@@ -36,7 +36,8 @@
         "migrate": "npm run migrate --workspace backend",
         "migrate:status": "npm run migrate:status --workspace backend",
         "migrate:rollback": "npm run migrate:rollback --workspace backend",
-        "migrate:rollback-all": "npm run migrate:rollback-all --workspace backend"
+        "migrate:rollback-all": "npm run migrate:rollback-all --workspace backend",
+        "dependency:clear": "rm -rf node_modules frontend/node_modules backend/node_modules package-lock.json"
     },
     "keywords": [],
     "author": "",
