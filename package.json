@@ -50,6 +50,7 @@
     "devDependencies": {
         "@babel/core": "^7.28.5",
         "@babel/eslint-parser": "^7.28.5",
+        "@babel/preset-react": "^7.28.5",
         "@babel/traverse": "^7.28.5",
         "@types/supertest": "^6.0.3",
         "@vitest/ui": "^4.0.16",
