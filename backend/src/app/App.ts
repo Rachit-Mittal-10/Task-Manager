@@ -6,7 +6,9 @@ import { swaggerSpec } from "#config/swagger.js";
 
 //* Getting the App from Express and adding cors and json middleware
 const App: Express = express();
-App.use(cors());
+App.use(cors({
+	origin: "*"
+}));
 App.use(express.json());
 App.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 App.get("/api-docs.json", (_request, response) => {
