@@ -44,6 +44,12 @@
     gap: 0.9rem;
 }
 
+.formHint {
+    margin: 0;
+    font-size: 0.88rem;
+    color: #5a6475;
+}
+
 .field {
     display: flex;
     flex-direction: column;
@@ -67,6 +73,17 @@
             box-shadow: 0 0 0 3px rgba(54, 89, 217, 0.15);
         }
     }
+}
+
+.requiredTag {
+    color: #d92d20;
+    font-weight: 700;
+}
+
+.optionalTag {
+    color: #667085;
+    font-size: 0.88rem;
+    font-weight: 500;
 }
 
 .submitButton {

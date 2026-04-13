@@ -59,7 +59,7 @@ const EditDialog = (props) => {
         const formData = dialogData;
         try {
             const response = await TaskAPI.updateTask(id, formData);
-            if (response.message) {
+            if (response?.ok) {
                 closeDialog();
                 if (updated) {
                     const responseNew = await TaskAPI.getTasks();

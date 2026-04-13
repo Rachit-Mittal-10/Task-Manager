@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
@@ -10,24 +11,46 @@ const RegisterPage = () => {
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [firstname, setFirstname] = useState("");
+    const [middlename, setMiddlename] = useState("");
+    const [lastname, setLastname] = useState("");
+    const [age, setAge] = useState("");
     const [error, setError] = useState("");
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError("");
-        if (!username || !email || !password) {
-            setError("All three input required");
+        if (!username || !email || !password || !firstname) {
+            setError("Username, email, password and first name are required");
             return;
         }
-        const formData = new FormData();
-        formData.append("username", username);
-        formData.append("email", email);
-        formData.append("password", password);
+
+        const payload = {
+            username,
+            email,
+            password,
+            firstname,
+        };
+
+        if (middlename.trim()) {
+            payload.middlename = middlename.trim();
+        }
+
+        if (lastname.trim()) {
+            payload.lastname = lastname.trim();
+        }
+
+        if (age !== "") {
+            payload.age = Number(age);
+        }
+
         try {
-            const message = await register(formData);
-            if (message) {
+            const response = await register(payload);
+            if (response?.status === 201) {
                 navigate("/login");
+            } else {
+                setError(response?.message || response?.data?.message || "Registration failed");
             }
         } catch (err) {
             setError(err?.message || "Failed to register user");
@@ -39,14 +62,33 @@ const RegisterPage = () => {
             <div className={styles.card}>
                 <div className={styles.heading}>
                     <h2>Create your account</h2>
-                    <p>Register to start planning and tracking your tasks.</p>
                 </div>
 
                 {error && <p className={styles.error}>{error}</p>}
 
                 <form className={styles.form} onSubmit={handleSubmit}>
+                    <p className={styles.formHint}>
+                        <span className={styles.requiredTag}>*</span> Required fields
+                    </p>
                     <div className={styles.field}>
-                        <label htmlFor="username">Username</label>
+                        <label htmlFor="firstname">
+                            First Name <span className={styles.requiredTag}>*</span>
+                        </label>
+                        <input
+                            id="firstname"
+                            name="firstname"
+                            placeholder="Enter first name"
+                            type="text"
+                            value={firstname}
+                            onChange={(e) => setFirstname(e.target.value)}
+                            autoComplete="given-name"
+                            required
+                        />
+                    </div>
+                    <div className={styles.field}>
+                        <label htmlFor="username">
+                            Username <span className={styles.requiredTag}>*</span>
+                        </label>
                         <input
                             id="username"
                             name="username"
@@ -59,7 +101,9 @@ const RegisterPage = () => {
                         />
                     </div>
                     <div className={styles.field}>
-                        <label htmlFor="email">Email</label>
+                        <label htmlFor="email">
+                            Email <span className={styles.requiredTag}>*</span>
+                        </label>
                         <input
                             id="email"
                             name="email"
@@ -72,7 +116,51 @@ const RegisterPage = () => {
                         />
                     </div>
                     <div className={styles.field}>
-                        <label htmlFor="password">Password</label>
+                        <label htmlFor="middlename">
+                            Middle Name <span className={styles.optionalTag}>(Optional)</span>
+                        </label>
+                        <input
+                            id="middlename"
+                            name="middlename"
+                            placeholder="Enter middle name"
+                            type="text"
+                            value={middlename}
+                            onChange={(e) => setMiddlename(e.target.value)}
+                            autoComplete="additional-name"
+                        />
+                    </div>
+                    <div className={styles.field}>
+                        <label htmlFor="lastname">
+                            Last Name <span className={styles.optionalTag}>(Optional)</span>
+                        </label>
+                        <input
+                            id="lastname"
+                            name="lastname"
+                            placeholder="Enter last name"
+                            type="text"
+                            value={lastname}
+                            onChange={(e) => setLastname(e.target.value)}
+                            autoComplete="family-name"
+                        />
+                    </div>
+                    <div className={styles.field}>
+                        <label htmlFor="age">
+                            Age <span className={styles.optionalTag}>(Optional)</span>
+                        </label>
+                        <input
+                            id="age"
+                            name="age"
+                            placeholder="Enter age"
+                            type="number"
+                            min={0}
+                            value={age}
+                            onChange={(e) => setAge(e.target.value)}
+                        />
+                    </div>
+                    <div className={styles.field}>
+                        <label htmlFor="password">
+                            Password <span className={styles.requiredTag}>*</span>
+                        </label>
                         <input
                             id="password"
                             name="password"

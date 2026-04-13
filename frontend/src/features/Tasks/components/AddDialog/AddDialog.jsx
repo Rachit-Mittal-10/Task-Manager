@@ -36,12 +36,12 @@ const AddDialog = (props) => {
         const formData = dialogData;
         try {
             const response = await TaskAPI.createTask(formData);
-            if (response?.message || response?.id) {
+            if (response?.ok) {
                 const responseNew = await TaskAPI.getTasks();
                 setTasks(responseNew);
                 handleCloseButtonClick();
             } else {
-                setError(response?.error || "Failed to create task");
+                setError(response?.error || response?.message || "Failed to create task");
             }
         } catch (err) {
             setError(err?.message || "Failed to create task");

@@ -41,7 +41,6 @@ const LoginPage = () => {
             <div className={styles.card}>
                 <div className={styles.heading}>
                     <h2>Welcome back</h2>
-                    <p>Log in to continue managing your tasks.</p>
                 </div>
 
                 {error && <p className={styles.error}>{error}</p>}

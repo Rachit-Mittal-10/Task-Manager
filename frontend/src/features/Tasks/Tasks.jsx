@@ -65,7 +65,6 @@ const TasksPage = () => {
         <div className={styles.tasks}>
             <div className={styles.header}>
                 <h2>Tasks</h2>
-                <p>Manage and update your work items from one place.</p>
             </div>
 
             <div className={styles.summaryCard}>
