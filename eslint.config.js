@@ -15,10 +15,15 @@ export default [
             },
             parser: babelParser, // Use Babel parser to handle JSX
             parserOptions: {
-                ecmaVersion: 12, // Enable ECMAScript 2021 syntax
-                sourceType: "module", // Use ES modules (import/export)
-                jsx: true, // Enable JSX parsing
-		requireConfigFile: false
+                ecmaVersion: "latest",
+                sourceType: "module",
+                requireConfigFile: false,
+                babelOptions: {
+                    presets: ["@babel/preset-react"], // Ensure Babel knows to handle React
+                },
+                ecmaFeatures: {
+                    jsx: true, // <--- This must be inside ecmaFeatures
+                },
             },
         },
         plugins: {
