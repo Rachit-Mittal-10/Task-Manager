@@ -2,10 +2,8 @@ FROM node:24.5-slim
 
 WORKDIR /app
 
-COPY ./package.json .
-COPY ./package-lock.json .
-COPY ./frontend/package.json ./frontend/
-RUN npm ci --workspace frontend
+COPY package.json package-lock.json ./
+RUN npm ci
 
-COPY ./frontend ./frontend
-CMD [ "npm","run","dev","--workspace","frontend" ]
+COPY . ./
+CMD [ "npm","run","dev","--","--host","0.0.0.0","--port","5000" ]

@@ -10,8 +10,8 @@ services:
             - task_network
     backend:
         build:
-            context: .
-            dockerfile: backend/Dockerfile.dev
+                        context: ./backend
+                        dockerfile: Dockerfile.dev
         depends_on: [db]
         ports:
             - "3000:3000"
@@ -19,18 +19,20 @@ services:
             - task_network
         volumes:
           - ./.env:/app/.env
-          - ./backend:/app/backend 
+                    - ./backend:/app
+                    - /app/node_modules
     frontend:
         build:
-            context: .
-            dockerfile: frontend/Dockerfile.dev
+                        context: ./frontend
+                        dockerfile: Dockerfile.dev
         depends_on: [backend]
         ports:
           - "5000:5000"
         networks:
            - task_network
         volumes:
-          - ./frontend:/app/frontend
+                    - ./frontend:/app
+                    - /app/node_modules
 networks:
     task_network:
         driver: bridge

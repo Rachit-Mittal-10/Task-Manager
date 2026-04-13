@@ -10,12 +10,13 @@ For MySQL You would need to initialise the db.
 ```
 
 ### For Docker Approach:
-- Run `docker compose up` in root folder. This would initialise the DB Schema and then further start the backend and frontend server.
+- Run `docker compose -f docker-compose-dev.yaml up --build` in the root folder. This initializes the DB schema and starts backend and frontend using their own application directories.
 
 ### For MySQL on local machine:
 - Run init.sql file to initialise the db_schema and look for correct environment variable.
-- Then run `node backend/src/index.js` in root folder. This would start the backend server.
-- Then using Postman or accessing the Frontend, API can be accessed.
+- Run `npm install` inside `backend/`, then start the API with `npm run dev:ts` from `backend/`.
+- Run `npm install` inside `frontend/`, then start the UI with `npm run dev` from `frontend/`.
+- The frontend and backend now keep separate `package-lock.json` files.
 
 ### Scaffolding new code
 - This project includes Plop generators for backend features, frontend features, and reusable frontend components.
