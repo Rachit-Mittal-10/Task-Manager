@@ -5,11 +5,6 @@ import {
     generateToken,
     hashPassword
 } from "../utils/AuthUtils.js";
-import dotenv from "dotenv";
-
-const env = dotenv.config({
-    path: "../.env",
-});
 
 export interface LoginResponse {
     token: string;
