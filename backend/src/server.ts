@@ -5,9 +5,9 @@ import { fileURLToPath } from "url";
 const __filename: string = fileURLToPath(import.meta.url);
 const __dirname: string = path.dirname(__filename);
 // __dirname: {PROJECT_ROOT}/backend/src/
-// env file: {PROJECT_ROOT}/.env
+// env file: {PROJECT_ROOT}/backend/.env
 const env:DotenvConfigOutput = config({
-    path: path.resolve(__dirname, "..", "..", ".env"),
+    path: path.resolve(__dirname, "..", ".env"),
 });
 
 // Dynamic Import
