@@ -11,3 +11,7 @@ fi
 
 # Start the development environment using Docker Compose
 docker compose -f docker-compose-dev.yaml --env-file backend/.env up --build -d
+# Run database migrations
+echo "Running database migrations..."
+docker compose -f docker-compose-dev.yaml --env-file backend/.env exec backend npm run migrate
+echo "Development environment is up and running!"
