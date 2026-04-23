@@ -10,4 +10,4 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm ci --only=production
 COPY --from=builder /app/dist ./dist
-CMD ["node", "dist/index.js"]
+CMD ["node", "dist/server.js"]

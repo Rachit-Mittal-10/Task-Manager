@@ -1,1 +1,42 @@
-version: '3.8'
+services:
+  db:
+    image: mysql:8.0
+    env_file:
+      - ./backend/.env
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DATABASE_PASSWORD}
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ./database/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+    networks:
+      - task_network
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    depends_on: [db]
+    env_file:
+      - ./backend/.env
+    networks:
+      - task_network
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    depends_on: [backend]
+    networks:
+      - task_network
+  proxy:
+    image: nginx:latest
+    ports:
+      - "8080:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/nginx.conf
+    depends_on: [frontend, backend]
+    networks:
+      - task_network
+networks:
+  task_network:
+    driver: bridge
+volumes:
+  mysql-data:
