@@ -7,7 +7,7 @@
         "dev": "node --watch src/server.js",
         "debug": "node --watch --inspect src/server.js",
         "dev:ts": "tsx --watch src/server.ts",
-        "build": "tsc -p tsconfig.json",
+        "build": "tsc -p tsconfig.json && tsc-alias -p tsconfig.json",
         "typecheck": "tsc -p tsconfig.json --noEmit",
         "migrations": "node -r ts-node/register/transpile-only ./node_modules/knex/bin/cli.js",
         "migrate:make": "npm run migrations -- migrate:make --knexfile src/knexfile.ts",
@@ -45,22 +45,8 @@
         "@types/jsonwebtoken": "^9.0.7",
         "@types/knex": "^0.15.2",
         "@types/node": "^22.19.13",
+        "tsc-alias": "^1.8.16",
         "tsx": "^4.19.2",
         "typescript": "^5.6.3"
-    },
-    "imports": {
-        "#/*": "./src/*",
-        "#app/*": "./src/app/*",
-        "#common/*": "./src/common/*",
-        "#config/*": "./src/config/*",
-        "#controllers/*": "./src/controllers/*",
-        "#core/*": "./src/core/*",
-        "#error/*": "./src/common/error/*",
-        "#features/*": "./src/features/*",
-        "#middleware/*": "./src/middleware/*",
-        "#models/*": "./src/models/*",
-        "#routes/*": "./src/routes/*",
-        "#services/*": "./src/services/*",
-        "#utils/*": "./src/common/utils/*"
     }
 }
