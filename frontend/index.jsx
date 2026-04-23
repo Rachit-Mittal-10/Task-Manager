@@ -5,9 +5,9 @@ import config from "@utils/config.js";
 
 
 // IIFE
-(async ()=>{
+(async () => {
     // this loads the config before app rendering. application wait here.
-    try{
+    try {
         await config.load();
         const { default: App } = await import("@app/App");
         createRoot(document.getElementById("root")).render(
