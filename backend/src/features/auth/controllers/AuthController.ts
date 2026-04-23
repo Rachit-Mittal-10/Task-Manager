@@ -13,12 +13,12 @@ export class AuthController extends BaseController<AuthService> {
                     token: result.token,
                 });
             }
-            return response.status(404).json({
-                message: "Something went wrong",
+                return response.status(401).json({
+                    message: "Login Failed. Invalid Credentials!!!",
             });
         } catch (err) {
-            return response.status(401).json({
-                message: "Login Failed. Invalid Credentials!!!",
+                return response.status(401).json({
+                    message: "Login Failed. Invalid Credentials!!!",
             });
         }
     }
