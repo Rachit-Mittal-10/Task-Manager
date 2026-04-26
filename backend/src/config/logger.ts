@@ -1,5 +1,5 @@
 import pino from "pino";
-const logger = pino({
+const logger: pino.Logger = pino({
     level: process.env.LOG_LEVEL || "info",
     redact: {
         paths: ['req.headers.authorization', 'req.body.password'],

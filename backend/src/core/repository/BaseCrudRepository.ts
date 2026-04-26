@@ -11,6 +11,7 @@ import type { Knex } from "knex";
 import type { IData } from "#common/types/IData.js";
 import { IBaseModel } from "#core/models/IBaseModel.js";
 import { IBaseCrudRepository } from "./IBaseCrudRepository.js";
+import { RequestContext } from "#/common/types/RequestContext.js";
 
 export type IOptions = {
     limit?: number;
@@ -32,7 +33,7 @@ export abstract class BaseCrudRepository<T extends IBaseModel> extends BaseRepos
      * @return: Array of number which is first id of created rows for MySQL
      * @description: This will create the entry in table
      */
-    public async create(data: IData): Promise<number> {
+    public async create(data: IData, context?: RequestContext): Promise<number> {
         const processedData = await this.beforeCreate(data);
         const [id] = await this.db(this.table).insert(processedData);
         return id;
@@ -44,11 +45,11 @@ export abstract class BaseCrudRepository<T extends IBaseModel> extends BaseRepos
     * @return: Object or Array of objects
     * @description: This will return the data based on id or key value pair provided in filters and options for pagination
     */
-    public async read(id?: number | undefined, filters?: IData | undefined, options?: IOptions, context?: IData): Promise<T | T[] | undefined> {
-        const { limit = 10, offset = 0 } = options || {};
+    public async read(id?: number | undefined, context?: RequestContext): Promise<T | T[] | undefined> {
+        const { limit = 10, offset = 0 } = context?.options || {};
         let query = this.db(this.table);
 
-        //: sets the owner column value in query if owner column is defined in repository and context is provided. this will ensure that user can access only their resources.
+        // sets the owner column value in query if owner column is defined in repository and context is provided. this will ensure that user can access only their resources.
         const ownerColumn = this.getOwnerColumn();
         if(ownerColumn) {
             const ownerValue = context ? context[ownerColumn] : null;
@@ -60,7 +61,7 @@ export abstract class BaseCrudRepository<T extends IBaseModel> extends BaseRepos
             query = query.where(ownerColumn, ownerValue);
         }
 
-        //: handles the GET /:id. single resource will be returned based on id
+        // handles the GET /:id. single resource will be returned based on id
         if(id !== undefined) {
             const rawData = await query.where({id}).select("*").first();
             if(!rawData) {
@@ -70,12 +71,12 @@ export abstract class BaseCrudRepository<T extends IBaseModel> extends BaseRepos
             return modelObject;
         }
         
-        //: handles the GET /?key=value. this will return the data based on key value pair provided in filters and options for pagination.
-        if(filters) {
-            query =  query.where(filters);
+        // handles the GET /?key=value. this will return the data based on key value pair provided in filters and options for pagination.
+        if(context?.filters) {
+            query =  query.where(context.filters);
         }
 
-        //: if filters are undefined then it will return all the data in table with pagination
+        // if filters are undefined then it will return all the data in table with pagination
         const rawData = await query.limit(limit).offset(offset).select("*");
         return rawData.map(data => this.mapToModel(data));
     }
@@ -90,7 +91,7 @@ export abstract class BaseCrudRepository<T extends IBaseModel> extends BaseRepos
         const processedData = await this.beforeUpdate(id, data);
         let query = this.db(this.table).where({ id });
 
-        //: sets the owner column value in query if owner column is defined in repository and context is provided. this will ensure that user can update only their resources.
+        // sets the owner column value in query if owner column is defined in repository and context is provided. this will ensure that user can update only their resources.
         const ownerColumn = this.getOwnerColumn();
         if(ownerColumn) {
             const ownerValue = context ? context[ownerColumn] : null;
@@ -119,7 +120,7 @@ export abstract class BaseCrudRepository<T extends IBaseModel> extends BaseRepos
         await this.beforeRemove(id);
         let query = this.db(this.table).where({ id });
 
-        //: sets the owner column value in query if owner column is defined in repository and context is provided. this will ensure that user can delete only their resources.
+        // sets the owner column value in query if owner column is defined in repository and context is provided. this will ensure that user can delete only their resources.
         const ownerColumn = this.getOwnerColumn();
         if(ownerColumn) {
             const ownerValue = context ? context[ownerColumn] : null;
@@ -137,7 +138,7 @@ export abstract class BaseCrudRepository<T extends IBaseModel> extends BaseRepos
         
         return await query.delete();
     }
-    //: Hooks for performing any operation before or after create, update and delete operations.
+    // Hooks for performing any operation before or after create, update and delete operations.
     protected async beforeCreate(data: IData): Promise<IData> {
         return data;
     }

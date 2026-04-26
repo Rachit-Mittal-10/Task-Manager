@@ -24,12 +24,12 @@ export abstract class BaseCrudService<T,R extends IBaseCrudRepository<T>> extend
      * @return: array of Object
      * @description: adds the row in the database using model
      */
-    public async create(data: IData): Promise<number> {
+    public async create(data: IData, context?: RequestContext): Promise<number> {
         if (!data || Object.keys(data).length === 0) {
             throw new Error("Data is empty");
         }
         const processedData = await this.beforeCreate(data);
-        const result = await this.repository.create(processedData);
+        const result = await this.repository.create(processedData,context);
         await this.afterCreate(result, processedData);
         return result;
     }
@@ -40,8 +40,10 @@ export abstract class BaseCrudService<T,R extends IBaseCrudRepository<T>> extend
      * @return: Object or Array of objects
      * @description: This will return the data based on id or key value pair provided in filters and options for pagination
     */
-    public async read(id?: number | undefined, filters?: IData | undefined, options?: IOptions, context?: RequestContext) : Promise<T | T[] | undefined> {
-        const result = await this.repository.read(id,filters,options,context);
+    public async read(id?: number | undefined, context?: RequestContext) : Promise<T | T[] | undefined> {
+        await this.beforeRead(id);
+        const result = await this.repository.read(id,context);
+        await this.afterRead(id, result);
         return result;
     }
     /*
@@ -73,13 +75,20 @@ export abstract class BaseCrudService<T,R extends IBaseCrudRepository<T>> extend
         await this.afterRemove(id, result);
         return result;
     }
-    //: Hooks for performing any operation before or after create, update and delete operations.
-    //! this.constructor.name will give the name of the class which is extending the BaseCrudService.
+    // Hooks for performing any operation before or after create, update and delete operations.
+    // this.constructor.name will give the name of the class which is extending the BaseCrudService.
     protected async beforeCreate(data: IData): Promise<IData> {
         return data;
     }
     protected async afterCreate(result: number, data: IData): Promise<void> {
         console.log(`[${this.constructor.name}] Created entry with id: ${result}`);
+        return;
+    }
+    protected async beforeRead(id?: number): Promise<void> {
+        return;
+    }
+    protected async afterRead(id: number | undefined, result: T | T[] | undefined): Promise<void> {
+        console.log(`[${this.constructor.name}] Read entry with id: ${id}`);
         return;
     }
     protected async beforeUpdate(id: number, data: IData): Promise<IData> {

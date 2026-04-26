@@ -3,6 +3,7 @@ import { BaseController } from "./BaseController.js";
 import type { IBaseCrudController } from "./IBaseCrudController.js";
 import { IBaseCrudService } from "#core/services/IBaseCrudService.js";
 import { IOptions } from "#core/repository/BaseCrudRepository.js";
+import { RequestContext } from "#/common/types/RequestContext.js";
 
 interface ReadRequestQuery {
     limit?: string;
@@ -16,8 +17,9 @@ export abstract class BaseCrudController<T, S extends IBaseCrudService<T>> exten
     }
     public async create(request: Request, response: Response) {
         const data = await this.beforeCreate(request);
+        const context = await this.getRequestContext(request);
         try {
-            const result = await this.service.create(data);
+            const result = await this.service.create(data, context);
             response.status(201).json({
                 ok: true,
                 data: result,
@@ -36,11 +38,11 @@ export abstract class BaseCrudController<T, S extends IBaseCrudService<T>> exten
             limit: limit ? Number(limit) : undefined,
             offset: offset ? Number(offset) : undefined,
         };
-        const context = await this.getRequestContext(request);
+        const context = await this.getRequestContext(request,{filters, options});
         try {
-            const result = await this.service.read(id, filters, options, context);
-            //* handling for GET /:id
-            //* if id is provided and result is undefined then it means data for provided id is not found. so we will return 404 in that case
+            const result = await this.service.read(id, context);
+            // handling for GET /:id
+            // if id is provided and result is undefined then it means data for provided id is not found. so we will return 404 in that case
             if(id !== undefined && result === undefined) {
                 response.status(404).json({
                     ok: false,
@@ -48,7 +50,7 @@ export abstract class BaseCrudController<T, S extends IBaseCrudService<T>> exten
                 });
                 return;
             }
-            //* if result is not undefined then we return the result with 200 status
+            // if result is not undefined then we return the result with 200 status
             response.status(200).json({
                 ok: true,
                 data: result,
@@ -110,7 +112,7 @@ export abstract class BaseCrudController<T, S extends IBaseCrudService<T>> exten
         }
     }
 
-    //: Hooks for performing any operation before or after create, update and delete operations.
+    // Hooks for performing any operation before or after create, update and delete operations.
     protected async beforeCreate(request: Request): Promise<any> {
         return request.body;
     }
@@ -120,9 +122,11 @@ export abstract class BaseCrudController<T, S extends IBaseCrudService<T>> exten
     protected async beforeRemove(request: Request): Promise<void> {
         return;
     }
-    protected async getRequestContext(request: Request): Promise<any> {
+    protected async getRequestContext(request: Request, extra?: Partial<RequestContext>): Promise<RequestContext> {
         return {
             user_id: request.user ? request.user.user_id : null,
+            logger: request.log || null,
+            ...extra,
         };
     }
 }
