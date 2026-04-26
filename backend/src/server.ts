@@ -1,6 +1,7 @@
 import { config, type DotenvConfigOutput } from "dotenv";
 import path from "node:path";
 import { fileURLToPath } from "url";
+import { logger } from "#config/logger.js";
 
 const __filename: string = fileURLToPath(import.meta.url);
 const __dirname: string = path.dirname(__filename);
@@ -17,5 +18,5 @@ const { App } = await import("./app/App.js");
 const PORT:number = Number(process.env.PORT);
 const HOST:string = process.env.HOST;
 App.listen(PORT, HOST, () => {
-    console.log(`Server is listening on ${HOST}:${PORT}`);
+    logger.info(`Server is listening on ${HOST}:${PORT}`);
 });

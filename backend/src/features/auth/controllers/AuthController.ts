@@ -5,6 +5,7 @@ import type { AuthService } from "../services/AuthService.js";
 export class AuthController extends BaseController<AuthService> {
     async login(request: Request, response: Response): Promise<Response> {
         const { username, email, password } = request.body;
+        request.log.info(`Login attempt for username: ${username}, email: ${email}`);
         try {
             const result = await this.service.login(username, email, password);
             if (result && result.token) {
