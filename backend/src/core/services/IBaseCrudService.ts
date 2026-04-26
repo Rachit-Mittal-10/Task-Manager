@@ -1,5 +1,4 @@
 import { IData } from "#common/types/IData.js";
-import type { IOptions } from "../repository/BaseCrudRepository.js";
 import { RequestContext } from "#common/types/RequestContext.js";
 
 export interface IBaseCrudService<T> {

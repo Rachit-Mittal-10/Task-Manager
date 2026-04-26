@@ -1,6 +1,5 @@
 import { RequestContext } from "#/common/types/RequestContext.js";
 import { IData } from "#common/types/IData.js";
-import { IOptions } from "./BaseCrudRepository.js";
 
 export interface IBaseCrudRepository<T> {
     create(data: IData, context?: RequestContext): Promise<number>;

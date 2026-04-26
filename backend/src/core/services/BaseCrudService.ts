@@ -1,5 +1,4 @@
 import { IData } from "#common/types/IData.js";
-import { IOptions } from "#core/repository/BaseCrudRepository.js";
 import { IBaseCrudRepository } from "#core/repository/IBaseCrudRepository.js";
 import { BaseService } from "./BaseService.js";
 import { IBaseCrudService } from "./IBaseCrudService.js";
