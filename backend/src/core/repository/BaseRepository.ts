@@ -43,7 +43,10 @@ export abstract class BaseRepository<T extends IBaseModel> {
         return this.#db;
     }
     /*
-     * 
+     * @method: mapToModel
+     * @params: data object returned from database query
+     * @return: T which is the model instance of the data
+     * @description: this will map the data returned from database query to the model instance
     */
     protected mapToModel(data: any) : T {
         return new this.modelConstructor(data);
