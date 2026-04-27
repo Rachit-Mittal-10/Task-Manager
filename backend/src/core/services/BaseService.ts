@@ -24,7 +24,12 @@ export abstract class BaseService<R> extends StaticService {
         super(dep);
         this.repository = repository;
     }
-
+    /*
+     * @protected
+     * @method: getDbDependency
+     * @return: returns the database dependency
+     * @description: This will return the database dependency from the injected dependencies
+     */
     protected getDbDependency(): Knex {
         const injectedDb = this.getDep<Knex>("db");
         if (!injectedDb) {
@@ -33,7 +38,13 @@ export abstract class BaseService<R> extends StaticService {
 
         return injectedDb;
     }
-
+    /*
+    * @protected
+    * @method: withTransaction
+    * @params: operation function which contains the code to be executed in transaction and context which contains the transaction object if transaction is already created
+    * @return: returns the result of the operation function
+    * @description: This will create a transaction if transaction object is not provided in context and will execute the operation function in transaction. If transaction object is provided in context then it will execute the operation function in provided transaction.
+    */
     protected async withTransaction<T>(
         operation: (context: RequestContext) => Promise<T>,
         context: RequestContext = {},
