@@ -9,6 +9,7 @@ import { db } from "#config/knex.js";
 const authRepository: AuthRepository = new AuthRepository(db);
 // Initialise service with model instance.
 const authService: AuthService = new AuthService(authRepository, {
+    "db": db,
     "user-service": userService,
 });
 // Initialise controller with service instance.

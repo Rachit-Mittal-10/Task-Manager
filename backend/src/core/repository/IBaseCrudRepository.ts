@@ -4,6 +4,6 @@ import { IData } from "#common/types/IData.js";
 export interface IBaseCrudRepository<T> {
     create(data: IData, context?: RequestContext): Promise<number>;
     read(id?: number | undefined, context?: RequestContext): Promise<T | T[] | undefined>;
-    update(id: number, data:IData, extraFilter?: IData): Promise<number>;
-    remove(id: number, extraFilter?: IData): Promise<number>;
+    update(id: number, data:IData, context?: RequestContext): Promise<number>;
+    remove(id: number, context?: RequestContext): Promise<number>;
 };

@@ -1,6 +1,7 @@
 import { BaseService } from "#core/services/BaseService.js";
 import { AuthModel } from "../models/AuthModel.js";
 import type { AuthRepository } from "../repository/AuthRepository.js";
+import type { UserService } from "#features/users/services/UserService.js";
 import {
     generateToken,
     hashPassword
@@ -63,7 +64,10 @@ export class AuthService extends BaseService<AuthRepository> {
             throw new Error("Username, email, password, and firstname are required for registration");
         }
         try {
-            const provider = this.getDep("user-service");
+            const provider = this.getDep<UserService>("user-service");
+            if (!provider) {
+                throw new Error("User service dependency is missing");
+            }
             const userData: Record<string, string | number> = {
                 firstname,
             };
@@ -80,16 +84,18 @@ export class AuthService extends BaseService<AuthRepository> {
                 userData.age = age;
             }
 
-            // here we get the id of inserted user and use it to create auth record
-            const userResult = await provider.create(userData);
-            const hashedPassword = await hashPassword(password);
-            const result = await this.repository.create({
-                username,
-                email,
-                password: hashedPassword,
-                user_id: userResult,
+            return await this.withTransaction(async (context) => {
+                // here we get the id of inserted user and use it to create auth record
+                const userResult = await provider.create(userData, context);
+                const hashedPassword = await hashPassword(password);
+                const result = await this.repository.create({
+                    username,
+                    email,
+                    password: hashedPassword,
+                    user_id: userResult,
+                }, context);
+                return result;
             });
-            return result;
         } catch (err) {
             switch (err.code) {
                 case "ER_DUP_ENTRY":

@@ -5,7 +5,7 @@ import { TaskRouter } from "./routes/TaskRouter.js";
 import { db } from "#config/knex.js";
 
 const taskRepository: TaskRepository = new TaskRepository(db);
-const taskService: TaskService = new TaskService(taskRepository);
+const taskService: TaskService = new TaskService(taskRepository, { db });
 const taskController: TaskController = new TaskController(taskService);
 const taskRouter: TaskRouter = new TaskRouter(taskController);
 

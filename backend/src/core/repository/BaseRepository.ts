@@ -1,4 +1,5 @@
 import { IBaseModel } from "#core/models/IBaseModel.js";
+import { RequestContext } from "#common/types/RequestContext.js";
 import type { Knex } from "knex";
 
 /*
@@ -41,6 +42,10 @@ export abstract class BaseRepository<T extends IBaseModel> {
      */
     protected get db() : Knex {
         return this.#db;
+    }
+
+    protected getExecutor(context?: RequestContext): Knex | Knex.Transaction {
+        return context?.tx || this.#db;
     }
     /*
      * @method: mapToModel

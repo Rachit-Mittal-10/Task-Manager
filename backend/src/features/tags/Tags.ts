@@ -5,7 +5,7 @@ import { TagRouter } from "./routes/TagRouter.js";
 import { db } from "#config/knex.js";
 
 const tagRepository: TagRepository = new TagRepository(db);
-const tagService: TagService = new TagService(tagRepository);
+const tagService: TagService = new TagService(tagRepository, { db });
 const tagController: TagController = new TagController(tagService);
 const tagRouter: TagRouter = new TagRouter(tagController);
 
