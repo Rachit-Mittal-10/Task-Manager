@@ -122,11 +122,4 @@ export abstract class BaseCrudController<T, S extends IBaseCrudService<T>> exten
     protected async beforeRemove(request: Request): Promise<void> {
         return;
     }
-    protected async getRequestContext(request: Request, extra?: Partial<RequestContext>): Promise<RequestContext> {
-        return {
-            user_id: request.user ? request.user.user_id : null,
-            logger: request.log || null,
-            ...extra,
-        };
-    }
 }
