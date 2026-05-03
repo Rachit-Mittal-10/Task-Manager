@@ -42,7 +42,7 @@
         "migrate:rollback-all": "npm --prefix backend run migrate:rollback-all",
         "install:all": "npm install && npm --prefix backend install && npm --prefix frontend install",
         "install:runtime": "npm --prefix backend install --omit=dev && npm --prefix frontend install --omit=dev",
-        "dependency:clear": "rm -rf node_modules package-lock.json frontend/node_modules frontend/package-lock.json backend/node_modules backend/package-lock.json"
+        "dependency:clear": "rm -rf node_modules {frontend,backend}/node_modules"
     },
     "keywords": [],
     "author": "",
