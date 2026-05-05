@@ -18,9 +18,11 @@ export async function up(knex: Knex): Promise<void> {
 
 
 export async function down(knex: Knex): Promise<void> {
+    // first remove the project_id column from the tasks table
     await knex.schema.table("tasks", (table) => {
         table.dropColumn("project_id");
     });
+    // then drop the projects table
     await knex.schema.dropTableIfExists("projects");
 }
 
