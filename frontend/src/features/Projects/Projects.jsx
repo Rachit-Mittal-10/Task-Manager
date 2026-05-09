@@ -7,6 +7,7 @@ import styles from "./Projects.module.scss";
 import { useAuth } from "../../context/AuthContext.jsx";
 import Button from "../../components/Button/Button.jsx";
 import AddDialog from "./components/AddDialog/AddDialog.jsx";
+import { useNavigate } from "react-router-dom";
 
 const ProjectsPage = () => {
     const [projects, setProjects] = useState(null);
@@ -15,6 +16,7 @@ const ProjectsPage = () => {
     const editDialogRef = useRef(null);
     const addDialogRef = useRef(null);
     const { isAuthenticated } = useAuth();
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (!isAuthenticated) {
@@ -39,12 +41,26 @@ const ProjectsPage = () => {
         return <div>Loading!!!</div>;
     }
 
-    const projectRows = projects.data || [];
+    const projectRows = (projects.data || []).map((project) => ({
+        ...project,
+        actions: (
+            <Button
+                className={styles.viewTasksButton}
+                onClick={(event) => {
+                    event.stopPropagation();
+                    navigate(`/projects/${project.id}/tasks`);
+                }}
+            >
+                View Tasks
+            </Button>
+        ),
+    }));
 
     const columns = [
         { label: "ID", key: "id" },
         { label: "Name", key: "name" },
         { label: "Description", key: "description" },
+        { label: "Actions", key: "actions" },
     ];
 
     const onRowClick = (id) => {

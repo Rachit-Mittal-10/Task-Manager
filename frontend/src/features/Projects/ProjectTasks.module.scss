@@ -1,4 +1,4 @@
-.projects {
+.projectTasks {
     display: flex;
     flex-direction: column;
     gap: 1rem;
@@ -12,6 +12,16 @@
             margin-top: 0.35rem;
             color: #5a6475;
         }
+    }
+
+    .actionRow {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+    }
+
+    .backButton {
+        border-radius: 8px;
     }
 
     .summaryCard {
@@ -31,27 +41,6 @@
         }
     }
 
-    .buttonWrapper {
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-    }
-
-    .buttonInner {
-        display: flex;
-        align-items: center;
-    }
-
-    .addButton {
-        border-radius: 8px;
-    }
-
-    .viewTasksButton {
-        border-radius: 6px;
-        padding: 0.35rem 0.7rem;
-        font-size: 0.8rem;
-    }
-
     .tableWrapper {
         border: 1px solid #d9d9d9;
         border-radius: 0.5rem;
@@ -65,11 +54,5 @@
         padding: 1rem;
         color: #616b7a;
         background-color: #fbfcff;
-    }
-
-    .dialogOverlay {
-        display: flex;
-        justify-content: center;
-        align-items: center;
     }
 }
