@@ -3,6 +3,7 @@ import { taskRouter } from "#features/tasks/Tasks.js";
 import { userRouter } from "#features/users/Users.js";
 import { StaticRouter } from "#core/routes/StaticRouter.js";
 import { dashboardRouter } from "#features/dashboard/Dashboard.js";
+import { projectRouter } from "#/features/projects/Projects.js";
 
 class ProtectedRouter extends StaticRouter {
     constructor() {
@@ -11,6 +12,7 @@ class ProtectedRouter extends StaticRouter {
             .registerRouter("/tasks", taskRouter.getRouter())
             .registerRouter("/users", userRouter.getRouter())
             .registerRouter("/dashboard", dashboardRouter.getRouter())
+            .registerRouter("/projects", projectRouter.getRouter())
             ;
     }
 }

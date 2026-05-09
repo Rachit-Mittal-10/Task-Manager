@@ -5,7 +5,7 @@ interface TaskData {
     id?: number | null;
     created_at?: Date | string | null;
     updated_at?: Date | string | null;
-    user_id: number;
+    user_id: number;    project_id?: number | null;
     title: string;
     start?: string | Date | null;
     end?: string | Date | null;
@@ -16,6 +16,7 @@ interface TaskData {
 
 export interface ITaskModel extends IBaseModel{
     user_id: number;
+    project_id?: number | null;
     title: string;
     start: Date | null;
     end: Date | null;
@@ -26,6 +27,7 @@ export interface ITaskModel extends IBaseModel{
 
 export class TaskModel extends BaseModel implements ITaskModel {
     user_id: number;
+    project_id?: number | null;
     title: string;
     start: Date | null;
     end: Date | null;
@@ -40,6 +42,7 @@ export class TaskModel extends BaseModel implements ITaskModel {
             updated_at: data.updated_at,
         });
         this.user_id = data.user_id;
+        this.project_id = data.project_id ?? null;
         this.title = data.title;
         this.start = data.start ? new Date(data.start) : null;
         this.end = data.end ? new Date(data.end) : null;

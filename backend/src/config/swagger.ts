@@ -133,6 +133,11 @@ const swaggerOptions: Options = {
                             type: "integer",
                             example: 7,
                         },
+                        project_id: {
+                            type: "integer",
+                            nullable: true,
+                            example: 3,
+                        },
                         title: {
                             type: "string",
                             example: "Ship Swagger docs",
@@ -175,6 +180,11 @@ const swaggerOptions: Options = {
                 TaskCreateRequest: {
                     type: "object",
                     properties: {
+                        project_id: {
+                            type: "integer",
+                            nullable: true,
+                            example: 3,
+                        },
                         title: {
                             type: "string",
                             example: "Ship Swagger docs",
