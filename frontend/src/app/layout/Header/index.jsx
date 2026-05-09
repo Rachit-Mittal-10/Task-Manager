@@ -40,6 +40,11 @@ const Header = () => {
                                 </Link>
                             </li>
                             <li>
+                                <Link to="/projects" className={styles.link}>
+                                    Projects
+                                </Link>
+                            </li>
+                            <li>
                                 <Link to="/user" className={styles.link}>
                                     User
                                 </Link>
