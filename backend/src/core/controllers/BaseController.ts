@@ -5,6 +5,7 @@
 
 import type { Request } from "express";
 import type { RequestContext } from "#/common/types/RequestContext.js";
+import { logger as Logger } from "#/config/logger.js";
 
 export abstract class BaseController<S> {
     protected readonly service: S;
@@ -17,8 +18,8 @@ export abstract class BaseController<S> {
 
     protected async getRequestContext(request: Request, extra?: Partial<RequestContext>): Promise<RequestContext> {
         return {
-            user_id: request.user?.user_id ?? null,
-            logger: request.log ?? null,
+            user_id: request.user?.user_id ?? undefined,
+            logger: request.log ?? Logger,
             ...extra,
         };
     }

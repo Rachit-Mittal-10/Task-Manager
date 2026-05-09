@@ -44,7 +44,10 @@ export abstract class BaseRouter<C extends object = any> extends StaticRouter {
         if (!handler) {
             throw new Error("Empty Handler");
         }
-        this.router[method.toLowerCase()](path, this.bindController(handler));
+        const routeHandler = this.bindController(handler);
+        this.router[method.toLowerCase()](path, (request: Request, response: Response, next: NextFunction) => {
+            Promise.resolve(routeHandler(request, response, next)).catch(next);
+        });
         return this;
     }
 }

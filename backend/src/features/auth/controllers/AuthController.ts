@@ -1,31 +1,28 @@
 import { BaseController } from "#core/controllers/BaseController.js";
-import type { Request, Response } from "express";
+import type { NextFunction, Request, Response } from "express";
 import type { AuthService } from "../services/AuthService.js";
 
 export class AuthController extends BaseController<AuthService> {
-    async login(request: Request, response: Response): Promise<Response> {
+    async login(request: Request, response: Response, next: NextFunction): Promise<Response | void> {
         const { username, email, password } = request.body;
         request.log.info(`Login attempt for username: ${username}, email: ${email}`);
         try {
-            const result = await this.service.login(username, email, password);
-            if (result && result.token) {
+            const context = await this.getRequestContext(request);
+            const result = await this.service.login(username, email, password, context);
+            if (result.token) {
                 return response.status(200).json({
                     message: "Login Successful",
                     token: result.token,
                 });
             }
-                return response.status(401).json({
-                    message: "Login Failed. Invalid Credentials!!!",
-            });
         } catch (err) {
-                return response.status(401).json({
-                    message: "Login Failed. Invalid Credentials!!!",
-            });
+            next(err);
         }
     }
-    async register(request: Request, response: Response): Promise<Response> {
+    async register(request: Request, response: Response, next: NextFunction): Promise<Response | void> {
         const { username, email, password, firstname, middlename, lastname, age } = request.body;
         try {
+            const context = await this.getRequestContext(request);
             const result = await this.service.register({
                 username,
                 email,
@@ -34,14 +31,12 @@ export class AuthController extends BaseController<AuthService> {
                 middlename,
                 lastname,
                 age
-            });
+            }, context);
             return response.status(201).json({
                 result,
             });
         } catch (err) {
-            return response.status(404).json({
-                message: "Error Occured!!!",
-            });
+            next(err);
         }
     }
 }

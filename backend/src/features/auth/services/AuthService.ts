@@ -6,6 +6,9 @@ import {
     generateToken,
     hashPassword
 } from "../utils/AuthUtils.js";
+import { logger } from "#config/logger.js";
+import { InternalServerError, UnauthorizedError, ValidationError } from "#core/errors/AppError.js";
+import type { RequestContext } from "#common/types/RequestContext.js";
 
 export interface LoginResponse {
     token: string;
@@ -22,12 +25,13 @@ export interface RegisterPayload {
 }
 
 export class AuthService extends BaseService<AuthRepository> {
-    async login(username: string | undefined, email: string | undefined, password: string): Promise<LoginResponse | undefined> {
+    async login(username: string | undefined, email: string | undefined, password: string, context?: RequestContext): Promise<LoginResponse> {
         if (!password || (!username && !email)) {
-            throw new Error(
+            throw new ValidationError(
                 "Username or email and password are required for login",
             );
         }
+        const scopedLogger = context?.logger ?? logger;
         try {
             let user: AuthModel | undefined = undefined;
             if (username) {
@@ -36,15 +40,14 @@ export class AuthService extends BaseService<AuthRepository> {
                 user = await this.repository.getUserByEmail(email);
             }
             else {
-                return undefined;
+                throw new ValidationError("Username or email must be provided");
             }
-            //* if user not found return undefined
             if (!user) {
-                return undefined;
+                throw new UnauthorizedError("Invalid credentials");
             }
             const passwordStatus = await user.verifyPassword(password);
             if  (!passwordStatus) {
-                return undefined;
+                throw new UnauthorizedError("Invalid credentials");
             }
             //* this means user exist and password is verified so we will generate token and return
             const token = generateToken(user, process.env.JWT_SECRET_KEY);
@@ -52,21 +55,26 @@ export class AuthService extends BaseService<AuthRepository> {
                 token,
             };
         } catch (err) {
-            throw err;
+            if (err instanceof ValidationError || err instanceof UnauthorizedError) {
+                throw err;
+            }
+            scopedLogger.error({ err, username, email }, "Error during login in auth service");
+            throw new InternalServerError("Error occurred during login", err);
         }
     }
     /*
     insertId is result.insertId
     */
-    async register(payload: RegisterPayload): Promise<number> {
+    async register(payload: RegisterPayload, context?: RequestContext): Promise<number> {
         const { username, email, password, firstname, middlename, lastname, age } = payload;
         if (!(username && email && password && firstname)) {
-            throw new Error("Username, email, password, and firstname are required for registration");
+            throw new ValidationError("Username, email, password, and firstname are required for registration");
         }
+        const scopedLogger = context?.logger ?? logger;
         try {
             const provider = this.getDep<UserService>("user-service");
             if (!provider) {
-                throw new Error("User service dependency is missing");
+                throw new InternalServerError("User service dependency is missing");
             }
             const userData: Record<string, string | number> = {
                 firstname,
@@ -84,30 +92,27 @@ export class AuthService extends BaseService<AuthRepository> {
                 userData.age = age;
             }
 
-            return await this.withTransaction(async (context) => {
+            return await this.withTransaction(async (txContext) => {
                 // here we get the id of inserted user and use it to create auth record
-                const userResult = await provider.create(userData, context);
-                const hashedPassword = await hashPassword(password);
+                const userResult = await provider.create(userData, txContext);
+                const hashedPassword = await hashPassword(password, 10, txContext.logger ?? scopedLogger);
                 const result = await this.repository.create({
                     username,
                     email,
                     password: hashedPassword,
                     user_id: userResult,
-                }, context);
+                }, txContext);
                 return result;
-            });
+            }, context);
         } catch (err) {
-            switch (err.code) {
+            switch ((err as { code?: string }).code) {
                 case "ER_DUP_ENTRY":
-                    console.log(`Error due to duplicate entry: ${err}`);
-                    throw new Error("Duplicate Entry");
-                    break;
+                    scopedLogger.warn({ err, username, email }, "Duplicate entry during registration");
+                    throw new ValidationError("Duplicate entry");
                 default:
-                    console.log(`Error during registration in service: ${err}`);
-                    throw err;
-                    break;
+                    scopedLogger.error({ err, username, email }, "Error during registration in auth service");
+                    throw new InternalServerError("Error occurred during registration", err);
             }
-            throw err;
         }
     }
 }

@@ -5,6 +5,7 @@ import swaggerUi from "swagger-ui-express";
 import { swaggerSpec } from "#config/swagger.js";
 import { logger } from "#config/logger.js";
 import { pinoHttp } from "pino-http";
+import { errorHandler, notFoundHandler } from "./middleware/errorHandler.js";
 
 //* Getting the App from Express and adding cors and json middleware
 const App: Express = express();
@@ -21,5 +22,7 @@ App.get("/api-docs.json", (_request, response) => {
 //* App routes
 App.use("/", publicRouter.getRouter());
 App.use("/", protectedRouter.getRouter());
+App.use(notFoundHandler);
+App.use(errorHandler);
 
 export { App };

@@ -2,19 +2,27 @@ import bcrypt from "bcryptjs";
 import jwt, { SignOptions } from "jsonwebtoken";
 import { promisify } from "util";
 import { AuthModel } from "../models/AuthModel.js";
+import { logger } from "#config/logger.js";
+import { InternalServerError } from "#core/errors/AppError.js";
+import type pino from "pino";
 
 const jwtVerify = promisify(jwt.verify) as (token: string, secret: string) => Promise<any>;
 
-const hashPassword = async (password: string, salt: number = 10) : Promise<string> => {
+const hashPassword = async (password: string, salt: number = 10, requestLogger?: pino.Logger) : Promise<string> => {
+    const scopedLogger = requestLogger ?? logger;
     try {
         const hashedPassword = await bcrypt.hash(password, salt);
         return hashedPassword;
     } catch (err) {
-        console.log(`Error while hashing the password: ${err}`);
+        scopedLogger.error({ err }, "Error while hashing password");
+        throw new InternalServerError("Unable to hash password", err);
     }
 };
 
 const generateToken = (user: AuthModel, jwtSecretKey = process.env.JWT_SECRET_KEY) => {
+    if (!jwtSecretKey) {
+        throw new InternalServerError("JWT_SECRET_KEY is not configured");
+    }
     const payload = {
         auth_id: user.id,
         user_id: user.user_id,

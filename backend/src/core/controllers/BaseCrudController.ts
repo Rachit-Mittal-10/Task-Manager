@@ -1,9 +1,10 @@
-import type { Request, Response } from "express";
+import type { NextFunction, Request, Response } from "express";
 import { BaseController } from "./BaseController.js";
 import type { IBaseCrudController } from "./IBaseCrudController.js";
 import { IBaseCrudService } from "#core/services/IBaseCrudService.js";
 import { IOptions } from "#core/repository/BaseCrudRepository.js";
 import { RequestContext } from "#/common/types/RequestContext.js";
+import { NotFoundError } from "#core/errors/AppError.js";
 
 interface ReadRequestQuery {
     limit?: string;
@@ -15,7 +16,7 @@ export abstract class BaseCrudController<T, S extends IBaseCrudService<T>> exten
     public constructor(service:S) {
         super(service);
     }
-    public async create(request: Request, response: Response) {
+    public async create(request: Request, response: Response, next: NextFunction) {
         const data = await this.beforeCreate(request);
         const context = await this.getRequestContext(request);
         try {
@@ -25,13 +26,10 @@ export abstract class BaseCrudController<T, S extends IBaseCrudService<T>> exten
                 data: result,
             });
         } catch (error) {
-            response.status(500).json({
-                ok: false,
-                error: error.message,
-            });
+            next(error);
         }
     }
-    public async read(request: Request, response: Response): Promise<void> {
+    public async read(request: Request, response: Response, next: NextFunction): Promise<void> {
         const id: number | undefined = request.params.id ? Number(request.params.id) : undefined;
         const {limit, offset, ...filters}: ReadRequestQuery = request.query as ReadRequestQuery;
         const options: IOptions = {
@@ -44,11 +42,7 @@ export abstract class BaseCrudController<T, S extends IBaseCrudService<T>> exten
             // handling for GET /:id
             // if id is provided and result is undefined then it means data for provided id is not found. so we will return 404 in that case
             if(id !== undefined && result === undefined) {
-                response.status(404).json({
-                    ok: false,
-                    error: `Data not found for id: ${id}`,
-                });
-                return;
+                throw new NotFoundError(`Data not found for id: ${id}`);
             }
             // if result is not undefined then we return the result with 200 status
             response.status(200).json({
@@ -57,58 +51,41 @@ export abstract class BaseCrudController<T, S extends IBaseCrudService<T>> exten
             });
         }
         catch (error) {
-            response.status(500).json({
-                ok: false,
-                error: error.message,
-            });
+            next(error);
         }
     }
-    public async update(request: Request, response: Response) {
+    public async update(request: Request, response: Response, next: NextFunction) {
         const id:number = Number(request.params.id);
         const data = await this.beforeUpdate(request);
         const context = await this.getRequestContext(request);
         try {
             const result = await this.service.update(id, data, context);
             if (result === 0) {
-                response.status(404).json({
-                    ok: false,
-                    error: `Data not found for id: ${id}`,
-                });
-                return;
+                throw new NotFoundError(`Data not found for id: ${id}`);
             }
             response.status(200).json({
                 ok: true,
                 data: `${result} row(s) updated successfully`,
             });
         } catch (error) {
-            response.status(500).json({
-                ok: false,
-                error: error.message,
-            });
+            next(error);
         }
     }
-    public async delete(request: Request, response: Response) {
+    public async delete(request: Request, response: Response, next: NextFunction) {
         const id: number = Number(request.params.id);
         await this.beforeRemove(request);
         const context = await this.getRequestContext(request);
         try {
             const result = await this.service.remove(id, context);
             if(result === 0) {
-                response.status(404).json({
-                    ok: false,
-                    error: `Data not found for id: ${id}`,
-                });
-                return;
+                throw new NotFoundError(`Data not found for id: ${id}`);
             }
             response.status(200).json({
                 ok: true,
                 data: `${result} row(s) deleted successfully`,
             });
         } catch (error) {
-            response.status(500).json({
-                ok: false,
-                error: error.message,
-            });
+            next(error);
         }
     }
 

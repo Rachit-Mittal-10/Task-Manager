@@ -98,7 +98,6 @@ export abstract class BaseCrudRepository<T extends IBaseModel> extends BaseRepos
             const ownerValue = filters[ownerColumn] ?? (context ? context[ownerColumn] : null);
             if(ownerValue === undefined) {
                 throw new Error(`Owner column ${ownerColumn} value is required in context`);
-                return 0;
             }
             query = query.andWhere(ownerColumn, ownerValue);
             delete filters[ownerColumn];
@@ -128,7 +127,6 @@ export abstract class BaseCrudRepository<T extends IBaseModel> extends BaseRepos
             const ownerValue = filters[ownerColumn] ?? (context ? context[ownerColumn] : null);
             if(ownerValue === undefined) {
                 throw new Error(`Owner column ${ownerColumn} value is required in context`);
-                return 0;
             }
             query = query.andWhere(ownerColumn, ownerValue);
             delete filters[ownerColumn];
