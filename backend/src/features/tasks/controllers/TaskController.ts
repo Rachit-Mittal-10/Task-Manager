@@ -5,9 +5,10 @@ import type { Request, Response } from "express";
 
 export class TaskController extends BaseCrudController<TaskModel, TaskService> {
     protected async beforeCreate(request: Request): Promise<any> {
+        const body = await super.beforeCreate(request);
         const user_id: number = Number(request.user.user_id);
         return {
-            ...request.body,
+            ...body,
             user_id,
         };
     }
