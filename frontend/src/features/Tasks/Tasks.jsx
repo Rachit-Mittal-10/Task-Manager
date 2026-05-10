@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import TaskAPI from "../../api/TaskAPI.js";
+import ProjectAPI from "../../api/ProjectAPI.js";
 import { checkArrayEmpty } from "../../utils/utils.js";
 import Table from "../../components/Table/Table.jsx";
 import EditDialog from "./components/EditDialog/EditDialog.jsx";
@@ -10,6 +11,7 @@ import AddDialog from "./components/AddDialog/AddDialog.jsx";
 
 const TasksPage = () => {
     const [tasks, setTasks] = useState(null);
+    const [projects, setProjects] = useState([]);
     const [error, setError] = useState("");
     const [id, setID] = useState(null);
     const editDialogRef = useRef(null);
@@ -27,7 +29,13 @@ const TasksPage = () => {
         }
         const fetchData = async () => {
             try {
-                await refreshTasks();
+                const [tasksResponse, projectsResponse] = await Promise.all([
+                    TaskAPI.getTasks(),
+                    ProjectAPI.getProjects(),
+                ]);
+
+                setTasks(tasksResponse);
+                setProjects(projectsResponse?.data || []);
             } catch (err) {
                 setError(err?.message || "Failed to load tasks");
             }
@@ -43,11 +51,20 @@ const TasksPage = () => {
         return <div>Loading!!!</div>;
     }
 
-    const taskRows = tasks.data || [];
+    const projectTitleMap = projects.reduce((map, project) => {
+        map[project.id] = project.title;
+        return map;
+    }, {});
+
+    const taskRows = (tasks.data || []).map((task) => ({
+        ...task,
+        project: task.project_id ? projectTitleMap[task.project_id] || "Unknown Project" : "No Project",
+    }));
 
     const columns = [
         { label: "ID", key: "id" },
         { label: "Title", key: "title" },
+        { label: "Project", key: "project" },
         { label: "Status", key: "status" },
         { label: "Priority", key: "priority" },
     ];
