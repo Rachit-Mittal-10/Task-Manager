@@ -16,14 +16,18 @@ const TasksPage = () => {
     const addDialogRef = useRef(null);
     const { isAuthenticated } = useAuth();
 
+    const refreshTasks = async () => {
+        const response = await TaskAPI.getTasks();
+        setTasks(response);
+    };
+
     useEffect(() => {
         if (!isAuthenticated) {
             return;
         }
         const fetchData = async () => {
             try {
-                const response = await TaskAPI.getTasks();
-                setTasks(response);
+                await refreshTasks();
             } catch (err) {
                 setError(err?.message || "Failed to load tasks");
             }
@@ -79,7 +83,7 @@ const TasksPage = () => {
                     </Button>
                 </div>
                 <div className={styles.dialogOverlay}>
-                    <AddDialog dialogRef={addDialogRef} setTasks={setTasks} />
+                    <AddDialog dialogRef={addDialogRef} onTaskChange={refreshTasks} />
                 </div>
             </div>
 
@@ -103,7 +107,7 @@ const TasksPage = () => {
                     dialogRef={editDialogRef}
                     id={id}
                     setID={setID}
-                    setTasks={setTasks}
+                    onTaskChange={refreshTasks}
                 />
             </div>
         </div>

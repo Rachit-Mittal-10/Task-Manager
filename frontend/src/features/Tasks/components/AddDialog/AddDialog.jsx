@@ -1,17 +1,42 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./AddDialog.module.scss";
 import CloseButton from "../../../../components/CloseButton/CloseButton";
 import Button from "../../../../components/Button/Button";
 import TaskAPI from "../../../../api/TaskAPI";
+import ProjectAPI from "../../../../api/ProjectAPI";
 
 const AddDialog = (props) => {
     const dialogRef = props.dialogRef;
-    const setTasks = props.setTasks;
-    const [dialogData, setDialogData] = useState({
+    const onTaskChange = props.onTaskChange;
+    const initialProjectId = props.initialProjectId;
+    const initialData = {
         status: "planned",
         priority: "not_set",
+        project_id: initialProjectId ? String(initialProjectId) : "",
+    };
+    const [dialogData, setDialogData] = useState({
+        ...initialData,
     });
+    const [projects, setProjects] = useState([]);
     const [error, setError] = useState("");
+
+    useEffect(() => {
+        const fetchProjects = async () => {
+            const response = await ProjectAPI.getProjects();
+            if (response?.ok) {
+                setProjects(response?.data || []);
+            }
+        };
+
+        fetchProjects();
+    }, []);
+
+    useEffect(() => {
+        setDialogData((prev) => ({
+            ...prev,
+            project_id: initialProjectId ? String(initialProjectId) : "",
+        }));
+    }, [initialProjectId]);
 
     const closeDialog = () => {
         if (dialogRef.current) {
@@ -21,7 +46,7 @@ const AddDialog = (props) => {
 
     const handleCloseButtonClick = () => {
         closeDialog();
-        setDialogData({ status: "planned", priority: "not_set" });
+        setDialogData({ ...initialData });
         setError("");
     };
 
@@ -33,12 +58,19 @@ const AddDialog = (props) => {
     const onSubmitClick = async (e) => {
         e.preventDefault();
         setError("");
-        const formData = dialogData;
+        const formData = { ...dialogData };
+        if (!formData.project_id) {
+            delete formData.project_id;
+        } else {
+            formData.project_id = Number(formData.project_id);
+        }
+
         try {
             const response = await TaskAPI.createTask(formData);
             if (response?.ok) {
-                const responseNew = await TaskAPI.getTasks();
-                setTasks(responseNew);
+                if (onTaskChange) {
+                    await onTaskChange();
+                }
                 handleCloseButtonClick();
             } else {
                 setError(response?.error || response?.message || "Failed to create task");
@@ -95,6 +127,22 @@ const AddDialog = (props) => {
                                 <option value="low">Low</option>
                                 <option value="medium">Medium</option>
                                 <option value="high">High</option>
+                            </select>
+                        </div>
+                        <div className={styles.field}>
+                            <label htmlFor="project_id">Project (optional)</label>
+                            <select
+                                id="project_id"
+                                name="project_id"
+                                value={dialogData?.project_id ?? ""}
+                                onChange={onInputChange}
+                            >
+                                <option value="">No Project</option>
+                                {projects.map((project) => (
+                                    <option key={project.id} value={project.id}>
+                                        {project.name}
+                                    </option>
+                                ))}
                             </select>
                         </div>
                         <div className={styles.field}>

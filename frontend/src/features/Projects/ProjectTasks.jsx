@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext.jsx";
 import ProjectAPI from "../../api/ProjectAPI.js";
@@ -7,6 +7,8 @@ import Table from "../../components/Table/Table.jsx";
 import { checkArrayEmpty } from "../../utils/utils.js";
 import Button from "../../components/Button/Button.jsx";
 import styles from "./ProjectTasks.module.scss";
+import AddDialog from "../Tasks/components/AddDialog/AddDialog.jsx";
+import EditDialog from "../Tasks/components/EditDialog/EditDialog.jsx";
 
 const ProjectTasksPage = () => {
     const { projectId } = useParams();
@@ -15,8 +17,29 @@ const ProjectTasksPage = () => {
     const [project, setProject] = useState(null);
     const [tasks, setTasks] = useState(null);
     const [error, setError] = useState("");
+    const [id, setID] = useState(null);
+    const editDialogRef = useRef(null);
+    const addDialogRef = useRef(null);
 
     const parsedProjectId = useMemo(() => Number(projectId), [projectId]);
+
+    const refreshProjectTasksData = async () => {
+        const [projectResponse, tasksResponse] = await Promise.all([
+            ProjectAPI.getProject(parsedProjectId),
+            TaskAPI.getTasks(),
+        ]);
+
+        if (!projectResponse?.ok) {
+            throw new Error(projectResponse?.error || projectResponse?.message || "Failed to load project");
+        }
+
+        if (!tasksResponse?.ok) {
+            throw new Error(tasksResponse?.error || tasksResponse?.message || "Failed to load tasks");
+        }
+
+        setProject(projectResponse.data || null);
+        setTasks(tasksResponse.data || []);
+    };
 
     useEffect(() => {
         if (!isAuthenticated) {
@@ -30,23 +53,7 @@ const ProjectTasksPage = () => {
 
         const fetchData = async () => {
             try {
-                const [projectResponse, tasksResponse] = await Promise.all([
-                    ProjectAPI.getProject(parsedProjectId),
-                    TaskAPI.getTasks(),
-                ]);
-
-                if (!projectResponse?.ok) {
-                    setError(projectResponse?.error || projectResponse?.message || "Failed to load project");
-                    return;
-                }
-
-                if (!tasksResponse?.ok) {
-                    setError(tasksResponse?.error || tasksResponse?.message || "Failed to load tasks");
-                    return;
-                }
-
-                setProject(projectResponse.data || null);
-                setTasks(tasksResponse.data || []);
+                await refreshProjectTasksData();
             } catch (err) {
                 setError(err?.message || "Failed to load project tasks");
             }
@@ -72,6 +79,19 @@ const ProjectTasksPage = () => {
         { label: "Priority", key: "priority" },
     ];
 
+    const onRowClick = (taskId) => {
+        setID(taskId);
+        if (editDialogRef.current) {
+            editDialogRef.current.showModal();
+        }
+    };
+
+    const onAddClick = () => {
+        if (addDialogRef.current) {
+            addDialogRef.current.showModal();
+        }
+    };
+
     return (
         <div className={styles.projectTasks}>
             <div className={styles.header}>
@@ -85,6 +105,21 @@ const ProjectTasksPage = () => {
                 </Button>
             </div>
 
+            <div className={styles.buttonWrapper}>
+                <div className={styles.buttonInner}>
+                    <Button onClick={onAddClick} className={styles.addButton}>
+                        Add Task
+                    </Button>
+                </div>
+                <div className={styles.dialogOverlay}>
+                    <AddDialog
+                        dialogRef={addDialogRef}
+                        onTaskChange={refreshProjectTasksData}
+                        initialProjectId={parsedProjectId}
+                    />
+                </div>
+            </div>
+
             <div className={styles.summaryCard}>
                 <h3>Associated Tasks</h3>
                 <p>{projectTasks.length}</p>
@@ -92,13 +127,27 @@ const ProjectTasksPage = () => {
 
             {!checkArrayEmpty(projectTasks) ? (
                 <div className={styles.tableWrapper}>
-                    <Table data={projectTasks} columns={columns} uniqueKey={"id"} />
+                    <Table
+                        data={projectTasks}
+                        columns={columns}
+                        onRowClick={onRowClick}
+                        uniqueKey={"id"}
+                    />
                 </div>
             ) : (
                 <div className={styles.emptyState}>
                     <p>No tasks are associated with this project yet.</p>
                 </div>
             )}
+
+            <div className={styles.dialogOverlay}>
+                <EditDialog
+                    dialogRef={editDialogRef}
+                    id={id}
+                    setID={setID}
+                    onTaskChange={refreshProjectTasksData}
+                />
+            </div>
         </div>
     );
 };

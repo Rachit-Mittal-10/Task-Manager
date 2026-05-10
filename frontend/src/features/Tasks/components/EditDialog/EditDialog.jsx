@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import CloseButton from "../../../../components/CloseButton/CloseButton";
 import styles from "./EditDialog.module.scss";
 import TaskAPI from "../../../../api/TaskAPI";
+import ProjectAPI from "../../../../api/ProjectAPI";
 import { useAuth } from "../../../../context/AuthContext";
 import Button from "../../../../components/Button/Button";
 
@@ -9,8 +10,9 @@ const EditDialog = (props) => {
     const dialogRef = props.dialogRef;
     const id = props.id;
     const setID = props.setID;
-    const setTasks = props.setTasks;
+    const onTaskChange = props.onTaskChange;
     const [dialogData, setDialogData] = useState({});
+    const [projects, setProjects] = useState([]);
     const [error, setError] = useState("");
     const { isAuthenticated } = useAuth();
     const [updated, setUpdated] = useState(false);
@@ -20,6 +22,17 @@ const EditDialog = (props) => {
             dialogRef.current.close();
         }
     };
+
+    useEffect(() => {
+        const fetchProjects = async () => {
+            const response = await ProjectAPI.getProjects();
+            if (response?.ok) {
+                setProjects(response?.data || []);
+            }
+        };
+
+        fetchProjects();
+    }, []);
 
     useEffect(() => {
         if (!isAuthenticated) {
@@ -32,7 +45,11 @@ const EditDialog = (props) => {
             }
             try {
                 const response = await TaskAPI.getTask(id);
-                setDialogData(response?.data || {});
+                const taskData = response?.data || {};
+                setDialogData({
+                    ...taskData,
+                    project_id: taskData?.project_id ? String(taskData.project_id) : "",
+                });
                 setUpdated(false);
             } catch (err) {
                 setError(err);
@@ -46,6 +63,8 @@ const EditDialog = (props) => {
         closeDialog();
         setID(null);
         setDialogData({});
+        setError("");
+        setUpdated(false);
     };
 
     const onInputChange = (e) => {
@@ -56,20 +75,51 @@ const EditDialog = (props) => {
 
     const onSubmitClick = async (e) => {
         e.preventDefault();
-        const formData = dialogData;
+        const formData = { ...dialogData };
+        if (!formData.project_id) {
+            delete formData.project_id;
+        } else {
+            formData.project_id = Number(formData.project_id);
+        }
+
         try {
             const response = await TaskAPI.updateTask(id, formData);
             if (response?.ok) {
                 closeDialog();
-                if (updated) {
-                    const responseNew = await TaskAPI.getTasks();
-                    setTasks(responseNew);
+                if (updated && onTaskChange) {
+                    await onTaskChange();
                 }
+                handleCloseButtonClick();
             } else {
-                setError(response);
+                setError(response?.error || response?.message || "Update failed");
             }
         } catch (err) {
-            setError(err);
+            setError(err?.message || "Update failed");
+        }
+    };
+
+    const onDeleteClick = async () => {
+        if (!id) {
+            return;
+        }
+
+        const shouldDelete = window.confirm("Delete this task?");
+        if (!shouldDelete) {
+            return;
+        }
+
+        try {
+            const response = await TaskAPI.deleteTask(id);
+            if (response?.ok) {
+                if (onTaskChange) {
+                    await onTaskChange();
+                }
+                handleCloseButtonClick();
+            } else {
+                setError(response?.error || response?.message || "Delete failed");
+            }
+        } catch (err) {
+            setError(err?.message || "Delete failed");
         }
     };
 
@@ -83,7 +133,7 @@ const EditDialog = (props) => {
                 <div className={styles.dataWrapper}>
                     {error && (
                         <p className={styles.error}>
-                            {error?.message || error?.error || "Update failed"}
+                            {error}
                         </p>
                     )}
                     <form onSubmit={onSubmitClick}>
@@ -136,6 +186,22 @@ const EditDialog = (props) => {
                             </select>
                         </div>
                         <div className={styles.field}>
+                            <label htmlFor="project_id">Project (optional)</label>
+                            <select
+                                id="project_id"
+                                name="project_id"
+                                value={dialogData?.project_id ?? ""}
+                                onChange={onInputChange}
+                            >
+                                <option value="">No Project</option>
+                                {projects.map((project) => (
+                                    <option key={project.id} value={project.id}>
+                                        {project.name}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                        <div className={styles.field}>
                             <label htmlFor="start">Start Time</label>
                             <input
                                 type="date"
@@ -166,6 +232,9 @@ const EditDialog = (props) => {
                             />
                         </div>
                         <div className={styles.submitWrapper}>
+                            <Button type="button" className={styles.deleteButton} onClick={onDeleteClick}>
+                                Delete Task
+                            </Button>
                             <Button type="submit" className={styles.submitButton}>
                                 Update Task
                             </Button>

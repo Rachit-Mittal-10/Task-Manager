@@ -53,11 +53,25 @@ const TaskAPI = (() => {
         }
     };
 
+    const deleteTask = async (taskId) => {
+        try {
+            const response = await API.delete(`/tasks/${taskId}`);
+            return response.data;
+        } catch (err) {
+            if (err.response) {
+                return err.response.data;
+            } else {
+                console.log(err);
+            }
+        }
+    };
+
     return {
         createTask,
         getTasks,
         getTask,
         updateTask,
+        deleteTask,
     };
 })();
 

@@ -20,7 +20,22 @@
         align-items: center;
     }
 
+    .buttonWrapper {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+    }
+
+    .buttonInner {
+        display: flex;
+        align-items: center;
+    }
+
     .backButton {
+        border-radius: 8px;
+    }
+
+    .addButton {
         border-radius: 8px;
     }
 
@@ -54,5 +69,11 @@
         padding: 1rem;
         color: #616b7a;
         background-color: #fbfcff;
+    }
+
+    .dialogOverlay {
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 }

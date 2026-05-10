@@ -84,9 +84,19 @@
         margin-top: 0.4rem;
         display: flex;
         justify-content: flex-end;
+        gap: 0.6rem;
     }
 
     .submitButton {
         border-radius: 8px;
+    }
+
+    .deleteButton {
+        border-radius: 8px;
+        background-color: #cc2f2f;
+
+        &:hover {
+            background-color: #b12626;
+        }
     }
 }
