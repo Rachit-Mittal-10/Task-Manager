@@ -58,7 +58,7 @@ const ProjectsPage = () => {
 
     const columns = [
         { label: "ID", key: "id" },
-        { label: "Name", key: "name" },
+        { label: "Title", key: "title" },
         { label: "Description", key: "description" },
         { label: "Actions", key: "actions" },
     ];

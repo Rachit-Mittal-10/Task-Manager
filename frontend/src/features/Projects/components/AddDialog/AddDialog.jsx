@@ -55,14 +55,14 @@ const AddDialog = (props) => {
                     {error && <p className={styles.error}>{error}</p>}
                     <form onSubmit={onSubmitClick}>
                         <div className={styles.field}>
-                            <label htmlFor="name">Name</label>
+                            <label htmlFor="title">Title</label>
                             <input
                                 type="text"
-                                id="name"
-                                name="name"
-                                value={dialogData?.name ?? ""}
+                                id="title"
+                                name="title"
+                                value={dialogData?.title ?? ""}
                                 onChange={onInputChange}
-                                placeholder="Project name"
+                                placeholder="Project title"
                                 required
                             />
                         </div>

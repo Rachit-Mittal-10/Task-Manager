@@ -96,7 +96,7 @@ const ProjectTasksPage = () => {
         <div className={styles.projectTasks}>
             <div className={styles.header}>
                 <h2>Project Tasks</h2>
-                <p>{project.name || "Untitled project"}</p>
+                <p>{project.title || "Untitled project"}</p>
             </div>
 
             <div className={styles.actionRow}>

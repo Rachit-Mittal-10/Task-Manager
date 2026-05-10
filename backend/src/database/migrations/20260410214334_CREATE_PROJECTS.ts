@@ -6,8 +6,9 @@ export async function up(knex: Knex): Promise<void> {
     await knex.schema.createTable("projects", (table) => {
         table.increments("id").primary();
         table.integer("user_id").unsigned().notNullable().references("id").inTable("users").onDelete("CASCADE");
-        table.string("name").notNullable();
+        table.string("title").notNullable();
         table.text("description");
+        table.unique(["user_id", "title"]);
         table.timestamps(true, true);
     });
     // then add the project_id column to the tasks table

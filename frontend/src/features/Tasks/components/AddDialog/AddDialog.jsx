@@ -140,7 +140,7 @@ const AddDialog = (props) => {
                                 <option value="">No Project</option>
                                 {projects.map((project) => (
                                     <option key={project.id} value={project.id}>
-                                        {project.name}
+                                        {project.title}
                                     </option>
                                 ))}
                             </select>

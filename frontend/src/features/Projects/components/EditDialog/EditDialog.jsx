@@ -121,12 +121,12 @@ const EditDialog = (props) => {
                             />
                         </div>
                         <div className={styles.field}>
-                            <label htmlFor="name">Name</label>
+                            <label htmlFor="title">Title</label>
                             <input
                                 type="text"
-                                id="name"
-                                name="name"
-                                value={dialogData?.name ?? ""}
+                                id="title"
+                                name="title"
+                                value={dialogData?.title ?? ""}
                                 onChange={onInputChange}
                                 required
                             />
