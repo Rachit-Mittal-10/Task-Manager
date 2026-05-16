@@ -11,7 +11,10 @@ import type { RequestContext } from "#common/types/RequestContext.js";
 import { logger } from "#config/logger.js";
 
 export interface LoginResponse {
-    token: string;
+    token: {
+        accessToken: string;
+        refreshToken: string;
+    };
 }
 
 export interface RegisterPayload {
@@ -50,7 +53,7 @@ export class AuthService extends BaseService<AuthRepository> {
                 throw new UnauthorizedError("Invalid credentials");
             }
             //* this means user exist and password is verified so we will generate token and return
-            const token = generateToken(user, process.env.JWT_SECRET_KEY);
+            const token = generateToken(user);
             return {
                 token,
             };
@@ -79,19 +82,15 @@ export class AuthService extends BaseService<AuthRepository> {
             const userData: Record<string, string | number> = {
                 firstname,
             };
-
             if (middlename !== undefined) {
                 userData.middlename = middlename;
             }
-
             if (lastname !== undefined) {
                 userData.lastname = lastname;
             }
-
             if (age !== undefined) {
                 userData.age = age;
             }
-
             return await this.withTransaction(async (txContext) => {
                 // here we get the id of inserted user and use it to create auth record
                 const userResult = await provider.create(userData, txContext);

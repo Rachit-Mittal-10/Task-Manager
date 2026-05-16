@@ -1,5 +1,5 @@
 import bcrypt from "bcryptjs";
-import jwt, { SignOptions } from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 import { promisify } from "util";
 import { AuthModel } from "../models/AuthModel.js";
 import { logger } from "#config/logger.js";
@@ -19,18 +19,27 @@ const hashPassword = async (password: string, salt: number = 10, requestLogger?:
     }
 };
 
-const generateToken = (user: AuthModel, jwtSecretKey = process.env.JWT_SECRET_KEY) => {
-    if (!jwtSecretKey) {
-        throw new InternalServerError("JWT_SECRET_KEY is not configured");
+const generateToken = (user: AuthModel) => {
+    const jwtAccessKey = process.env.JWT_ACCESS_KEY;
+    const jwtRefreshKey = process.env.JWT_REFRESH_KEY;
+    if (!jwtAccessKey) {
+        throw new InternalServerError("JWT_ACCESS_KEY is not configured");
+    }
+    if (!jwtRefreshKey) {
+        throw new InternalServerError("JWT_REFRESH_KEY is not configured");
     }
     const payload = {
         auth_id: user.id,
         user_id: user.user_id,
     };
-    const options: SignOptions = {
-        expiresIn: "1h",
+    const accessToken = jwt.sign(payload, jwtAccessKey, { expiresIn: "1h" });
+    const refreshToken = jwt.sign(payload, jwtRefreshKey, { expiresIn: "7d" });
+    // this generates the token not access token or refresh token. to implement, need to sign the token with different secret key and different expiry time.
+    // if i change token = { accessToken, refreshToken } then entire frontend will break i think. need to change it.
+    const token = {
+        accessToken,
+        refreshToken
     };
-    const token = jwt.sign(payload, jwtSecretKey, options);
     return token;
 };
 
