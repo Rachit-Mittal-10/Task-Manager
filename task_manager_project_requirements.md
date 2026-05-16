@@ -1,6 +1,6 @@
 # Personal Task Manager — Requirements & Design
 
-> A single, downloadable markdown that contains feature lists, system design patterns, architecture notes, testing and deployment guidance, and resume-ready descriptions for a personal Task Management application.
+> A single, downloadable markdown that contains feature lists, system design patterns, architecture notes, testing and deployment guidance, and resume-ready descriptions for a personal Task Management application.;
 
 ---
 

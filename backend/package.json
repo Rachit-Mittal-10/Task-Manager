@@ -14,7 +14,10 @@
         "migrate": "npm run migrations -- migrate:latest --knexfile src/knexfile.ts",
         "migrate:status": "npm run migrations -- migrate:status --knexfile src/knexfile.ts",
         "migrate:rollback": "npm run migrations -- migrate:rollback --knexfile src/knexfile.ts",
-        "migrate:rollback-all": "npm run migrations -- migrate:rollback --all --knexfile src/knexfile.ts"
+        "migrate:rollback-all": "npm run migrations -- migrate:rollback --all --knexfile src/knexfile.ts",
+        "token": "node scripts/generate-token.js all",
+        "token:refresh": "node scripts/generate-token.js refresh",
+        "token:access": "node scripts/generate-token.js access"
     },
     "keywords": [],
     "author": "",
