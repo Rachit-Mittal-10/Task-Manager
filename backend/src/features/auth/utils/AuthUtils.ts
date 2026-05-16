@@ -32,8 +32,8 @@ const generateToken = (user: AuthModel) => {
         auth_id: user.id,
         user_id: user.user_id,
     };
-    const accessToken = jwt.sign(payload, jwtAccessKey, { expiresIn: "1h" });
-    const refreshToken = jwt.sign(payload, jwtRefreshKey, { expiresIn: "7d" });
+    const accessToken = jwt.sign({...payload, type: "access" }, jwtAccessKey, { expiresIn: "1h" });
+    const refreshToken = jwt.sign({...payload, type: "refresh"}, jwtRefreshKey, { expiresIn: "7d" });
     // this generates the token not access token or refresh token. to implement, need to sign the token with different secret key and different expiry time.
     // if i change token = { accessToken, refreshToken } then entire frontend will break i think. need to change it.
     const token = {
