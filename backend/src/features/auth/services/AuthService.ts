@@ -6,9 +6,9 @@ import {
     generateToken,
     hashPassword
 } from "../utils/AuthUtils.js";
-import { logger } from "#config/logger.js";
 import { InternalServerError, UnauthorizedError, ValidationError } from "#core/errors/AppError.js";
 import type { RequestContext } from "#common/types/RequestContext.js";
+import { logger } from "#config/logger.js";
 
 export interface LoginResponse {
     token: string;
@@ -95,7 +95,7 @@ export class AuthService extends BaseService<AuthRepository> {
             return await this.withTransaction(async (txContext) => {
                 // here we get the id of inserted user and use it to create auth record
                 const userResult = await provider.create(userData, txContext);
-                const hashedPassword = await hashPassword(password, 10, txContext.logger ?? scopedLogger);
+                const hashedPassword = await hashPassword(password, 10, txContext?.logger ?? scopedLogger);
                 const result = await this.repository.create({
                     username,
                     email,
