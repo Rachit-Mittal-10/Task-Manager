@@ -3,7 +3,6 @@ import { BaseController } from "./BaseController.js";
 import type { IBaseCrudController } from "./IBaseCrudController.js";
 import { IBaseCrudService } from "#core/services/IBaseCrudService.js";
 import { IOptions } from "#core/repository/BaseCrudRepository.js";
-import { RequestContext } from "#/common/types/RequestContext.js";
 import { NotFoundError } from "#core/errors/AppError.js";
 
 interface ReadRequestQuery {
